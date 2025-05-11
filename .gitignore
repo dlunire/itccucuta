@@ -22,3 +22,6 @@ logs
 
 # Caches
 cache
+
+# Almacenamiento
+storage
