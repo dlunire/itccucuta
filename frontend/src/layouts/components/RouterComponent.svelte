@@ -1,1 +1,1 @@
-<section lang="ts"></section>
+<script lang="ts"></script>
