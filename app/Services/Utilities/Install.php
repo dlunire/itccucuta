@@ -7,4 +7,13 @@ namespace DLUnire\Services\Utilities;
 use DLCore\Core\BaseController;
 
 final class Install extends BaseController {
+
+    /**
+     * Carga la plantilla de instalación de usuarios
+     *
+     * @return string
+     */
+    public function index(): string {
+        return view('install.install');
+    }
 }

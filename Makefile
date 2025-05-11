@@ -1,8 +1,8 @@
-main:
-	php -S localhost:3000 -t public/ & sass --watch resources/assets/sass:public/css
+serve:
+	php -S localhost:4000 public/
 
-server:
-	php -S 0.0.0.0:3000 -t public/
+install:
+	composer install && cd frontend && npm install
 
-testing:
-	vendor/bin/phpunit
+
+default: serve

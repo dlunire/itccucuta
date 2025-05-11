@@ -8,8 +8,8 @@ use DLCore\Database\Model;
 use Exception;
 
 final class UserData extends Model {
-    protected static string $timezone = '-5';
-    protected static ?string $table = "SELECT * FROM dl_users WHERE users_uuid = :uuid AND users_record_status = 1 LIMIT 1";
+    protected static string $timezone = '-05:00';
+    protected static ?string $table = "SELECT * FROM dl_users WHERE users_uuid = :uuid AND users_records_status = 1 LIMIT 1";
 
     /** @var string $uuid Identificador Único Universal del Usuario */
     public readonly string $uuid;
