@@ -17,6 +17,9 @@ final class UserData extends Model {
     /** @var string $username Nombre de usuario */
     public readonly string $username;
 
+    /** @var string $password Contraseña encriptada del usuario. Utiliza el algoritmo Argon2id */
+    public readonly string $password;
+
     /** @var string $name Nombres del usuario */
     public readonly string $name;
 
@@ -84,6 +87,7 @@ final class UserData extends Model {
 
         $this->uuid = $userdata['users_uuid'];
         $this->username = $userdata['users_username'];
+        $this->password = $userdata['users_password'];
         $this->name = $userdata['users_name'];
         $this->lastname = $userdata['users_lastname'];
         $this->email = $userdata['users_email'];
