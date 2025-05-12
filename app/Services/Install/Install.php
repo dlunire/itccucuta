@@ -32,6 +32,17 @@ final class Install extends SaveData {
     }
 
     /**
+     * Revisa si las credenciales existen, de lo contrario, redirige al formulario de 
+     * creación de credenciales
+     *
+     * @return void
+     */
+    private function check_credentials(): void {
+        if ($this->file_exists('database')) return;
+        $this->redirect('/install/credentials');
+    }
+
+    /**
      * Redirige hacia una ruta específica
      *
      * @param string $route
@@ -64,17 +75,6 @@ final class Install extends SaveData {
      */
     private function is_post(): bool {
         return DLServer::is_post();
-    }
-
-    /**
-     * Revisa si las credenciales existen, de lo contrario, redirige al formulario de 
-     * creación de credenciales
-     *
-     * @return void
-     */
-    private function check_credentials(): void {
-        if ($this->file_exists('database')) return;
-        $this->redirect('/install/credentials');
     }
 
     /**
