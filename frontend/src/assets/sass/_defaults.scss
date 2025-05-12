@@ -1,0 +1,43 @@
+:root {
+
+    font: {
+        size: 16px;
+        family: "Roboto", "Open Sans", sans-serif, arial;
+    }
+
+    line-height: 1.6;
+}
+
+* {
+    box-sizing: border-box;
+
+    &::before,
+    &::after {
+        box-sizing: inherit;
+    }
+}
+
+body {
+    margin: 0;
+    padding: 0;
+
+    height: 100vh;
+}
+
+main {
+    display: flex;
+    min-height: 100vh;
+
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+a {
+    text-decoration: none;
+
+    &:not(class) {
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}

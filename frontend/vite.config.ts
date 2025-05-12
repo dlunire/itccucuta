@@ -9,7 +9,7 @@ export default defineConfig({
       output: {
         entryFileNames: '[name].js',
         chunkFileNames: '[name].js',
-        assetFileNames: '[name]'
+        assetFileNames: '[name].css'
       }
     },
     assetsDir: '' // <-- para evitar que cree /assets
