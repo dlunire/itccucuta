@@ -6,7 +6,7 @@ namespace DLUnire\Services\Install;
 
 use DLRoute\Server\DLServer;
 use DLStorage\Storage\SaveData;
-use DLUnire\Models\Users;
+use Exception;
 
 final class Install extends SaveData {
 
@@ -28,6 +28,9 @@ final class Install extends SaveData {
      * @return void
      */
     public function run(): void {
+        $this->get_frontend_path('index.js');
+        $this->get_frontend_path('bundle.css');
+
         $this->check_credentials();
     }
 
@@ -102,5 +105,31 @@ final class Install extends SaveData {
         if ($is_redirect) {
             redirect($route);
         }
+    }
+
+    /**
+     * Devuelve la ruta completa del archivo ubicado en el directorio `dist`.
+     *
+     * @param string $file Archivo a ser analizado
+     * @return string
+     * 
+     * @throws Exception
+     */
+    private function get_frontend_path(string $file): string {
+
+        /** @var string $separator */
+        $separator = DIRECTORY_SEPARATOR;
+
+        /** @var string $root */
+        $root = DLServer::get_document_root();
+
+        /** @var string $filename */
+        $filename = "{$root}{$separator}frontend{$separator}dist{$separator}{$file}";
+
+        if (!file_exists($filename)) {
+            throw new Exception("Ingrese al directorio`/frontend` y ejecute el comando `npm install` y luego `npm run build` para general el archivo «{$file}»", 404);
+        }
+
+        return $filename;
     }
 }
