@@ -3,6 +3,7 @@
 use DLRoute\Requests\DLRoute;
 use DLUnire\Auth\Auth;
 use DLUnire\Controllers\Auth\AuthController;
+use DLStorage\Storage\SaveData;
 
 /** @var Auth $auth */
 $auth = Auth::get_instance();
