@@ -35,6 +35,36 @@ final class Install extends SaveData {
     }
 
     /**
+     * Devuelve el código fuente de JavaScript.
+     *
+     * @return string
+     */
+    public function get_javascript(): string {
+        return $this->get_file_content('index.js');
+    }
+
+    /**
+     * Devuevle elc código fuente de la hoja de estilo
+     *
+     * @return string
+     */
+    public function get_style(): string {
+        return $this->get_file_content('index.css');
+    }
+
+    /**
+     * Devuelve el contenido crudo del archivo seleccionado.
+     *
+     * @param string $filename Archivo a ser leído para devolver su contenido
+     * @return string
+     */
+    private function get_file_content(string $filename): string {
+        /** @var string $file */
+        $file = $this->get_frontend_path('index.js');
+        return file_get_contents($file);
+    }
+
+    /**
      * Revisa si las credenciales existen, de lo contrario, redirige al formulario de 
      * creación de credenciales
      *
@@ -108,7 +138,8 @@ final class Install extends SaveData {
     }
 
     /**
-     * Devuelve la ruta completa del archivo ubicado en el directorio `dist`.
+     * Devuelve la ruta completa del archivo ubicado en el directorio `dist` previa 
+     * comprobación de la existencia del archivo.
      *
      * @param string $file Archivo a ser analizado
      * @return string
