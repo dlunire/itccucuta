@@ -27,4 +27,22 @@ final class InstallController extends BaseController {
             "message" => "Instalación de credenciales completada"
         ];
     }
+
+    /**
+     * Permite la subida de archivos
+     *
+     * @return array
+     */
+    public function upload(): array {
+
+        $this->set_basedir('/storage/file');
+        $files = $this->upload_file('file');
+
+        http_response_code(201);
+        return [
+            "status" => true,
+            "success" => "Archivo subido correctamente",
+            "details" => $files
+        ];
+    }
 }

@@ -1,62 +1,38 @@
-// upload.ts
-export type UploadOptions = {
-    field?: string;
-    url: string;
-    onProgress?: (progress: number) => void;
-    onSuccess?: (response: unknown) => void;
-    onError?: (error: unknown) => void;
-};
+import { getURLBase } from "./request";
 
-export function uploadFile(node: HTMLInputElement, options: UploadOptions) {
-    const handleChange = () => {
-        const file = node.files?.[0];
-        if (!file) return;
+export type OnProgress = (progress: number, done: boolean) => void;
+export type OnLoaded = (done: boolean) => void;
 
-        const formData = new FormData();
-        formData.append(options.field ?? "file", file);
+export function upload(form: HTMLFormElement, onprogress: OnProgress | undefined = undefined, onloaded: OnLoaded | undefined = undefined): void {
+    if (!(form instanceof HTMLFormElement)) {
+        throw new Error("Se esperaba un formulario como argumento en el parámetro «form»");
+    }
 
-        const xhr = new XMLHttpRequest();
-        xhr.open("POST", options.url, true);
+    const action: string | null = form.getAttribute('action');
+    if (typeof action != "string") return;
 
-        progress(options, xhr);
+    const url: string = `${getURLBase()}${action}`;
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', url);
 
-        xhr.onload = () => {
-            try {
-                const response = JSON.parse(xhr.responseText);
-                options.onSuccess?.(response);
-            } catch {
-                options.onSuccess?.(xhr.responseText);
-            }
-        };
+    xhr.upload.onprogress = function (event: ProgressEvent): void {
+        if (typeof onprogress != "function") return;
+        const loaded: number = (event.loaded / event.total) * 100;
+        onprogress(loaded, event.loaded == event.total);
+    }
 
-        xhr.onerror = () => options.onError?.(new Error("Error de red"));
-        xhr.ontimeout = () => options.onError?.(new Error("Timeout"));
+    xhr.upload.onload = function (event: ProgressEvent): void {
+        if (typeof onloaded != "function") return;
+        onloaded(event.loaded == event.total);
+    }
 
-        xhr.send(formData);
+    xhr.upload.onerror = function (event: ProgressEvent): void {
+        console.error("Subida fallida:", event);
     };
 
-    node.addEventListener("change", handleChange);
+    xhr.upload.onabort = function (event: ProgressEvent): void {
+        console.warn("Subida abortada:", event);
+    }
 
-    return {
-        destroy() {
-            node.removeEventListener("change", handleChange);
-        }
-    };
-}
-
-/**
- * Muestra el progreso de carga de archivo al servidor.
- * 
- * @param options Opciones
- * @param xhr Objeto XMLHttpRequest
- * @returns 
- */
-function progress(options: UploadOptions, xhr: XMLHttpRequest) {
-    if (!(options.onProgress && xhr.upload)) return;
-
-    xhr.upload.onprogress = function (event: ProgressEvent<EventTarget>) {
-        if (!(event.lengthComputable)) return;
-        const progress = (event.loaded / event.total) * 100;
-        options.onProgress?.(progress);
-    };
+    xhr.send(new FormData(form));
 }
