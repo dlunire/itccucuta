@@ -18,7 +18,7 @@ final class Install extends SaveData {
     private array $excludes = [
         "/^\/file\//i",
         "/^\/js$/i",
-        "/^\/css$/i",
+        "/^\/style$/i",
         "/^\/favicon$/i"
     ];
 
@@ -29,7 +29,7 @@ final class Install extends SaveData {
      */
     public function run(): void {
         $this->get_frontend_path('index.js');
-        $this->get_frontend_path('bundle.css');
+        $this->get_frontend_path('index.css');
 
         $this->check_credentials();
     }
@@ -53,6 +53,24 @@ final class Install extends SaveData {
     }
 
     /**
+     * Devuelve el hash del archivo JavaScript
+     *
+     * @return string
+     */
+    public function get_javascript_hash(): string {
+        return hash_file('md5', $this->get_frontend_path('index.js'));
+    }
+
+    /**
+     * Devuelve el hash del archivo de estilos.
+     *
+     * @return string
+     */
+    public function get_style_hash(): string {
+        return hash('md5', $this->get_frontend_path('index.css'));
+    }
+
+    /**
      * Devuelve el contenido crudo del archivo seleccionado.
      *
      * @param string $filename Archivo a ser leído para devolver su contenido
@@ -60,7 +78,7 @@ final class Install extends SaveData {
      */
     private function get_file_content(string $filename): string {
         /** @var string $file */
-        $file = $this->get_frontend_path('index.js');
+        $file = $this->get_frontend_path($filename);
         return file_get_contents($file);
     }
 

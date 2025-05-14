@@ -1,12 +1,12 @@
 <meta charset="UTF-8" />
-<link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}" />
+<link rel="icon" type="image/svg+xml" href="{{ route('/favicon') }}" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>Bienvenidos a {{ DL_COMPANY_NAME }}</title>
+<title>{{ $title ?? DL_COMPANY_NAME }}</title>
 
-<meta name="description" content="Mini Framework PHP, con un motor de plantillas con sintaxis similares a Laravel" />
-<meta property="og:title" content="DLUnire Framework" />
-<meta property="og:description" content="Mini Framework PHP, con un motor de plantillas con sintaxis similares a Laravel" />
+<meta name="description" content="{{ $description ?? 'DLUnire Framework' }}" />
+<meta property="og:title" content="{{ $title ?? DL_COMPANY_NAME }}" />
+<meta property="og:description" content="{{ $description ?? 'DLUnire Framework' }}" />
 <meta property="og:type" content="website" />
 <!-- <meta property="og:image" content="@print('preview')" /> -->
 <meta property="og:image:type" content="image/png" />
@@ -20,15 +20,11 @@
 
 <link rel="canonical" href="{{ route('') }}" />
 
-<link rel="stylesheet" href="{{ asset('css/bundle.css') }}">
+<link rel="stylesheet" href="{{ style() }}">
 <link rel="icon" href="{{ asset('favicon.png')  }}" type="image/png">
 
 <meta http-equiv="Content-Security-Policy"
-    content="script-src 'self' *.tawk.to *.jsdelivr.net *.google.com *.gstatic.com 'nonce-{{ $token }}' ; object-src 'none'">
+    content="script-src *.tawk.to *.jsdelivr.net *.google.com *.gstatic.com 'nonce-{{ $token }}' ; object-src 'none'">
 
-
-<!-- @section('googleAnalytics')
-    <a href="https://analytics.google.com/analytics/web/?authuser=1#/p354495162/reports/dashboard?r=reporting-hub">
-        Ver ver estadísticas de visita
-    </a>
-@endsection -->
+<!-- <meta http-equiv="Content-Security-Policy"
+    content="script-src 'nonce-{{ $token }}' https://*.tawk.to https://*.jsdelivr.net https://*.google.com https://*.gstatic.com; object-src 'none'"> -->

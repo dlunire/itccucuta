@@ -1,3 +1,6 @@
+@use "sass:color";
+@use "./vars" as *;
+
 :root {
 
     font: {
@@ -6,6 +9,9 @@
     }
 
     line-height: 1.6;
+
+    background-color: color.adjust($base-color, $lightness: -4%);
+    color: white;
 }
 
 * {

@@ -1,6 +1,8 @@
 <?php
 
 use DLRoute\Routes\ResourceManager;
+use DLUnire\Services\Install\Install;
+use DLUnire\Services\Install\Route;
 
 if (!function_exists('js')) {
 
@@ -83,5 +85,42 @@ if (!function_exists('image')) {
         $images = ResourceManager::image($uri, $config);
 
         return $images;
+    }
+}
+
+if (!function_exists('style')) {
+
+    /**
+     * Devuelve URL completa con el HASH de la hoja de estilo
+     *
+     * @return string
+     */
+    function style(): string {
+
+        /** @var Install $install */
+        $install = new Install();
+
+        /** @var string $hash */
+        $hash = $install->get_style_hash();
+
+        return Route::request('/style') . "?{$hash}";
+    }
+}
+
+if (!function_exists('script')) {
+
+    /**
+     * Devuelve la ruta completa del código fuente de JavaScrit o bundle
+     *
+     * @return string
+     */
+    function script(): string {
+        /** @var Install $install */
+        $install = new Install();
+
+        /** @var string $hash */
+        $hash = $install->get_javascript_hash();
+
+        return Route::request('/js') . "?{$hash}";
     }
 }

@@ -9,7 +9,22 @@ final class InstallController extends BaseController {
     public function credentials(): string {
 
         return view('install.install', [
-            "token" => $this->get_random_token()
+            "token" => $this->get_random_token(),
+            "title" => "Programa de instalación"
         ]);
+    }
+
+    /**
+     * Almacena las credenciales en un formato binario
+     *
+     * @return array
+     */
+    public function store(): array {
+
+        http_response_code(201);
+        return [
+            "status" => true,
+            "message" => "Instalación de credenciales completada"
+        ];
     }
 }
