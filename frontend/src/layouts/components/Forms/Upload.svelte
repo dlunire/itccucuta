@@ -1,10 +1,12 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import ButtonSubmit from "../Buttons/ButtonSubmit.svelte";
     import { upload } from "./lib/upload";
+    import ButtonPrimary from "../Buttons/ButtonPrimary.svelte";
 
+    export let content: Function | undefined = undefined;
+    export let buttonContent: Function | undefined = undefined;
     export let name: string = "file";
-    export let multiple: boolean = true;
+    export let multiple: boolean = false;
     export let accept: string | undefined = undefined;
     export let action: string = "/files/upload";
 
@@ -103,12 +105,41 @@
         if (!dataTransfer) return;
         if (!(inputFile instanceof HTMLInputElement)) return;
 
-        const { files, items } = dataTransfer;
+        const { files } = dataTransfer;
         setFiles(inputFile, files, multiple);
 
         if (form instanceof HTMLElement) {
             form.requestSubmit();
         }
+    }
+
+    /**
+     * Hace click sobre el elemento `inputFile`
+     *
+     * @param event Evento de Mouse.
+     */
+    function onclick(): void {
+        if (!(inputFile instanceof HTMLInputElement)) return;
+        inputFile.click();
+    }
+
+    /**
+     * Solicita el envío del formulario si tiene archivos
+     *
+     * @param event Evento Change
+     */
+    function onchange(event: Event): void {
+        const { target: input } = event;
+        if (!(input instanceof HTMLInputElement)) return;
+        if (!(form instanceof HTMLFormElement)) return;
+
+        const { files } = input;
+        if (!files) return;
+
+        const { length } = files;
+        if (length < 1) return;
+
+        form.requestSubmit();
     }
 </script>
 
@@ -120,18 +151,17 @@
     bind:this={form}
 >
     {#if accept}
-        <input type="file" {accept} {name} {multiple} bind:this={inputFile} />
+        <input
+            type="file"
+            {accept}
+            {name}
+            {multiple}
+            bind:this={inputFile}
+            {onchange}
+        />
     {:else}
-        <input type="file" {name} {multiple} bind:this={inputFile} />
+        <input type="file" {name} {multiple} bind:this={inputFile} {onchange} />
     {/if}
-
-    <textarea name="test" id="test" placeholder="Realizar prueba"></textarea>
-
-    <ButtonSubmit>
-        {#snippet content()}
-            <span>Enviar archivo</span>
-        {/snippet}
-    </ButtonSubmit>
 </form>
 
 <div
@@ -141,4 +171,40 @@
     {ondragover}
     {ondrop}
     role="region"
-></div>
+>
+    <div>
+        <span>
+            {#if content}
+                {@render content()}
+            {:else}
+                <span>Pegue (Ctrl + V) o arrastre archivos aquí</span>
+            {/if}
+        </span>
+
+        <ButtonPrimary type="button" {onclick}>
+            {#snippet content()}
+                {#if buttonContent}
+                    {@render buttonContent()}
+                {:else}
+                    <span>Subir archivos</span>
+                {/if}
+            {/snippet}
+        </ButtonPrimary>
+    </div>
+</div>
+
+<style>
+    [type="file"] {
+        display: none;
+    }
+
+    .dropzone {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    :global(.button) {
+        display: flex;
+    }
+</style>

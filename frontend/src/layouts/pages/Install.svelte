@@ -43,6 +43,6 @@
             </Form>
         </div>
 
-        <Upload action="/upload/csv" />
+        <Upload action="/upload/csv" multiple={true} />
     </section>
 </Container>
