@@ -1,6 +1,7 @@
 <script lang="ts">
     import ButtonSubmit from "../components/Buttons/ButtonSubmit.svelte";
     import Form from "../components/Forms/Form.svelte";
+    import Upload from "../components/Forms/Upload.svelte";
     import Container from "../sections/Container.svelte";
     import Header from "../sections/Header.svelte";
 
@@ -41,5 +42,7 @@
                 {/snippet}
             </Form>
         </div>
+
+        <Upload />
     </section>
 </Container>

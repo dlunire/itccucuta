@@ -1,49 +1,62 @@
-/**
- * Sube un archivo al servidor usando XMLHttpRequest.
- * 
- * @param url - Ruta destino del archivo en el servidor.
- * @param file - Archivo a subir.
- * @param fieldName - Nombre del campo en el `FormData`. Por defecto: 'file'.
- * @param onProgress - Callback para progreso de carga (opcional).
- * @returns Una promesa que resuelve con la respuesta del servidor.
- */
-export function uploadFile(
-    url: string,
-    file: File,
-    fieldName = "file",
-    onProgress?: (progress: number) => void
-): Promise<unknown> {
-    return new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest();
+// upload.ts
+export type UploadOptions = {
+    field?: string;
+    url: string;
+    onProgress?: (progress: number) => void;
+    onSuccess?: (response: unknown) => void;
+    onError?: (error: unknown) => void;
+};
+
+export function uploadFile(node: HTMLInputElement, options: UploadOptions) {
+    const handleChange = () => {
+        const file = node.files?.[0];
+        if (!file) return;
+
         const formData = new FormData();
+        formData.append(options.field ?? "file", file);
 
-        formData.append(fieldName, file);
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", options.url, true);
 
-        xhr.open("POST", url, true);
+        progress(options, xhr);
 
-        // Opcional: monitorea el progreso
-        if (onProgress && xhr.upload) {
-            xhr.upload.onprogress = (event) => {
-                if (event.lengthComputable) {
-                    const progress = (event.loaded / event.total) * 100;
-                    onProgress(progress);
-                }
-            };
-        }
-
-        // Cuando la petición finaliza
         xhr.onload = () => {
             try {
                 const response = JSON.parse(xhr.responseText);
-                resolve(response);
+                options.onSuccess?.(response);
             } catch {
-                resolve(xhr.responseText); // En caso de no ser JSON
+                options.onSuccess?.(xhr.responseText);
             }
         };
 
-        xhr.onerror = () => reject(new Error("Error de red"));
-        xhr.ontimeout = () => reject(new Error("La solicitud ha expirado"));
+        xhr.onerror = () => options.onError?.(new Error("Error de red"));
+        xhr.ontimeout = () => options.onError?.(new Error("Timeout"));
 
         xhr.send(formData);
-    });
+    };
+
+    node.addEventListener("change", handleChange);
+
+    return {
+        destroy() {
+            node.removeEventListener("change", handleChange);
+        }
+    };
+}
+
+/**
+ * Muestra el progreso de carga de archivo al servidor.
+ * 
+ * @param options Opciones
+ * @param xhr Objeto XMLHttpRequest
+ * @returns 
+ */
+function progress(options: UploadOptions, xhr: XMLHttpRequest) {
+    if (!(options.onProgress && xhr.upload)) return;
+
+    xhr.upload.onprogress = function (event: ProgressEvent<EventTarget>) {
+        if (!(event.lengthComputable)) return;
+        const progress = (event.loaded / event.total) * 100;
+        options.onProgress?.(progress);
+    };
 }
