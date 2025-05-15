@@ -51,36 +51,53 @@
     max-width: 800px;
     width: $width;
     min-height: 100px;
+    overflow: hidden;
+    background-color: $dropzone-color;
+    border: 1px dashed rgba(white, 0.3);
 
-    border: 2px dashed rgba(white, 0.3);
     border-radius: 10px;
     padding: 20px;
+    padding-bottom: 27px;
     z-index: 10;
 
-    &::before {
+    &::before,
+    &::after {
         content: "";
         display: block;
         position: absolute;
         margin: auto;
         left: 0;
-        top: 0;
-        bottom: 0;
         right: auto;
-        width: 0;
-        background-color: transparent;
+        top: auto;
+        bottom: 0;
+        height: 7px;
+    }
+
+    &::before {
+        width: 100%;
+        background-color: black;
         z-index: 0;
-        border-radius: 9px;
         pointer-events: none;
         user-select: none;
+        z-index: 1;
+        height: 8px;
+    }
+
+    &::after {
+        left: 0;
+        right: 0;
+        border-top: 1px solid rgba(white, 0.1);
+        width: 100%;
     }
 
     &--copying {
         $color: color.adjust($color: $base-color, $saturation: 50%, $lightness: -5%);
-
+        $color: rgb(200, 255, 0);
         border: 1px solid rgba(white, 0.05);
 
         &::before {
             width: var(--progress);
+            width: 50%;
             background-color: $color;
             transition: 300ms ease;
         }
