@@ -12,6 +12,8 @@
 
     let inputFile: HTMLInputElement | null = null;
     let form: HTMLFormElement | null = null;
+    let progress: number = 0;
+    let initialized: boolean = false;
 
     if (multiple) {
         name = `${name}[]`;
@@ -43,6 +45,7 @@
         }
 
         setFiles(inputFile, files, multiple);
+        if (length < 1) return;
 
         if (form instanceof HTMLFormElement) {
             form.requestSubmit();
@@ -81,10 +84,20 @@
         event.preventDefault();
         const { target: form } = event;
         if (!(form instanceof HTMLFormElement)) return;
+        initialized = false;
+        progress = 0;
 
-        upload(form, function (loaded: number) {
-            console.log({ loaded });
-        });
+        upload(
+            form,
+            function (loaded: number) {
+                progress = loaded;
+                if (!initialized) initialized = true;
+            },
+            function (done: boolean) {
+                if (!(form instanceof HTMLFormElement) || !done) return;
+                form.reset();
+            },
+        );
     }
 
     function ondragenter(event: DragEvent): void {
@@ -171,8 +184,10 @@
     {ondragover}
     {ondrop}
     role="region"
+    style="--progress: {progress}%"
+    class:dropzone--copying={initialized}
 >
-    <div>
+    <div class="dropzone__inner">
         <span>
             {#if content}
                 {@render content()}
@@ -206,5 +221,9 @@
 
     :global(.button) {
         display: flex;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10px;
+        margin-bottom: 0;
     }
 </style>
