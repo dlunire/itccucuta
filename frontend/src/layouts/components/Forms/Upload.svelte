@@ -104,7 +104,7 @@
     function ondragenter(event: DragEvent): void {
         event.preventDefault();
         const { target: region } = event;
-        if (!(region instanceof HTMLFormElement)) return;
+        if (!(region instanceof HTMLElement)) return;
         isEnter = true;
     }
 
@@ -115,7 +115,7 @@
     function ondragleave(event: DragEvent): void {
         event.preventDefault();
         const { target: region } = event;
-        if (!(region instanceof HTMLFormElement)) return;
+        if (!(region instanceof HTMLElement)) return;
         isEnter = false;
     }
 
@@ -131,6 +131,8 @@
         if (form instanceof HTMLElement) {
             form.requestSubmit();
         }
+
+        isEnter = false;
     }
 
     /**
