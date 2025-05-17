@@ -14,6 +14,7 @@
     let form: HTMLFormElement | null = null;
     let progress: number = 0;
     let initialized: boolean = false;
+    let isEnter: boolean = false;
 
     if (multiple) {
         name = `${name}[]`;
@@ -102,6 +103,9 @@
 
     function ondragenter(event: DragEvent): void {
         event.preventDefault();
+        const { target: region } = event;
+        if (!(region instanceof HTMLFormElement)) return;
+        isEnter = true;
     }
 
     function ondragover(event: DragEvent): void {
@@ -110,6 +114,9 @@
 
     function ondragleave(event: DragEvent): void {
         event.preventDefault();
+        const { target: region } = event;
+        if (!(region instanceof HTMLFormElement)) return;
+        isEnter = false;
     }
 
     function ondrop(event: DragEvent): void {
@@ -186,6 +193,7 @@
     role="region"
     style="--progress: {progress}%"
     class:dropzone--copying={initialized}
+    class:dropzone--dragenter={isEnter}
 >
     <div class="dropzone__inner">
         <span>
