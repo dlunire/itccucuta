@@ -90,8 +90,8 @@
         upload(
             form,
             function (loaded: number) {
-                progress = loaded;
                 if (!initialized) initialized = true;
+                progress = loaded;
             },
             function (done: boolean) {
                 if (!(form instanceof HTMLFormElement) || !done) return;

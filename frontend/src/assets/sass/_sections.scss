@@ -48,7 +48,7 @@
 .dropzone {
     position: relative;
     margin: 30px auto;
-    max-width: 800px;
+    max-width: 600px;
     width: $width;
     min-height: 100px;
     overflow: hidden;
@@ -70,23 +70,25 @@
         right: auto;
         top: auto;
         bottom: 0;
-        height: 7px;
+        height: 8px;
     }
 
     &::before {
-        width: 100%;
+        width: 0;
         background-color: black;
         z-index: 0;
         pointer-events: none;
         user-select: none;
         z-index: 1;
-        height: 8px;
+        height: 6px;
+        transition: none;
     }
 
     &::after {
         left: 0;
         right: 0;
-        border-top: 1px solid rgba(white, 0.1);
+        border-top: 1px solid rgba(137, 218, 137, 0.1);
+        background-color: rgb(26, 27, 27);
         width: 100%;
     }
 
@@ -97,8 +99,11 @@
 
         &::before {
             width: var(--progress);
-            width: 50%;
             background-color: $color;
+            transition: 300ms ease;
+        }
+
+        &::after {
             transition: 300ms ease;
         }
     }
