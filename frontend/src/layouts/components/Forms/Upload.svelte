@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { upload } from "./lib/upload";
+    import { getResponse, upload } from "./lib/upload";
     import ButtonPrimary from "../Buttons/ButtonPrimary.svelte";
 
     export let content: Function | undefined = undefined;
@@ -9,6 +9,9 @@
     export let multiple: boolean = false;
     export let accept: string | undefined = undefined;
     export let action: string = "/files/upload";
+    export let data: unknown = undefined;
+    export let error: string | null = null;
+    export let abort: string | null = null;
 
     let inputFile: HTMLInputElement | null = null;
     let form: HTMLFormElement | null = null;
@@ -94,9 +97,17 @@
                 if (!initialized) initialized = true;
                 progress = loaded;
             },
-            function (done: boolean) {
+            function (xhr: XMLHttpRequest, done: boolean) {
                 if (!(form instanceof HTMLFormElement) || !done) return;
                 form.reset();
+                data = getResponse(xhr);
+            },
+            function (xhr: XMLHttpRequest): void {
+                error = "Error al subir el archivo";
+            },
+
+            function (xhr: XMLHttpRequest): void {
+                abort = "El usuario abortó la operación";
             },
         );
     }
