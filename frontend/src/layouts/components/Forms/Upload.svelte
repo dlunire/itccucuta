@@ -213,7 +213,7 @@
             {#if content}
                 {@render content()}
             {:else}
-                <span>Pegue (Ctrl + V) o arrastre archivos aquí</span>
+                <span>Arrastra tus documentos aquí o pégalos con Ctrl + V</span>
             {/if}
         </span>
 
