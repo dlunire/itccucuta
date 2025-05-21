@@ -145,4 +145,38 @@
         position: relative;
         z-index: 1;
     }
+
+    &__info {
+        position: absolute;
+        margin: auto;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 7px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        z-index: 2;
+
+        background-color: rgba(black, 0.9);
+        border: 1px solid rgba(white, 0.1);
+        pointer-events: none;
+        opacity: 0;
+
+        &--loading {
+            pointer-events: all;
+            opacity: 1;
+        }
+    }
+
+    &__progress {
+        text-align: center;
+
+        font: {
+            weight: bold;
+            size: 1.5rem;
+        }
+    }
 }

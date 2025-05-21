@@ -80,6 +80,6 @@ export function getResponse(xhr: XMLHttpRequest): unknown {
             ? JSON.parse(xhr.responseText)
             : xhr.responseText
     } catch {
-        return undefined;
+        return xhr.responseText ? xhr.responseText : undefined;
     }
 }

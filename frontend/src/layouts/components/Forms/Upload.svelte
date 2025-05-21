@@ -18,6 +18,7 @@
     let progress: number = 0;
     let initialized: boolean = false;
     let isEnter: boolean = false;
+    let inProgress: boolean = false;
 
     if (multiple) {
         name = `${name}[]`;
@@ -95,12 +96,16 @@
             form,
             function (loaded: number) {
                 if (!initialized) initialized = true;
+                if (!inProgress) inProgress = true;
+
                 progress = loaded;
             },
+
             function (xhr: XMLHttpRequest, done: boolean) {
                 if (!(form instanceof HTMLFormElement) || !done) return;
                 form.reset();
                 data = getResponse(xhr);
+                inProgress = false;
             },
             function (xhr: XMLHttpRequest): void {
                 error = "Error al subir el archivo";
@@ -174,6 +179,8 @@
 
         form.requestSubmit();
     }
+
+    $: console.log({ inProgress });
 </script>
 
 <form
@@ -208,7 +215,7 @@
     class:dropzone--copying={initialized}
     class:dropzone--dragenter={isEnter}
 >
-    <div class="dropzone__inner">
+    <section class="dropzone__inner">
         <span>
             {#if content}
                 {@render content()}
@@ -226,7 +233,21 @@
                 {/if}
             {/snippet}
         </ButtonPrimary>
-    </div>
+    </section>
+
+    <section class="dropzone__info" class:dropzone__info--loading={inProgress}>
+        <div>
+            {#if multiple}
+                <span>Copiando archivos al servidor</span>
+            {:else}
+                <span>Copiando archivo al servidor</span>
+            {/if}
+
+            <div class="dropzone__progress">
+                {Math.ceil(progress)}%
+            </div>
+        </div>
+    </section>
 </div>
 
 <style>
