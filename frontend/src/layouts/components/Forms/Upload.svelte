@@ -22,6 +22,7 @@
     let initialized: boolean = false;
     let isEnter: boolean = false;
     let inProgress: boolean = false;
+    let open: boolean = false;
 
     if (multiple) {
         name = `${name}[]`;
@@ -109,13 +110,16 @@
                 form.reset();
                 data = getResponse(xhr);
                 inProgress = false;
+                open = true;
             },
             function (xhr: XMLHttpRequest): void {
                 error = "Error al subir el archivo";
+                open = true;
             },
 
             function (xhr: XMLHttpRequest): void {
                 abort = "El usuario abortó la operación";
+                open = true;
             },
         );
     }
@@ -182,8 +186,6 @@
 
         form.requestSubmit();
     }
-
-    $: console.log({ inProgress });
 </script>
 
 <form
@@ -254,7 +256,7 @@
     </section>
 </div>
 
-<NotificationFile />
+<NotificationFile bind:open />
 
 <style>
     [type="file"] {

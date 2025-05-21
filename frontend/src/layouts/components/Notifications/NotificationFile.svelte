@@ -5,7 +5,7 @@
 
     export let content: Function | undefined = undefined;
     export let time: number = 3000;
-    export let open: boolean = true;
+    export let open: boolean = false;
     export let error: boolean = false;
     export let success: boolean = false;
     export let warning: boolean = false;
@@ -17,11 +17,15 @@
     onMount(() => {
         if (!(notification instanceof HTMLElement)) return;
         document.body.appendChild(notification);
+    });
+
+    $: if (open) {
+        if (timeout) clearTimeout(timeout);
 
         timeout = setTimeout(() => {
             open = false;
         }, time);
-    });
+    }
 
     /**
      * Cierra la notificación
@@ -33,6 +37,8 @@
             clearTimeout(timeout);
         }
     }
+
+    $: console.log({ open });
 </script>
 
 {#if open}
