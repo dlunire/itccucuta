@@ -2,6 +2,7 @@
     import { onMount } from "svelte";
     import { getResponse, upload } from "./lib/upload";
     import ButtonPrimary from "../Buttons/ButtonPrimary.svelte";
+    import NotificationFile from "../Notifications/NotificationFile.svelte";
 
     export let content: Function | undefined = undefined;
     export let buttonContent: Function | undefined = undefined;
@@ -249,6 +250,8 @@
         </div>
     </section>
 </div>
+
+<NotificationFile />
 
 <style>
     [type="file"] {
