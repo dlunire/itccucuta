@@ -3,22 +3,58 @@
 namespace DLUnire\Services\Utilities;
 
 use DLCore\Core\BaseController;
+use DLUnire\Models\Tables\Filenames;
 
 final class File {
 
-    /**
-     * Devuelve los datos del o los archivos enviados al servidor.
-     *
-     * @param BaseController $controller Controlador de la aplicación
-     * @param string $field Campo del formulario que contienen los archivos
-     * @param string $mimetype Tipo de archivos permitidos
-     * @param string $basedir Directorio base
-     * @return array
-     */
-    public static function upload(BaseController $controller, string $field = 'file', string $mimetype = '*/*',  string $basedir = "/storage/file"): array {
+    public function __construct() {
+    }
 
+    /**
+     * Copia al servidor los archivos y devuelve una lista de ellos.
+     *
+     * Esta función se encarga de procesar archivos provenientes de un formulario HTML.
+     * Valida el tipo MIME si es necesario, guarda los archivos en el directorio especificado
+     * y retorna un arreglo con la información resultante. Puede manejar almacenamiento
+     * en modo privado o público según el parámetro `$private`.
+     *
+     * @param BaseController $controller Controlador desde donde se ejecuta.
+     * @param string $field Campo de formulario a procesar. El valor por defecto es `file`.
+     * @param string $mimetype Tipo de archivo aceptado. Por defecto es (todos).
+     * @param string $basedir Directorio base donde se guardarán los archivos. Por defecto `'/storage/file'`.
+     * @param bool $private Opcional. Indica si el archivo debe estar almacenado en modo privado. Por defecto es `true`.
+     * @return array Lista de archivos subidos con su información asociada.
+     */
+    public static function upload(BaseController $controller, string $field = 'file', string $mimetype = '*/*',  string $basedir = "/storage/file", bool $private = true): array {
         $controller->set_basedir($basedir);
+
+        /** @var string $token */
+        $token = $controller->generate_uuid();
+
+        /** @var array $files */
         $files = $controller->upload_file($field, $mimetype);
+
+        /** @var array $datafiles */
+        $datafiles = [];
+
+        foreach ($files as $file) {
+            if (!is_array($file)) continue;
+
+            /** @var string $uuid */
+            $uuid = $controller->generate_uuid();
+
+            $datafile = [
+                'filenames_uuid' => $uuid,
+                'filenames_name' => $file['target_file'],
+                'filenames_basedir' => $file['relative_path'],
+                'filenames_token' => $token,
+                'filenames_private' => $private ? 1 : 0
+            ];
+
+            $datafiles[] = $datafile;
+        }
+
+        Filenames::create($datafiles);
 
         return [];
     }

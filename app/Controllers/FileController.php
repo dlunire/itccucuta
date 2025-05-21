@@ -12,6 +12,12 @@ final class FileController extends BaseController {
     public function index() {
     }
 
-    public function private_file() {
+    /**
+     * Devuelve el contenido del archivo
+     *
+     * @param object{uuid: string} $param
+     * @return void
+     */
+    public function private_file(object $param) {
     }
 }

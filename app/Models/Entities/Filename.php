@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace DLUnire\Models\Entities;
 
+use DLCore\Core\BaseController;
+use DLUnire\Models\Tables\Filenames;
+
 final class Filename {
 
     /**
@@ -48,12 +51,17 @@ final class Filename {
      */
     public readonly string $size;
 
+    public function __construct(array $datafile) {
+        $this->load_file($datafile);
+    }
+
     /**
      * Carga la información del archivo
      *
      * @return void
      */
     public function load_file(array $datafile = []): void {
+
         $url = $datafile[''] ?? null;
     }
 }
