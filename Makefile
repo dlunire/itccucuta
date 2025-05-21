@@ -6,3 +6,6 @@ install:
 
 
 default: serve
+
+build:
+	cd frontend && npm run build
