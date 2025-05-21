@@ -25,6 +25,8 @@ hr {
     transition: 300ms ease;
     cursor: pointer;
 
+    --icon-size: 1.2rem;
+
     &:active {
         transition: none;
     }
@@ -41,7 +43,7 @@ hr {
     }
 
     &--normalize {
-        --icon-color: rgba(white, 0.8);
+        --icon-color: #{rgba(white, 0.8)};
 
         height: 30px;
         border-radius: 20px;
@@ -89,6 +91,8 @@ hr {
 
     &--primary {
         $primary: rgb(0, 103, 167);
+        --icon-size: 1rem;
+        gap: 5px;
 
         &:hover {
             background-color: color.adjust($color: $primary, $lightness: 7%);

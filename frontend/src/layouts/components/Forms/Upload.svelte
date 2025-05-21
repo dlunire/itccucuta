@@ -3,6 +3,8 @@
     import { getResponse, upload } from "./lib/upload";
     import ButtonPrimary from "../Buttons/ButtonPrimary.svelte";
     import NotificationFile from "../Notifications/NotificationFile.svelte";
+    import IconInput from "../../icons/IconInput.svelte";
+    import IconUpload from "../../icons/IconUpload.svelte";
 
     export let content: Function | undefined = undefined;
     export let buttonContent: Function | undefined = undefined;
@@ -230,6 +232,7 @@
                 {#if buttonContent}
                     {@render buttonContent()}
                 {:else}
+                    <IconUpload />
                     <span>Subir archivos</span>
                 {/if}
             {/snippet}
