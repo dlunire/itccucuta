@@ -8,15 +8,25 @@
 
     let notification: HTMLElement | null = null;
     let timeout: number | null = null;
+
     onMount(() => {
         if (!(notification instanceof HTMLElement)) return;
         document.body.appendChild(notification);
 
-        timeout = setTimeout(() => {}, time);
+        timeout = setTimeout(() => {
+            open = false;
+        }, time);
     });
 
+    /**
+     * Cierra la notificación
+     */
     function onclick() {
         open = false;
+
+        if (timeout) {
+            clearTimeout(timeout);
+        }
     }
 </script>
 
