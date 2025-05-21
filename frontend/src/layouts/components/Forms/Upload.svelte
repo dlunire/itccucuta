@@ -26,6 +26,7 @@
     let success: boolean = false;
     let warning: boolean = false;
     let info: boolean = false;
+    let message: string = "";
 
     if (multiple) {
         name = `${name}[]`;
@@ -114,15 +115,22 @@
                 data = getResponse(xhr);
                 inProgress = false;
                 open = true;
+                success = xhr.status >= 200 && xhr.status < 300;
+
+                // message
             },
             function (xhr: XMLHttpRequest): void {
                 error = "Error al subir el archivo";
+                message = error;
                 open = true;
+                errorStatus = true;
             },
 
             function (xhr: XMLHttpRequest): void {
                 abort = "El usuario abortó la operación";
+                message = abort;
                 open = true;
+                warning = true;
             },
         );
     }
@@ -189,6 +197,8 @@
 
         form.requestSubmit();
     }
+
+    $: console.log({ data });
 </script>
 
 <form
@@ -259,7 +269,17 @@
     </section>
 </div>
 
-<NotificationFile bind:open bind:error={errorStatus} bind:success bind:info />
+<NotificationFile
+    bind:open
+    bind:error={errorStatus}
+    bind:success
+    bind:info
+    bind:warning
+>
+    {#snippet content()}
+        <span>Mensaje del servidor</span>
+    {/snippet}
+</NotificationFile>
 
 <style>
     [type="file"] {

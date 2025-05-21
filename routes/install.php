@@ -15,6 +15,3 @@ DLRoute::get('/install/credentials', [InstallController::class, 'credentials']);
 
 ## INSTALACIÓN DE LAS CREDENCIALES
 DLRoute::post('/install/credentials', [InstallController::class, 'store']);
-
-# Ruta temporal para probar la subida de archivos
-DLRoute::post('/upload/csv', [InstallController::class, 'upload']);
