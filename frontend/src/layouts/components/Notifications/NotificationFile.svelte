@@ -12,7 +12,7 @@
 </script>
 
 <section class="notification notification--file" bind:this={notification}>
-    <div class="notification__inner">
+    <div class="notification__inner notification__inner--info">
         {#if content}
             {@render content()}
         {:else}

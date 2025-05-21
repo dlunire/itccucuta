@@ -130,6 +130,7 @@ hr {
     justify-content: flex-end;
     align-items: flex-start;
     padding: 20px;
+    pointer-events: none;
 
     &__inner {
         background-color: black;
@@ -138,29 +139,30 @@ hr {
         max-width: 300px;
         border: 1px solid rgba(white, 0.2);
         border-top: 4px solid rgba(white, 0.2);
+        pointer-events: all;
 
         font: {
             size: 0.9rem;
         }
 
         &--error {
-            border-color: #c00;
-            border-top-color: #c00;
+            border-color: rgba(204, 0, 0, 0.575);
+            border-top-color: rgba(204, 0, 0, 0.575);
         }
 
         &--success {
-            border-color: #0c0;
-            border-top-color: #0c0;
+            border-color: rgba(0, 204, 0, 0.575);
+            border-top-color: rgba(0, 204, 0, 0.575);
         }
 
         &--warning {
-            border-color: #cc0;
-            border-top-color: #cc0;
+            border-color: rgba(204, 204, 0, 0.575);
+            border-top-color: rgba(204, 204, 0, 0.575);
         }
 
         &--info {
-            border-color: #00c;
-            border-top-color: #00c;
+            border-color: rgba(0, 204, 204, 0.575);
+            border-top-color: rgba(0, 204, 204, 0.575);
         }
     }
 }
