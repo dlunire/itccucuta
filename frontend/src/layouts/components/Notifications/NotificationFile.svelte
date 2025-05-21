@@ -4,7 +4,7 @@
     import IconClose from "../../icons/IconClose.svelte";
 
     export let content: Function | undefined = undefined;
-    export let time: number = 3000;
+    export let time: number = 4000;
     export let open: boolean = false;
     export let error: boolean = false;
     export let success: boolean = false;
@@ -23,7 +23,7 @@
         if (timeout) clearTimeout(timeout);
 
         timeout = setTimeout(() => {
-            open = false;
+            reset();
         }, time);
     }
 
@@ -31,11 +31,21 @@
      * Cierra la notificación
      */
     function onclick() {
-        open = false;
-
+        reset();
         if (timeout) {
             clearTimeout(timeout);
         }
+    }
+
+    /**
+     * Reinicia el mensaje
+     */
+    function reset(): void {
+        error = false;
+        warning = false;
+        success = false;
+        info = false;
+        open = false;
     }
 
     $: console.log({ open });

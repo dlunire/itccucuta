@@ -3,7 +3,6 @@
     import { getResponse, upload } from "./lib/upload";
     import ButtonPrimary from "../Buttons/ButtonPrimary.svelte";
     import NotificationFile from "../Notifications/NotificationFile.svelte";
-    import IconInput from "../../icons/IconInput.svelte";
     import IconUpload from "../../icons/IconUpload.svelte";
 
     export let content: Function | undefined = undefined;
@@ -23,6 +22,10 @@
     let isEnter: boolean = false;
     let inProgress: boolean = false;
     let open: boolean = false;
+    let errorStatus: boolean = false;
+    let success: boolean = false;
+    let warning: boolean = false;
+    let info: boolean = false;
 
     if (multiple) {
         name = `${name}[]`;
@@ -256,7 +259,7 @@
     </section>
 </div>
 
-<NotificationFile bind:open />
+<NotificationFile bind:open bind:error={errorStatus} bind:success bind:info />
 
 <style>
     [type="file"] {
