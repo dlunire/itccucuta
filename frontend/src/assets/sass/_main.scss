@@ -137,5 +137,30 @@ hr {
         border-radius: 5px;
         max-width: 300px;
         border: 1px solid rgba(white, 0.2);
+        border-top: 4px solid rgba(white, 0.2);
+
+        font: {
+            size: 0.9rem;
+        }
+
+        &--error {
+            border-color: #c00;
+            border-top-color: #c00;
+        }
+
+        &--success {
+            border-color: #0c0;
+            border-top-color: #0c0;
+        }
+
+        &--warning {
+            border-color: #cc0;
+            border-top-color: #cc0;
+        }
+
+        &--info {
+            border-color: #00c;
+            border-top-color: #00c;
+        }
     }
 }
