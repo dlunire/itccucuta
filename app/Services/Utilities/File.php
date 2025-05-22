@@ -3,6 +3,8 @@
 namespace DLUnire\Services\Utilities;
 
 use DLCore\Core\BaseController;
+use DLRoute\Requests\Filename as RequestsFilename;
+use DLUnire\Models\Entities\Filename;
 use DLUnire\Models\Tables\Filenames;
 
 final class File {
@@ -23,7 +25,7 @@ final class File {
      * @param string $mimetype Tipo de archivo aceptado. Por defecto es (todos).
      * @param string $basedir Directorio base donde se guardarán los archivos. Por defecto `'/storage/file'`.
      * @param bool $private Opcional. Indica si el archivo debe estar almacenado en modo privado. Por defecto es `true`.
-     * @return array Lista de archivos subidos con su información asociada.
+     * @return array<Filename> Lista de archivos subidos con su información asociada.
      */
     public static function upload(BaseController $controller, string $field = 'file', string $mimetype = '*/*',  string $basedir = "/storage/file", bool $private = true): array {
         $controller->set_basedir($basedir);
@@ -37,25 +39,32 @@ final class File {
         /** @var array $datafiles */
         $datafiles = [];
 
+        /** @var Filename[] $filenames */
+        $filenames = [];
+
         foreach ($files as $file) {
-            if (!is_array($file)) continue;
+            if (!($file instanceof RequestsFilename)) continue;
 
             /** @var string $uuid */
             $uuid = $controller->generate_uuid();
-
             $datafile = [
                 'filenames_uuid' => $uuid,
-                'filenames_name' => $file['target_file'],
-                'filenames_basedir' => $file['relative_path'],
+                'filenames_name' => $file->target_file,
+                'filenames_basedir' =>  $file->relative_path,
                 'filenames_token' => $token,
-                'filenames_private' => $private ? 1 : 0
+                'filenames_private' => $private ? 1 : 0,
+                'filenames_size' => $file->size,
+                'filenames_readable_size' =>  $file->readable_size,
+                'filenames_type' => $file->type,
+                'filenames_format' => $file->file_format
             ];
 
             $datafiles[] = $datafile;
+            $filenames[] = new Filename($datafile);
         }
 
         Filenames::create($datafiles);
 
-        return [];
+        return $filenames;
     }
 }
