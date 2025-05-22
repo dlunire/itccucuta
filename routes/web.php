@@ -18,6 +18,6 @@ DLRoute::post('/upload/csv', [InstallController::class, 'upload']);
 
 
 # URL del archivo enviado al servidor
-DLRoute::get('/file/public/{uuid}', [FileController::class, 'index']);
+DLRoute::get('/file/public/{uuid}', [FileController::class, 'public_file']);
 
 DLRoute::get('/file/private/{uuid}', [FileController::class, 'private_file']);

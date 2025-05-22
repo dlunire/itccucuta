@@ -59,6 +59,20 @@ final class Filename {
      */
     public readonly bool $private;
 
+    /**
+     * Identificador del archivo
+     *
+     * @var string $uuid
+     */
+    public readonly string $uuid;
+
+    /**
+     * Token que identifica a un grupo de archivos
+     *
+     * @var string|null $token
+     */
+    public readonly ?string $token;
+
     public function __construct(array $datafile) {
         $this->load_file($datafile);
     }
@@ -111,6 +125,9 @@ final class Filename {
         if (!is_string($size)) {
             throw new StorageException("El tamaño es requerido", 400);
         }
+
+        $this->uuid = $datafile['filenames_uuid'];
+        $this->token = $datafile['filenames_token'] ?? null;
 
         /** @var string|null $type */
         $type = $datafile['filenames_type'] ?? null;

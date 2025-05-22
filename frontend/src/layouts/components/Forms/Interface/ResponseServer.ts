@@ -12,4 +12,6 @@ export interface UploadedFile {
     format: string;
     size: string;
     private: boolean;
+    uuid: string;
+    token: string;
 }

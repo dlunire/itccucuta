@@ -3,6 +3,7 @@
 namespace DLUnire\Controllers\Install;
 
 use DLCore\Core\BaseController;
+use DLUnire\Models\Entities\Filename;
 use DLUnire\Services\Utilities\File;
 
 final class InstallController extends BaseController {
@@ -35,7 +36,7 @@ final class InstallController extends BaseController {
      * @return array
      */
     public function upload(): array {
-
+        /** @var array<Filename> $files */
         $files = File::upload($this, 'file');
 
         http_response_code(201);

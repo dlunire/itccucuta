@@ -131,7 +131,7 @@
                 message = abort;
                 open = true;
                 warning = true;
-            },
+            }
         );
     }
 
