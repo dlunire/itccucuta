@@ -9,6 +9,7 @@ use DLUnire\Services\Utilities\Install;
 
 DLRoute::get('/', [TestController::class, 'index']);
 
+/** @var Auth $auth */
 $auth = Auth::get_instance();
 
 DLRoute::get('/install', [Install::class, 'index']);
@@ -17,7 +18,14 @@ DLRoute::get('/install', [Install::class, 'index']);
 DLRoute::post('/upload/csv', [InstallController::class, 'upload']);
 
 
-# URL del archivo enviado al servidor
-DLRoute::get('/file/public/{uuid}', [FileController::class, 'public_file']);
+# URL del archivo enviado al servidor. Una ruta que no requiere autenticación
+DLRoute::get('/file/public/{uuid}', [FileController::class, 'public_file'])->filter_by_type([
+    "uuid" => "uuid"
+]);
 
-DLRoute::get('/file/private/{uuid}', [FileController::class, 'private_file']);
+$auth->authenticated(function () {
+});
+# URL del archivo enviado al servidor. Una ruta que requiere autenticación
+DLRoute::get('/file/private/{uuid}', [FileController::class, 'private_file'])->filter_by_type([
+    "uuid" => "uuid"
+]);

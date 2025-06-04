@@ -9,9 +9,6 @@ use DLUnire\Models\Tables\Filenames;
 
 final class File {
 
-    public function __construct() {
-    }
-
     /**
      * Copia al servidor los archivos y devuelve una lista de ellos.
      *
@@ -56,7 +53,8 @@ final class File {
                 'filenames_size' => $file->size,
                 'filenames_readable_size' =>  $file->readable_size,
                 'filenames_type' => $file->type,
-                'filenames_format' => $file->file_format
+                'filenames_format' => $file->file_format,
+                'filenames_timezone' => Filenames::get_timezone()
             ];
 
             $datafiles[] = $datafile;
