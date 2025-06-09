@@ -36,8 +36,8 @@ final class InstallController extends BaseController {
      * @return array
      */
     public function upload(): array {
-        /** @var array<Filename> $files */
-        $files = File::upload($this, 'file');
+        /** @var Filename[] $files */
+        $files = File::upload(controller: $this, field: 'file', mimetype: "text/csv");
 
         http_response_code(201);
         return [

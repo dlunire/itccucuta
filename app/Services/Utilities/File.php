@@ -4,6 +4,7 @@ namespace DLUnire\Services\Utilities;
 
 use DLCore\Core\BaseController;
 use DLRoute\Requests\Filename as RequestsFilename;
+use DLStorage\Errors\StorageException;
 use DLUnire\Models\Entities\Filename;
 use DLUnire\Models\Tables\Filenames;
 
@@ -44,6 +45,7 @@ final class File {
 
             /** @var string $uuid */
             $uuid = $controller->generate_uuid();
+
             $datafile = [
                 'filenames_uuid' => $uuid,
                 'filenames_name' => $file->target_file,
@@ -59,6 +61,10 @@ final class File {
 
             $datafiles[] = $datafile;
             $filenames[] = new Filename($datafile);
+        }
+
+        if (count($datafiles) < 1) {
+            throw new StorageException("Error durante el almacenamiento de la referencia del archivo enviado al servidor", 500);
         }
 
         Filenames::create($datafiles);

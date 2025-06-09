@@ -14,7 +14,7 @@ $auth = Auth::get_instance();
 
 DLRoute::get('/install', [Install::class, 'index']);
 
-# Ruta temporal para probar la subida de archivos
+# Ruta temporal para probar la subida de archivos | Requiere autenticación
 DLRoute::post('/upload/csv', [InstallController::class, 'upload']);
 
 
@@ -25,6 +25,7 @@ DLRoute::get('/file/public/{uuid}', [FileController::class, 'public_file'])->fil
 
 $auth->authenticated(function () {
 });
+
 # URL del archivo enviado al servidor. Una ruta que requiere autenticación
 DLRoute::get('/file/private/{uuid}', [FileController::class, 'private_file'])->filter_by_type([
     "uuid" => "uuid"
