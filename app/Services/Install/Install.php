@@ -40,7 +40,7 @@ final class Install extends SaveData {
      * @return string
      */
     public function get_javascript(): string {
-        return $this->get_file_content('index.js');
+        return $this->get_frontend_content('index.js');
     }
 
     /**
@@ -49,7 +49,7 @@ final class Install extends SaveData {
      * @return string
      */
     public function get_style(): string {
-        return $this->get_file_content('index.css');
+        return $this->get_frontend_content('index.css');
     }
 
     /**
@@ -76,7 +76,7 @@ final class Install extends SaveData {
      * @param string $filename Archivo a ser leído para devolver su contenido
      * @return string
      */
-    private function get_file_content(string $filename): string {
+    private function get_frontend_content(string $filename): string {
         /** @var string $file */
         $file = $this->get_frontend_path($filename);
         return file_get_contents($file);
