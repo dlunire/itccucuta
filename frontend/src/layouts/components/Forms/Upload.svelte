@@ -4,6 +4,10 @@
     import ButtonPrimary from "../Buttons/ButtonPrimary.svelte";
     import NotificationFile from "../Notifications/NotificationFile.svelte";
     import IconUpload from "../../icons/IconUpload.svelte";
+    import {
+        getType,
+        type ServerResponse,
+    } from "../Notifications/ErrorInterface";
 
     export let content: Function | undefined = undefined;
     export let buttonContent: Function | undefined = undefined;
@@ -116,8 +120,16 @@
                 inProgress = false;
                 open = true;
                 success = xhr.status >= 200 && xhr.status < 300;
+                errorStatus = !success;
 
-                // message
+                const response: ServerResponse = getType<ServerResponse>(
+                    JSON.parse(xhr.responseText),
+                );
+                message =
+                    response.error ??
+                    response.message ??
+                    response.success ??
+                    "";
             },
             function (xhr: XMLHttpRequest): void {
                 error = "Error al subir el archivo";
@@ -131,7 +143,7 @@
                 message = abort;
                 open = true;
                 warning = true;
-            }
+            },
         );
     }
 
@@ -197,8 +209,6 @@
 
         form.requestSubmit();
     }
-
-    $: console.log({ data });
 </script>
 
 <form
@@ -277,7 +287,7 @@
     bind:warning
 >
     {#snippet content()}
-        <span>Mensaje del servidor</span>
+        <span>{message}</span>
     {/snippet}
 </NotificationFile>
 

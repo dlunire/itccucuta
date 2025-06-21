@@ -52,7 +52,10 @@
 </script>
 
 {#if open}
-    <section class="notification notification--file" bind:this={notification}>
+    <section
+        class="notification notification--file scrollable"
+        bind:this={notification}
+    >
         <div
             class="notification__inner"
             class:notification__inner--info={info}
@@ -60,21 +63,25 @@
             class:notification__inner--warning={warning}
             class:notification__inner--error={error}
         >
-            {#if content}
-                {@render content()}
-            {:else}
-                <span
-                    >Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Aliquam, error!</span
-                >
-            {/if}
+            <div class="notification__content">
+                {#if content}
+                    {@render content()}
+                {:else}
+                    <span
+                        >Lorem ipsum dolor sit amet consectetur adipisicing
+                        elit. Aliquam, error!</span
+                    >
+                {/if}
+            </div>
 
-            <ButtonClose {onclick}>
-                {#snippet content()}
-                    <IconClose />
-                    <span>Cerrar</span>
-                {/snippet}
-            </ButtonClose>
+            <footer class="notification__footer">
+                <ButtonClose {onclick}>
+                    {#snippet content()}
+                        <IconClose />
+                        <span>Cerrar</span>
+                    {/snippet}
+                </ButtonClose>
+            </footer>
         </div>
     </section>
 {/if}
