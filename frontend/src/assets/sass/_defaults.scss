@@ -1,17 +1,20 @@
 @use "sass:color";
 @use "./vars" as *;
+
 :root {
     font: {
         size: 16px;
         family: "Roboto", "Open Sans", sans-serif, arial;
     }
+
     line-height: 1.6;
-    background-color: color.adjust($base-color, $lightness: -4%);
+    background-color: color.adjust($base-color, $lightness: -10%);
     color: white;
 }
 
 * {
     box-sizing: border-box;
+
     &::before,
     &::after {
         box-sizing: inherit;
@@ -33,7 +36,8 @@ main {
 
 a {
     text-decoration: none;
-    &:not(class) {
+
+    &:not([class]) {
         &:hover {
             text-decoration: underline;
         }

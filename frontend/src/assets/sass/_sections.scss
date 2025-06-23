@@ -23,11 +23,25 @@
 
 .footer {
     --icon-color: white;
-    background-color: color.adjust($color: $base-color, $lightness: -10%);
+    background-color: color.adjust($color: $base-color, $lightness: -20%);
     color: var(--icon-color);
     padding: 10px;
     position: sticky;
     bottom: 0;
+    border-top: 1px solid rgba($base-color, 0.1);
+
+    &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        margin: auto;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        pointer-events: none;
+        border-top: 1px solid rgba(white, 0.05);
+    }
 
     &__inner {
         max-width: $max-width;
