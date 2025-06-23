@@ -1,7 +1,6 @@
 <script lang="ts">
     import ButtonSubmit from "../components/Buttons/ButtonSubmit.svelte";
     import Form from "../components/Forms/Form.svelte";
-    import Upload from "../components/Forms/Upload.svelte";
     import Container from "../sections/Container.svelte";
     import Header from "../sections/Header.svelte";
 
@@ -24,14 +23,8 @@
 <Container>
     <section class="section section--install">
         <div class="section__inner">
-            <h1 class="section__title">Programa de instalación</h1>
+            <h1 class="section__title">Ingrese las credenciales</h1>
             <hr />
-
-            <form action="/" method="post" on:submit={handleSubmit}>
-                <div class="buttons">
-                    <ButtonSubmit {onclick}></ButtonSubmit>
-                </div>
-            </form>
 
             <Form
                 action="/install/credentials"
@@ -42,7 +35,5 @@
                 {/snippet}
             </Form>
         </div>
-
-        <Upload action="/upload/csv" name="file" multiple={true} />
     </section>
 </Container>
