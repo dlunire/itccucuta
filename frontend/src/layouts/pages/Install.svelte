@@ -1,41 +1,44 @@
 <script lang="ts">
-    import ButtonListEnvironment from "../components/Buttons/ButtonListEnvironment.svelte";
+    import { onMount } from "svelte";
+    import { zIndexReverse } from "../../lib/zIndex";
+    import ButtonList from "../components/Buttons/ButtonList.svelte";
     import ButtonSubmit from "../components/Buttons/ButtonSubmit.svelte";
     import Form from "../components/Forms/Form.svelte";
     import Container from "../sections/Container.svelte";
     import Header from "../sections/Header.svelte";
 
-    let environmentLabel: string = "Seleccione el entorno";
+    onMount(() => {
+        if (container instanceof HTMLElement) zIndexReverse(container);
+    });
 
-    async function handleSubmit(event: SubmitEvent): Promise<void> {
-        event.preventDefault();
-
-        const { target: form } = event;
-        if (!(form instanceof HTMLFormElement)) return;
-
-        console.log({ form });
-    }
-
-    function onclick(): void {
-        console.log({ test: "Se ha hecho click" });
-    }
+    let container: HTMLElement | null = null;
 </script>
 
 <Header>Programa de instalación</Header>
 
 <Container>
-    <section class="section section--install">
+    <section class="section section--install" bind:this={container}>
         <div class="section__inner">
             <h1 class="section__title">Ingrese las credenciales</h1>
             <hr />
 
             <Form
                 action="/install/credentials"
-                className="form--clase-01    form--clase-02"
+                className="form--clase-01 form--clase-02"
+                method="post"
             >
                 {#snippet content()}
                     <div class="form__inner">
-                        <ButtonListEnvironment />
+                        <div class="form__item">
+                            <ButtonList
+                                required={true}
+                                label="Selecione su entorno de ejecución"
+                            />
+                        </div>
+
+                        <div class="form__item">
+                            <ButtonList name="algo" required={true} />
+                        </div>
                     </div>
 
                     <hr />

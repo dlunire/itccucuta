@@ -26,7 +26,8 @@ final class InstallController extends BaseController {
         http_response_code(201);
         return [
             "status" => true,
-            "message" => "Instalación de credenciales completada"
+            "message" => "Instalación de credenciales completada",
+            "details" => $this->get_values()
         ];
     }
 

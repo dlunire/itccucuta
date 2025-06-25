@@ -13,7 +13,7 @@ final class Install extends BaseController {
      *
      * @return string
      */
-    public function index(): string {
+    public function index(): string|array {
         return view('install.install');
     }
 }

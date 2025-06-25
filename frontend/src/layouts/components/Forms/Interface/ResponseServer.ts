@@ -1,7 +1,8 @@
 export interface ResponseServer {
     code: number;
     route?: string;
-    message: string
+    message: string;
+    data: unknown;
 }
 
 export interface UploadedFile {
@@ -14,4 +15,18 @@ export interface UploadedFile {
     private: boolean;
     uuid: string;
     token: string;
+}
+
+export interface ResponseServerData {
+    status: boolean;
+    error?: string;
+    success?: string;
+    message?: string;
+    details: unknown;
+}
+
+export interface ResponseData {
+    error: boolean;
+    message: string;
+    details: unknown;
 }

@@ -10,3 +10,11 @@
         opacity: 0;
     }
 }
+
+@keyframes error {
+    from {
+        --icon-color: red;
+        border: 1px solid rgba(red, 0.3);
+        color: red;
+    }
+}

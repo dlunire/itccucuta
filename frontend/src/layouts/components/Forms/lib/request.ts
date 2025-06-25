@@ -1,3 +1,5 @@
+import type { ResponseData, ResponseServerData } from "../Interface/ResponseServer";
+
 /**
  * Permite realizar una petición al servidor utilizando `fetch`.
  * 
@@ -14,7 +16,6 @@
 export async function request(action: string, init?: RequestInit): Promise<unknown> {
 
     const urlBase: string = getURLBase();
-    console.log({ urlBase })
     try {
         const response: Response = await fetch(`${urlBase}${action}`, init);
         const status = response.status;
@@ -62,4 +63,20 @@ export function getURLBase(): string {
 
     if (!(link instanceof HTMLLinkElement)) return origin;
     return link.href.replace(/\/+$/, '');
+}
+
+/**
+ * Devuelve la respuesta del servidor formateada a formato legible.
+ * 
+ * @param input Datos de entrada desconocida a ser analizada.
+ * @returns 
+ */
+export function getData(input: unknown): ResponseData {
+    const data: ResponseServerData = input as ResponseServerData;
+
+    return {
+        error: !data.status,
+        message: data.error ?? data.message ?? data.success ?? '',
+        details: data.details
+    };
 }

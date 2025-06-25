@@ -1,0 +1,16 @@
+{
+    "extends": "stylelint-config-standard-scss",
+    "plugins": ["stylelint-scss"],
+    "rules": {
+        "rule-nested-empty-line-before": [
+            "always",
+            {
+                "except": ["first-nested"],
+                "ignore": ["after-comment"]
+            }
+        ],
+        "block-opening-brace-space-before": "always",
+        "declaration-block-semicolon-newline-after": "always",
+        "selector-nested-pattern": "^&__"
+    }
+}

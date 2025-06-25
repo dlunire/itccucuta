@@ -1,8 +1,11 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import type { Method } from "./Interface/Method";
-    import { request } from "./lib/request";
-    import type { ResponseServer } from "./Interface/ResponseServer";
+    import { getData, request } from "./lib/request";
+    import type {
+        ResponseData,
+        ResponseServer,
+    } from "./Interface/ResponseServer";
 
     export let method: Method = undefined;
     export let action: string = "/";
@@ -12,14 +15,54 @@
 
     async function onsubmit(event: SubmitEvent): Promise<void> {
         event.preventDefault();
+        if (!method) return;
 
         const { target: form } = event;
         if (!(form instanceof HTMLFormElement)) return;
 
-        const data = (await request(action, {
-            credentials: "include",
-            method: method ?? "POST",
-        })) as ResponseServer;
+        const requireds = form.querySelectorAll("[aria-required='true']");
+
+        for (const input of requireds) {
+            if (!(input instanceof HTMLInputElement)) continue;
+            if (!input.required) continue;
+            if (input.type != "hidden") continue;
+
+            if (input.value.trim().length < 1) {
+                const button: HTMLButtonElement | null = form.querySelector(
+                    `[data-name="${input.name}"]`,
+                );
+
+                if (!(button instanceof HTMLButtonElement)) return;
+
+                setTimeout(() => {
+                    button.classList.remove("button--error");
+                });
+
+                setTimeout(() => {
+                    button.classList.add("button--error");
+                }, 50);
+                return;
+            }
+        }
+        const formData: FormData = new FormData(form);
+        const fields = Object.fromEntries(formData.entries());
+
+        let data: ResponseServer;
+
+        if (method.toLowerCase() == "get") {
+            data = (await request(action, {
+                credentials: "include",
+                method: "GET",
+            })) as ResponseServer;
+        } else {
+            data = (await request(action, {
+                credentials: "include",
+                method: method ?? "POST",
+                body: JSON.stringify(fields),
+            })) as ResponseServer;
+        }
+
+        const currentData: ResponseData = getData(data.data);
     }
 
     let form: HTMLFormElement | null = null;
@@ -31,7 +74,7 @@
     });
 </script>
 
-<form action="" method="post" class="form" {onsubmit} bind:this={form}>
+<form {action} method="post" class="form" {onsubmit} bind:this={form}>
     {#if content}
         {@render content()}
     {:else}
