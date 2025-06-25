@@ -1,5 +1,6 @@
 <script lang="ts">
     import IconClose from "../icons/IconClose.svelte";
+    import IconExploit from "../icons/IconExploit.svelte";
 
     export let title: string = "Título de la ventana";
     export let open: boolean = false;
@@ -37,7 +38,10 @@
             </div>
 
             <footer class="modal__footer">
-                <button class="button button--primary" {onclick}>Salir</button>
+                <button class="button button--primary" {onclick}>
+                    <IconClose />
+                    <span>Salir</span>
+                </button>
             </footer>
         </section>
     </section>

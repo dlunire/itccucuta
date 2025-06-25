@@ -3,6 +3,8 @@
 .button {
     --icon-size: 1.2rem;
     --radius: 20px;
+    --icon-width: var(--icon-size);
+    --icon-height: var(--icon-size);
     padding: 0 var(--padding);
     border-radius: var(--radius);
     background-color: transparent;
