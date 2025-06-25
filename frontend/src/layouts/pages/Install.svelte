@@ -7,6 +7,7 @@
     import Container from "../sections/Container.svelte";
     import Header from "../sections/Header.svelte";
     import Windows from "../windows/Windows.svelte";
+    import InstallationHelp from "../help/InstallationHelp.svelte";
 
     onMount(() => {
         if (container instanceof HTMLElement) zIndexReverse(container);
@@ -80,34 +81,17 @@
                         </label>
 
                         <label
-                            for="hostname"
+                            for="database-name"
                             class="form__item"
-                            title="Servidor de la base de datos"
+                            title="Nombre de la base de datos"
                         >
-                            <span>Nombre de host:</span>
+                            <span>Nombre de la BD:</span>
                             <input
                                 type="text"
-                                name="hostname"
-                                id="hostname"
-                                placeholder="Por ejemplo, localhost"
+                                name="database-name"
+                                id="database-name"
+                                placeholder="Por ejemplo, cdelfuturo"
                                 class="form__input"
-                                autocomplete=""
-                            />
-                        </label>
-
-                        <label
-                            for="number-port"
-                            class="form__item"
-                            title="Número de puerto utilizado"
-                        >
-                            <span>Nº de puerto:</span>
-                            <input
-                                type="text"
-                                name="number-port"
-                                id="number-port"
-                                placeholder="Por ejemplo, 3306"
-                                class="form__input"
-                                oninput={handleNumeric}
                                 autocomplete="off"
                             />
                         </label>
@@ -145,17 +129,34 @@
                         </label>
 
                         <label
-                            for="database-name"
+                            for="hostname"
                             class="form__item"
-                            title="Nombre de la base de datos"
+                            title="Servidor de la base de datos"
                         >
-                            <span>Nombre de la BD:</span>
+                            <span>Servidor:</span>
                             <input
                                 type="text"
-                                name="database-name"
-                                id="database-name"
-                                placeholder="Por ejemplo, cdelfuturo"
+                                name="hostname"
+                                id="hostname"
+                                placeholder="Por ejemplo, localhost"
                                 class="form__input"
+                                autocomplete=""
+                            />
+                        </label>
+
+                        <label
+                            for="number-port"
+                            class="form__item"
+                            title="Número de puerto utilizado"
+                        >
+                            <span>Nº de puerto:</span>
+                            <input
+                                type="text"
+                                name="number-port"
+                                id="number-port"
+                                placeholder="Por ejemplo, 3306"
+                                class="form__input"
+                                oninput={handleNumeric}
                                 autocomplete="off"
                             />
                         </label>
@@ -202,8 +203,8 @@
                             <span>Motor de BD:</span>
                             <input
                                 type="text"
-                                name="database-collation"
-                                id="database-collation"
+                                name="database-drive"
+                                id="database-drive"
                                 placeholder="mysql, mariadb, sqlite o postgresql"
                                 class="form__input"
                                 autocomplete="off"
@@ -240,7 +241,11 @@
     </section>
 </Container>
 
-<Windows bind:open />
+<Windows bind:open title="Ayuda">
+    {#snippet content()}
+        <InstallationHelp />
+    {/snippet}
+</Windows>
 
 <!-- # Indica si la aplicación debe correr o no en producción:
 # Motor de base de datos. Si no se define esta variable, el valor

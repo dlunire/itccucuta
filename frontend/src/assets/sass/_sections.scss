@@ -228,6 +228,7 @@
         bottom: 0;
         padding: 20px;
         overflow: auto;
+        z-index: 10000;
     }
     & {
         margin: auto;
@@ -243,7 +244,9 @@
         color: white;
         display: flex;
         align-items: center;
-        padding: 5px 15px;
+        padding: 10px 15px;
+        position: sticky;
+        top: 0;
     }
     &__inner {
         display: flex;
@@ -257,7 +260,7 @@
         }
     }
     &__content {
-        padding: 15px;
+        padding: 20px;
         background-color: white;
         color: $base-color;
         min-height: 100px;
