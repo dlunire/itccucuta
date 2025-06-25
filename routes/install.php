@@ -9,7 +9,7 @@ use DLUnire\Services\Install\Install;
 
 /** @var Install $install */
 $install = new Install();
-// $install->run();
+$install->run();
 
 DLRoute::get('/install/credentials', [InstallController::class, 'credentials']);
 
