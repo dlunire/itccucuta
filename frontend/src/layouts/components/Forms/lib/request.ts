@@ -74,6 +74,7 @@ export function getURLBase(): string {
 export function getData(input: unknown): ResponseData {
     const data: ResponseServerData = input as ResponseServerData;
 
+    console.log({ status: data.status })
     return {
         error: !data.status,
         message: data.error ?? data.message ?? data.success ?? '',

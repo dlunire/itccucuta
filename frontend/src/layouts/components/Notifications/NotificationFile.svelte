@@ -10,6 +10,7 @@
     export let success: boolean = false;
     export let warning: boolean = false;
     export let info: boolean = false;
+    export let closeButton: boolean = false;
 
     let notification: HTMLElement | null = null;
     let timeout: number | null = null;
@@ -75,10 +76,10 @@
             </div>
 
             <footer class="notification__footer">
-                <ButtonClose {onclick}>
+                <ButtonClose {onclick} bind:close={closeButton}>
                     {#snippet content()}
                         <IconClose />
-                        <span>Cerrar</span>
+                        <span>Aceptar</span>
                     {/snippet}
                 </ButtonClose>
             </footer>

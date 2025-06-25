@@ -1,7 +1,7 @@
 @keyframes fade-in {
     from {
         opacity: 0;
-        transform: scale(0.9);
+        transform: scale(0.98);
     }
 }
 
@@ -17,4 +17,8 @@
         border: 1px solid rgba(red, 0.3);
         color: red;
     }
+}
+
+.fade-in {
+    animation: 300ms ease fade-in forwards;
 }

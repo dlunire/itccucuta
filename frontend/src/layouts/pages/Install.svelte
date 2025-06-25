@@ -6,15 +6,32 @@
     import Form from "../components/Forms/Form.svelte";
     import Container from "../sections/Container.svelte";
     import Header from "../sections/Header.svelte";
+    import Windows from "../windows/Windows.svelte";
 
     onMount(() => {
         if (container instanceof HTMLElement) zIndexReverse(container);
     });
 
     let container: HTMLElement | null = null;
+
+    function handleNumeric(event: Event): void {
+        const { target: input } = event;
+        if (!(input instanceof HTMLInputElement)) return;
+
+        const reg: RegExp = /[^0-9]+/;
+        input.value = input.value.replace(reg, "");
+    }
+
+    let open: boolean = false;
+    function onclick(event: MouseEvent): void {
+        open = !open;
+    }
 </script>
 
-<Header>Programa de instalación</Header>
+<Header>
+    <h2 class="header__title">Programa de instalación</h2>
+    <button class="button button--help" {onclick}>Ayuda</button>
+</Header>
 
 <Container>
     <section class="section section--install" bind:this={container}>
@@ -22,6 +39,12 @@
             <h1 class="section__title">Ingrese las credenciales</h1>
             <hr />
 
+            <p>
+                Programa de instalación, diseñado para configurar rápidamente
+                los parámetros de conexión a la base de datos.
+            </p>
+
+            <p>&nbsp;</p>
             <Form
                 action="/install/credentials"
                 className="form--clase-01 form--clase-02"
@@ -29,59 +52,197 @@
             >
                 {#snippet content()}
                     <div class="form__inner">
-                        <div class="form__item">
-                            <ButtonList
-                                required={true}
-                                label="Selecione su entorno de ejecución"
-                            />
+                        <div
+                            class="form__item"
+                            title="Seleccione el entorno de ejecución de su proyecto"
+                        >
+                            <span>Seleccone una opción:</span>
+                            <ButtonList required={true} label="Selecione..." />
                         </div>
 
-                        <div class="form__item">
-                            <ButtonList name="algo" required={true} />
-                        </div>
+                        <label
+                            for="lifetime"
+                            class="form__item"
+                            title="Tiempo de vida de la sesión en segundos"
+                        >
+                            <span>Tiempo de vida:</span>
+                            <input
+                                type="text"
+                                inputmode="numeric"
+                                oninput={handleNumeric}
+                                name="lifetime"
+                                id="lifetime"
+                                placeholder="Por ejemplo, 3600 (1 hora) para la sesión"
+                                class="form__input"
+                                value="3600"
+                                autocomplete="off"
+                            />
+                        </label>
+
+                        <label
+                            for="hostname"
+                            class="form__item"
+                            title="Servidor de la base de datos"
+                        >
+                            <span>Nombre de host:</span>
+                            <input
+                                type="text"
+                                name="hostname"
+                                id="hostname"
+                                placeholder="Por ejemplo, localhost"
+                                class="form__input"
+                                autocomplete=""
+                            />
+                        </label>
+
+                        <label
+                            for="number-port"
+                            class="form__item"
+                            title="Número de puerto utilizado"
+                        >
+                            <span>Nº de puerto:</span>
+                            <input
+                                type="text"
+                                name="number-port"
+                                id="number-port"
+                                placeholder="Por ejemplo, 3306"
+                                class="form__input"
+                                oninput={handleNumeric}
+                                autocomplete="off"
+                            />
+                        </label>
+
+                        <label
+                            for="database-user"
+                            class="form__item"
+                            title="Usuario de la base de datos"
+                        >
+                            <span>Usuario de la BD:</span>
+                            <input
+                                type="text"
+                                name="database-user"
+                                id="database-user"
+                                placeholder="Por ejemplo, root"
+                                class="form__input"
+                                autocomplete="off"
+                            />
+                        </label>
+
+                        <label
+                            for="database-passwordd"
+                            class="form__item"
+                            title="Contraseña de la base de datos"
+                        >
+                            <span>Contraseña de la BD:</span>
+                            <input
+                                type="password"
+                                name="database-password"
+                                id="database-password"
+                                placeholder="Tu contraseña aquí"
+                                class="form__input"
+                                autocomplete="off"
+                            />
+                        </label>
+
+                        <label
+                            for="database-name"
+                            class="form__item"
+                            title="Nombre de la base de datos"
+                        >
+                            <span>Nombre de la BD:</span>
+                            <input
+                                type="text"
+                                name="database-name"
+                                id="database-name"
+                                placeholder="Por ejemplo, cdelfuturo"
+                                class="form__input"
+                                autocomplete="off"
+                            />
+                        </label>
+
+                        <label
+                            for="database-charset"
+                            class="form__item"
+                            title="Codificación de caracteres"
+                        >
+                            <span>Codificción:</span>
+                            <input
+                                type="text"
+                                name="database-charset"
+                                id="database-charset"
+                                placeholder="Por ejemplo, utf8"
+                                class="form__input"
+                                autocomplete="off"
+                                value="utf8"
+                            />
+                        </label>
+
+                        <label
+                            for="database-collation"
+                            class="form__item"
+                            title="Colación de la base de datos"
+                        >
+                            <span>Colación:</span>
+                            <input
+                                type="text"
+                                name="database-collation"
+                                id="database-collation"
+                                placeholder="Por ejemplo, utf8_general_ci"
+                                class="form__input"
+                                autocomplete="off"
+                                value="utf8_general_ci"
+                            />
+                        </label>
+
+                        <label
+                            for="database-drive"
+                            class="form__item"
+                            title="Motor de base de datos"
+                        >
+                            <span>Motor de BD:</span>
+                            <input
+                                type="text"
+                                name="database-collation"
+                                id="database-collation"
+                                placeholder="mysql, mariadb, sqlite o postgresql"
+                                class="form__input"
+                                autocomplete="off"
+                            />
+                        </label>
+
+                        <label
+                            for="database-prefix"
+                            class="form__item"
+                            title="Prefijo de las tablas"
+                        >
+                            <span>Motor de BD:</span>
+                            <input
+                                type="text"
+                                name="database-prefix"
+                                id="database-prefix"
+                                placeholder="Por ejemplo, dl_"
+                                class="form__input"
+                                autocomplete="off"
+                            />
+                        </label>
                     </div>
 
-                    <hr />
-                    <ButtonSubmit>
-                        {#snippet content()}
-                            Establecer credenciales
-                        {/snippet}
-                    </ButtonSubmit>
+                    <div class="form__buttons">
+                        <ButtonSubmit>
+                            {#snippet content()}
+                                Establecer credenciales
+                            {/snippet}
+                        </ButtonSubmit>
+                    </div>
                 {/snippet}
             </Form>
         </div>
     </section>
 </Container>
 
+<Windows bind:open />
+
 <!-- # Indica si la aplicación debe correr o no en producción:
-DL_PRODUCTION: boolean = false
-
-# Tiempo de vida de la sesión (tiempo en segundos):
-DL_LIFETIME: integer = 10800
-
-# Servidor de la base de datos:
-DL_DATABASE_HOST: string = "localhost"
-
-# Puerto del motor de la base de datos:
-DL_DATABASE_PORT: integer = 3306
-
-# Usuario de la base de datos:
-DL_DATABASE_USER: string = "david"
-
-# Contraseña de la base de datos:
-DL_DATABASE_PASSWORD: string = "entorno2"
-
-# Nombre de la base de datos:
-DL_DATABASE_NAME: string = "itccucuta"
-
-# Codificación de caracteres de la base de datos. Si no se define, 
-# entonces, el valor por defecto serà `utf8`:
-DL_DATABASE_CHARSET: string = "utf8"
-
-# Colación del motor de base de datos. Si no se define, el valor por
-# defecto será `utf8_general_ci`:
-DL_DATABASE_COLLATION: string = "utf8_general_ci"
-
 # Motor de base de datos. Si no se define esta variable, el valor
 # por defecto será `mysql`:
 DL_DATABASE_DRIVE: string = "mysql"

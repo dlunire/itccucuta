@@ -1,6 +1,5 @@
 @use "sass:color";
 @use "./vars" as *;
-
 main {
     height: 100vh;
     overflow: auto;
@@ -23,7 +22,6 @@ hr {
 
 .form {
     position: relative;
-
     &--install {
         padding: 20px;
     }
@@ -39,11 +37,11 @@ hr {
     background-color: rgba(black, 0.1);
     z-index: 30;
     display: flex;
-    justify-content: flex-end;
-    align-items: flex-start;
+    justify-content: center;
+    align-items: center;
     padding: 20px;
     pointer-events: none;
-
+    overflow: auto;
     &__inner {
         background-color: black;
         border-radius: 5px;
@@ -56,36 +54,30 @@ hr {
         overflow: auto;
         max-height: 300px;
         box-shadow: inset 0 0 20px rgba(white, 0.15);
-
         font: {
             size: 0.9rem;
         }
-
         &--error {
             border-color: rgba(204, 0, 0, 0.575);
             border-top-color: rgba(204, 0, 0, 0.575);
             color: rgb(255, 59, 59);
         }
-
         &--success {
             border-color: rgba(0, 204, 0, 0.575);
             border-top-color: rgba(0, 204, 0, 0.575);
             color: rgb(0, 255, 0);
         }
-
         &--warning {
             border-color: rgba(204, 204, 0, 0.575);
             border-top-color: rgba(204, 204, 0, 0.575);
             color: orange;
         }
-
         &--info {
             border-color: rgba(0, 204, 204, 0.575);
             border-top-color: rgba(0, 204, 204, 0.575);
             color: rgb(0, 204, 204);
         }
     }
-
     &__content {
         position: relative;
         padding: 15px;
@@ -93,7 +85,6 @@ hr {
         width: 100%;
         text-align: center;
     }
-
     &__footer {
         position: sticky;
         bottom: 15px;
@@ -101,6 +92,10 @@ hr {
         right: 15px;
         width: calc(100% - 30px);
         padding: 5px 0;
+        padding-top: 10px;
         background-color: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }

@@ -6,12 +6,18 @@
         ResponseData,
         ResponseServer,
     } from "./Interface/ResponseServer";
+    import NotificationFile from "../Notifications/NotificationFile.svelte";
 
     export let method: Method = undefined;
     export let action: string = "/";
     export let className: string = "";
 
     export let content: Function | undefined = undefined;
+
+    let currentData: ResponseData | undefined = undefined;
+    let open: boolean = false;
+    let error: boolean = false;
+    let success: boolean = false;
 
     async function onsubmit(event: SubmitEvent): Promise<void> {
         event.preventDefault();
@@ -62,7 +68,10 @@
             })) as ResponseServer;
         }
 
-        const currentData: ResponseData = getData(data.data);
+        currentData = getData(data.data);
+        open = true;
+        error = currentData.error;
+        success = !currentData.error;
     }
 
     let form: HTMLFormElement | null = null;
@@ -81,3 +90,11 @@
         <span>Agregue contenido al formulario</span>
     {/if}
 </form>
+
+<NotificationFile bind:open bind:error bind:success>
+    {#snippet content()}
+        {#if currentData}
+            <span>{currentData.message}</span>
+        {/if}
+    {/snippet}
+</NotificationFile>

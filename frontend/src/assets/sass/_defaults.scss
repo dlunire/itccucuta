@@ -43,14 +43,16 @@ a {
 
 /* Para navegadores WebKit (Chrome, Edge, Safari) */
 
+:root,
 .scrollable {
-    overflow-y: scroll;
+    overflow-y: auto;
     scrollbar-width: 2px;
     /* Firefox */
-    scrollbar-color: #ffffff44 transparent;
+    scrollbar-color: $base-color transparent;
 }
 
-.scrollable::-webkit-scrollbar {
+.scrollable::-webkit-scrollbar,
+:root::-webkit-scrollbar {
     width: 2px;
 }
 

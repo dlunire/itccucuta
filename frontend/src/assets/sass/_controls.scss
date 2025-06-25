@@ -130,6 +130,18 @@
     &--error {
         animation: 600ms linear error alternate 5;
     }
+    &--help {
+        border: 1px solid rgba($base-color, 0.6);
+        height: 30px;
+        padding: 0 20px;
+        &:hover {
+            background-color: rgba($base-color, 0.3);
+        }
+        &,
+        &:active {
+            background-color: $secondary-color;
+        }
+    }
 }
 
 .list {
@@ -177,6 +189,49 @@
     &__inner {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 5px;
+        gap: 20px;
+    }
+    &__item {
+        color: color.adjust($color: $base-color, $lightness: 60%);
+        &>span {
+            display: block;
+            margin-bottom: 5px;
+            padding-left: 20px;
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font: {
+                size: 0.9rem;
+            }
+        }
+    }
+    &__input {
+        background-color: $secondary-color;
+        color: color.adjust($color: $base-color, $lightness: 60%);
+        border: 1px solid rgba($base-color, 0.5);
+        padding: 0 20px;
+        height: 35px;
+        border-radius: 20px;
+        width: 100%;
+        display: flex;
+        text-align: left;
+        justify-content: flex-start;
+        font: inherit;
+        outline: 1px solid transparent;
+        font: {
+            size: 0.88rem;
+        }
+        &:focus {
+            outline: 1px solid transparent;
+        }
+    }
+    &__buttons {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        margin-top: 20px;
+        border-top: 1px solid rgba(white, 0.1);
+        padding-top: 10px;
     }
 }
