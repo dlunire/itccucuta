@@ -4,9 +4,11 @@ namespace DLUnire\Controllers\Install;
 
 use DLCore\Core\BaseController;
 use DLUnire\Models\Entities\Filename;
+use DLUnire\Services\Utilities\Credentials;
 use DLUnire\Services\Utilities\File;
 
 final class InstallController extends BaseController {
+    private string $entropy = "Base de datos";
 
     public function credentials(): string {
 
@@ -22,8 +24,73 @@ final class InstallController extends BaseController {
      * @return array
      */
     public function store(): array {
+        /** @var Credentials $credentials */
+        $credentials = new Credentials();
+
+        $credentials->save_credentials('database', [
+            "environment" => [
+                "varname" => "DL_PRODUCTION",
+                "value" => $this->get_boolean('environment')
+            ],
+
+            "lifetime" => [
+                "varname" => "DL_LIFETIME",
+                "value" => $this->get_integer('lifetime')
+            ],
+
+            "database_name" => [
+                "varname" => "DL_DATABASE_NAME",
+                "value" => $this->get_required('database-name')
+            ],
+
+            "database_user" => [
+                "varname" => "DL_DATABASE_USER",
+                "value" => $this->get_required('database-user')
+            ],
+
+            "database_password" => [
+                "varname" => "DL_DATABASE_PASSWORD",
+                "value" => $this->get_required('database-password')
+            ],
+
+            "server" => [
+                "varname" => "DL_DATABASE_HOST",
+                "value" => $this->get_required('hostname')
+            ],
+
+            "server" => [
+                "varname" => "DL_DATABASE_HOST",
+                "value" => $this->get_required('hostname')
+            ],
+
+            "port" => [
+                "varname" => "DL_DATABASE_PORT",
+                "value" => $this->get_integer('number-port')
+            ],
+
+            "charset" => [
+                "varname" => "DL_DATABASE_CHARSET",
+                "value" => $this->get_string('database-charset')
+            ],
+
+            "collation" => [
+                "varname" => "DL_DATABASE_COLLATION",
+                "value" => $this->get_string('database-collation')
+            ],
+
+            "drive" => [
+                "varname" => "DL_DATABASE_DRIVE",
+                "value" => $this->get_string('database-drive')
+            ],
+
+            "prefix" => [
+                "varname" => "DL_PREFIX",
+                "value" => $this->get_string('database-prefix')
+            ],
+        ], $this->entropy);
 
         http_response_code(201);
+
         return [
             "status" => true,
             "message" => "Instalación de credenciales completada",
