@@ -61,7 +61,7 @@
                             class="form__item"
                             title="Seleccione el entorno de ejecución de su proyecto"
                         >
-                            <span>Seleccone una opción:</span>
+                            <span>Seleccione una opción:</span>
                             <ButtonList required={true} label="Selecione..." />
                         </div>
 

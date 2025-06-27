@@ -18,10 +18,12 @@
 
     <ul class="help__list">
         <li class="help__item">
-            <strong>Seleccione una opción:</strong> Lista de selección obligatoria
-            para determinar el entorno o tipo de conexión. La lógica de las opciones
-            dependerá de la implementación del sistema.
+            <strong>Seleccione una opción:</strong> Lista desplegable que
+            permite indicar el entorno de ejecución del proyecto. Ejemplos
+            disponibles:
+            <code>Producción</code> o <code>Entorno de desarrollo</code>.
         </li>
+
         <li class="help__item">
             <strong>Contraseña de la BD:</strong> Campo de entrada enmascarada que
             permite ingresar la contraseña del usuario con permisos sobre la base
