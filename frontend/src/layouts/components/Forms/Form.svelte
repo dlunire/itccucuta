@@ -11,8 +11,8 @@
     export let method: Method = undefined;
     export let action: string = "/";
     export let className: string = "";
-
     export let content: Function | undefined = undefined;
+    export let loading: boolean = false;
 
     let currentData: ResponseData | undefined = undefined;
     let open: boolean = false;
@@ -55,6 +55,7 @@
 
         let data: ResponseServer;
 
+        loading = true;
         if (method.toLowerCase() == "get") {
             data = (await request(action, {
                 credentials: "include",
@@ -67,6 +68,7 @@
                 body: JSON.stringify(fields),
             })) as ResponseServer;
         }
+        loading = false;
 
         currentData = getData(data.data);
         open = true;

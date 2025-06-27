@@ -1,8 +1,14 @@
 <script lang="ts">
-    let { onclick = undefined, content = undefined } = $props();
+    export const onclick: Function | null = null;
+    export let content: Function | undefined = undefined;
+    export let loading: boolean = false;
 </script>
 
-<button class="button button--normalize button--submit" type="submit">
+<button
+    class="button button--normalize button--submit"
+    type="submit"
+    disabled={Boolean(loading)}
+>
     {#if content}
         {@render content()}
     {:else}

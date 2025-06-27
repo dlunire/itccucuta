@@ -9,6 +9,7 @@
     import Windows from "../windows/Windows.svelte";
     import InstallationHelp from "../help/InstallationHelp.svelte";
     import IconHelp from "../icons/IconHelp.svelte";
+    import IconLoading from "../icons/IconLoading.svelte";
 
     onMount(() => {
         if (container instanceof HTMLElement) zIndexReverse(container);
@@ -28,6 +29,8 @@
     function onclick(event: MouseEvent): void {
         open = !open;
     }
+
+    let loading: boolean = false;
 </script>
 
 <Header>
@@ -54,6 +57,7 @@
                 action="/install/credentials"
                 className="form--clase-01 form--clase-02"
                 method="post"
+                bind:loading
             >
                 {#snippet content()}
                     <div class="form__inner">
@@ -233,9 +237,10 @@
                     </div>
 
                     <div class="form__buttons">
-                        <ButtonSubmit>
+                        <ButtonSubmit bind:loading>
                             {#snippet content()}
                                 Establecer credenciales
+                                <IconLoading bind:open={loading} size={25} />
                             {/snippet}
                         </ButtonSubmit>
                     </div>
