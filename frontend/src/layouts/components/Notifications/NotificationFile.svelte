@@ -4,7 +4,7 @@
     import IconClose from "../../icons/IconClose.svelte";
 
     export let content: Function | undefined = undefined;
-    export let time: number = 4000;
+    export let time: number = 7000;
     export let open: boolean = false;
     export let error: boolean = false;
     export let success: boolean = false;
@@ -48,8 +48,6 @@
         info = false;
         open = false;
     }
-
-    $: console.log({ open });
 </script>
 
 {#if open}

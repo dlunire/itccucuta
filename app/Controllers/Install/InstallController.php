@@ -58,11 +58,6 @@ final class InstallController extends BaseController {
                 "value" => $this->get_required('hostname')
             ],
 
-            "server" => [
-                "varname" => "DL_DATABASE_HOST",
-                "value" => $this->get_required('hostname')
-            ],
-
             "port" => [
                 "varname" => "DL_DATABASE_PORT",
                 "value" => $this->get_integer('number-port')

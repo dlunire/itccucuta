@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace DLUnire\Services\Utilities;
 
 use DLStorage\Storage\SaveData;
+use DLUnire\Models\DTO\DBConection;
 
 /**
  * Clase encargada de representar y gestionar credenciales dentro del sistema DLUnire.
@@ -31,16 +32,26 @@ use DLStorage\Storage\SaveData;
 final class Credentials extends SaveData {
 
     /**
-     * Array asociativo de credenciales
+     * Guarda las credenciales de conexión a base de datos en un archivo local.
      *
-     * @param string $filename Nombre del archivo
-     * @param array $credentials
-     * @param string|null $entropy Opcional. Frase de entropía
+     * Convierte el arreglo de configuración en una estructura fuertemente validada
+     * mediante el DTO `DBConection`, que agrupa variables del entorno asociadas
+     * al sistema de instalación (entorno, nombre de la base de datos, usuario, contraseña, etc.).
+     *
+     * El archivo puede ser protegido opcionalmente con una frase de entropía, 
+     * lo que fortalece la confidencialidad al almacenarlo en formatos como `.dlstorage`.
+     *
+     * @param string $filename Nombre del archivo donde se guardarán los datos (por ejemplo, "credenciales.dlstorage").
+     * @param array $credentials Arreglo asociativo con las claves requeridas por `DBConection`.
+     * @param string|null $entropy Frase opcional de entropía para cifrado del archivo.
      * @return void
      */
     public function save_credentials(string $filename, array $credentials, ?string $entropy = NULL): void {
-        $this->save_data($filename, json_encode($credentials), $entropy);
+        /** @var DBConection $conection */
+        $conection = new DBConection($credentials);
+        $this->save_data($filename, json_encode($conection), $entropy);
     }
+
 
     /**
      * Devuelve el contenido del archivo
