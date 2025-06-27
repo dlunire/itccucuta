@@ -4,6 +4,7 @@ node_modules
 
 # Base de datos
 *.sql
+db
 
 # Variables de entorno.
 .env
