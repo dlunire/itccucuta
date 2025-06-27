@@ -67,3 +67,12 @@ a {
     --zindex: 1;
     z-index: var(--z-index);
 }
+
+code {
+    padding: 5px;
+    background-color: rgba(black, 0.6);
+    border-radius: 5px;
+    font: {
+        size: 0.9rem;
+    }
+}
