@@ -1,3 +1,7 @@
+<script>
+    import IconHelp from "../icons/IconHelp.svelte";
+</script>
+
 <section class="help">
     <h3 class="help__title">
         🗂️ Panel de configuración de credenciales de base de datos
@@ -12,7 +16,10 @@
         (SGBD).
     </p>
 
-    <h4 class="help__title">Campos disponibles:</h4>
+    <h4 class="help__title">
+        <span>Campos disonibles:</span>
+    </h4>
+
     <ul class="help__list">
         <li class="help__item">
             <strong>Seleccione una opción:</strong> Menú desplegable para elegir

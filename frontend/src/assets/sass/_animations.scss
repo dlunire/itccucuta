@@ -19,6 +19,16 @@
     }
 }
 
+@keyframes deploy-down {
+    from {
+        transform: translateY(-100%);
+    }
+}
+
 .fade-in {
     animation: 300ms ease fade-in forwards;
+}
+
+.deploy-down {
+    animation: 300ms deploy-down ease forwards 1;
 }

@@ -8,6 +8,7 @@
     import Header from "../sections/Header.svelte";
     import Windows from "../windows/Windows.svelte";
     import InstallationHelp from "../help/InstallationHelp.svelte";
+    import IconHelp from "../icons/IconHelp.svelte";
 
     onMount(() => {
         if (container instanceof HTMLElement) zIndexReverse(container);
@@ -31,7 +32,10 @@
 
 <Header>
     <h2 class="header__title">Programa de instalación</h2>
-    <button class="button button--help" {onclick}>Ayuda</button>
+    <button class="button button--help" {onclick}>
+        <IconHelp />
+        <span>Ayuda</span>
+    </button>
 </Header>
 
 <Container>
@@ -241,7 +245,11 @@
     </section>
 </Container>
 
-<Windows bind:open title="Ayuda">
+<Windows bind:open title="Ayuda con la instalación">
+    {#snippet contentHeader()}
+        <IconHelp />
+    {/snippet}
+
     {#snippet content()}
         <InstallationHelp />
     {/snippet}

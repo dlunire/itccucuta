@@ -12,6 +12,7 @@
 
 * {
     box-sizing: border-box;
+    scroll-behavior: smooth;
     &::before,
     &::after {
         box-sizing: inherit;
@@ -43,25 +44,22 @@ a {
 
 /* Para navegadores WebKit (Chrome, Edge, Safari) */
 
-:root,
-.scrollable {
-    overflow-y: auto;
-    scrollbar-width: 2px;
+* {
+    scrollbar-width: thin;
     /* Firefox */
-    scrollbar-color: $base-color transparent;
+    scrollbar-color: rgba(white, 0.7) transparent;
 }
 
-.scrollable::-webkit-scrollbar,
-:root::-webkit-scrollbar {
-    width: 2px;
+*::-webkit-scrollbar {
+    width: 4px;
 }
 
-.scrollable::-webkit-scrollbar-track {
+*::-webkit-scrollbar-track {
     background: transparent;
 }
 
-.scrollable::-webkit-scrollbar-thumb {
-    background-color: #aaa;
+*::-webkit-scrollbar-thumb {
+    background-color: rgba(white, 0.7);
     border-radius: 20px;
 }
 

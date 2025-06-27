@@ -1,10 +1,10 @@
 <script lang="ts">
     import IconClose from "../icons/IconClose.svelte";
-    import IconExploit from "../icons/IconExploit.svelte";
 
     export let title: string = "Título de la ventana";
     export let open: boolean = false;
     export let content: Function | null = null;
+    export let contentHeader: Function | null = null;
 
     addEventListener("keydown", function (event: KeyboardEvent) {
         const { key } = event;
@@ -15,34 +15,43 @@
     function onclick(): void {
         open = false;
     }
+
+    function scrolling(scrollbar: boolean = true): void {
+        const main: HTMLElement | null = document.querySelector("main");
+        if (!(main instanceof HTMLElement)) return;
+
+        main.style.setProperty("overflow", !scrollbar ? "hidden" : "auto");
+    }
+
+    $: scrolling(!open);
 </script>
 
 {#if open}
     <section class="modal-container" role="dialog" data-open="true">
-        <section class="modal fade-in">
-            <header class="modal__header">
-                <h3 class="modal__title">{title}</h3>
-                <button
-                    class="button button--windows-close"
-                    aria-label="Cerrar"
-                    {onclick}
-                >
-                    <IconClose />
-                </button>
-            </header>
-
-            <div class="modal__content">
-                {#if content}
-                    {@render content()}
+        <header class="modal-container__header deploy-down">
+            <h3 class="modal-container__title">
+                {#if contentHeader}
+                    {@render contentHeader()}
                 {/if}
-            </div>
+                <span>{title}</span>
+            </h3>
+            <button
+                class="button button--windows-close"
+                aria-label="Cerrar"
+                {onclick}
+            >
+                <IconClose />
+            </button>
+        </header>
 
-            <footer class="modal__footer">
-                <button class="button button--primary" {onclick}>
-                    <IconClose />
-                    <span>Salir</span>
-                </button>
-            </footer>
-        </section>
+        <div class="modal-container__content">
+            <section class="modal fade-in">
+                <div class="modal__content">
+                    {#if content}
+                        {@render content()}
+                    {/if}
+                </div>
+            </section>
+        </div>
     </section>
 {/if}
