@@ -10,6 +10,7 @@
     import InstallationHelp from "../help/InstallationHelp.svelte";
     import IconHelp from "../icons/IconHelp.svelte";
     import IconLoading from "../icons/IconLoading.svelte";
+    import IconKeys from "../icons/IconKeys.svelte";
 
     onMount(() => {
         if (container instanceof HTMLElement) zIndexReverse(container);
@@ -239,7 +240,8 @@
                     <div class="form__buttons">
                         <ButtonSubmit bind:loading>
                             {#snippet content()}
-                                Establecer credenciales
+                                <IconKeys />
+                                <span>Establecer credenciales</span>
                                 <IconLoading bind:open={loading} size={25} />
                             {/snippet}
                         </ButtonSubmit>
