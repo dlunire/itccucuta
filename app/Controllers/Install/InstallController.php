@@ -4,6 +4,9 @@ namespace DLUnire\Controllers\Install;
 
 use DLCore\Core\BaseController;
 use DLUnire\Models\Entities\Filename;
+use DLUnire\Models\Tables\Filenames;
+use DLUnire\Models\Users;
+use DLUnire\Models\Views\TestConection;
 use DLUnire\Services\Utilities\Credentials;
 use DLUnire\Services\Utilities\File;
 
@@ -84,6 +87,9 @@ final class InstallController extends BaseController {
             ],
         ], $this->entropy);
 
+        $credentials->generate_env($this->entropy);
+
+        TestConection::first();
         http_response_code(201);
 
         return [
