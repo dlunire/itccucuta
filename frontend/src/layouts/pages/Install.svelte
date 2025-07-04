@@ -57,6 +57,7 @@
             <Form
                 action="/install/credentials"
                 className="form--clase-01 form--clase-02"
+                redirect="/create/user"
                 method="post"
                 bind:loading
             >

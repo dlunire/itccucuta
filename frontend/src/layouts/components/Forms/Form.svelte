@@ -1,7 +1,7 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import type { Method } from "./Interface/Method";
-    import { getData, request } from "./lib/request";
+    import { getData, request, route } from "./lib/request";
     import type {
         ResponseData,
         ResponseServer,
@@ -13,6 +13,7 @@
     export let className: string = "";
     export let content: Function | undefined = undefined;
     export let loading: boolean = false;
+    export let redirect: string | undefined = undefined;
 
     let currentData: ResponseData | undefined = undefined;
     let open: boolean = false;
@@ -74,6 +75,14 @@
         open = true;
         error = currentData.error;
         success = !currentData.error;
+
+        if (redirect && success) {
+            const anchor: HTMLAnchorElement = document.createElement("a");
+            const href: string = route(redirect);
+            anchor.href = href;
+            anchor.click();
+            anchor.remove();
+        }
     }
 
     let form: HTMLFormElement | null = null;

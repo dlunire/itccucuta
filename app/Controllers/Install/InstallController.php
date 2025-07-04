@@ -88,8 +88,6 @@ final class InstallController extends BaseController {
         ], $this->entropy);
 
         $credentials->generate_env($this->entropy);
-
-        TestConection::first();
         http_response_code(201);
 
         return [

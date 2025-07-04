@@ -65,6 +65,10 @@ export function getURLBase(): string {
     return link.href.replace(/\/+$/, '');
 }
 
+export function route(route: string): string {
+    return `${getURLBase()}/${route}`;
+}
+
 /**
  * Devuelve la respuesta del servidor formateada a formato legible.
  * 
