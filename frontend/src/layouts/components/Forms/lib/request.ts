@@ -66,6 +66,7 @@ export function getURLBase(): string {
 }
 
 export function route(route: string): string {
+    route = route.replace(/^\/+/, '');
     return `${getURLBase()}/${route}`;
 }
 
