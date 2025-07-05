@@ -170,7 +170,7 @@
     </section>
 </Container>
 
-<Windows bind:open title="Ayuda con la instalación">
+<Windows bind:open title="Usuario del sistema">
     {#snippet contentHeader()}
         <IconHelp />
     {/snippet}

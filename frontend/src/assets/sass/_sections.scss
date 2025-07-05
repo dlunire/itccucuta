@@ -246,7 +246,7 @@
         z-index: 10000;
         display: flex;
         flex-direction: column;
-        background-color: color.adjust($color: $secondary-color, $lightness: 2%, $saturation: -50%);
+        background-color: $background-modal;
         &__header {
             background-color: color.adjust($color: $secondary-color, $lightness: 2%, $saturation: -50%);
             color: white;

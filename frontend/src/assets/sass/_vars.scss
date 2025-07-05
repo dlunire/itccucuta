@@ -5,6 +5,7 @@ $width: calc(100% - 30px);
 $base-color: #002844;
 $secondary-color: color.adjust($color: $base-color, $saturation: -50%, $lightness: -10%);
 $background: #060a0c;
+$background-modal: rgb(6, 12, 18);
 $dropzone-color: #121825;
 $dropzone-success-color: #052b00;
 $dropzone-error-color: #880000;
