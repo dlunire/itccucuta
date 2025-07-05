@@ -1,7 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import { zIndexReverse } from "../../lib/zIndex";
-    import ButtonList from "../components/Buttons/ButtonList.svelte";
     import ButtonSubmit from "../components/Buttons/ButtonSubmit.svelte";
     import Form from "../components/Forms/Form.svelte";
     import Container from "../sections/Container.svelte";
@@ -89,11 +88,3 @@
         <InstallationHelp />
     {/snippet}
 </Windows>
-
-<!-- # Indica si la aplicación debe correr o no en producción:
-# Motor de base de datos. Si no se define esta variable, el valor
-# por defecto será `mysql`:
-DL_DATABASE_DRIVE: string = "mysql"
-
-# Si la base de datos usa prefijo, entonces debe declararla aquí:
-DL_PREFIX: string = "dl_" -->

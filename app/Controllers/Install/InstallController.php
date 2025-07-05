@@ -139,7 +139,7 @@ final class InstallController extends BaseController {
             ];
         }
         return [
-            "status" => false,
+            "status" => true,
             "success" => "Las credenciales ingresadas fueron instaladas con éxito"
         ];
     }

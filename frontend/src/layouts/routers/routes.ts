@@ -10,4 +10,5 @@ export const routes: Route[] = [
     route('/profile/:id', getComponent(User), ['id']),
     route('/install/credentials', getComponent(Install), []),
     route('/credentials/check', getComponent(Check), []),
+    route('/create/user', getComponent(User), []),
 ];
