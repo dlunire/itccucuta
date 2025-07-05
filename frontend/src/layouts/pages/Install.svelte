@@ -11,6 +11,7 @@
     import IconHelp from "../icons/IconHelp.svelte";
     import IconLoading from "../icons/IconLoading.svelte";
     import IconKeys from "../icons/IconKeys.svelte";
+    import IconInstall from "../icons/IconInstall.svelte";
 
     onMount(() => {
         if (container instanceof HTMLElement) zIndexReverse(container);
@@ -35,7 +36,10 @@
 </script>
 
 <Header>
-    <h2 class="header__title">Programa de instalación</h2>
+    <h2 class="header__title">
+        <IconInstall />
+        <span>Programa de instalación</span>
+    </h2>
     <button class="button button--help" {onclick}>
         <IconHelp />
         <span>Ayuda</span>
@@ -45,7 +49,10 @@
 <Container>
     <section class="section section--install" bind:this={container}>
         <div class="section__inner">
-            <h1 class="section__title">Ingrese las credenciales</h1>
+            <h1 class="section__title">
+                <IconKeys />
+                <span>Instalación de credenciales</span>
+            </h1>
             <hr />
 
             <p>
@@ -57,7 +64,7 @@
             <Form
                 action="/install/credentials"
                 className="form--clase-01 form--clase-02"
-                redirect="/create/user"
+                redirect="/credentials/check"
                 method="post"
                 bind:loading
             >

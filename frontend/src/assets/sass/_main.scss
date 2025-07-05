@@ -99,3 +99,18 @@ hr {
         align-items: center;
     }
 }
+
+.p {
+    &-width {
+        max-width: 800px;
+        margin: 0 auto;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    &-center {
+        text-align: center;
+    }
+    &-color {
+        color: rgba(white, 0.7);
+    }
+}

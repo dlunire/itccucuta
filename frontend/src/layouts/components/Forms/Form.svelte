@@ -14,6 +14,7 @@
     export let content: Function | undefined = undefined;
     export let loading: boolean = false;
     export let redirect: string | undefined = undefined;
+    export let backredirect: string | undefined = undefined;
 
     let currentData: ResponseData | undefined = undefined;
     let open: boolean = false;
@@ -79,6 +80,17 @@
         if (redirect && success) {
             const anchor: HTMLAnchorElement = document.createElement("a");
             const href: string = route(redirect);
+            anchor.href = href;
+
+            setTimeout(() => {
+                anchor.click();
+                anchor.remove();
+            }, 1000);
+        }
+
+        if (backredirect && error) {
+            const anchor: HTMLAnchorElement = document.createElement("a");
+            const href: string = route(backredirect);
             anchor.href = href;
 
             setTimeout(() => {

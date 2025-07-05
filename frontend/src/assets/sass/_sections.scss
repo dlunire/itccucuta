@@ -15,8 +15,15 @@
         max-width: $max-width;
     }
     &__title {
+        --icon-size: 20px;
+        --icon-width: var(--icon-size);
+        --icon-height: var(--icon-size);
+        --icon-color: orangered;
         margin: 0;
         color: orange;
+        display: flex;
+        align-items: center;
+        gap: 5px;
         font: {
             size: 1.2rem;
         }
@@ -95,6 +102,10 @@
 .section {
     background-color: rgba(black, 0.3);
     &__title {
+        --icon-size: 20px;
+        --icon-width: var(--icon-size);
+        --icon-height: var(--icon-size);
+        --icon-color: orange;
         margin: 0;
     }
     &__inner {

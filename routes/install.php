@@ -15,3 +15,6 @@ DLRoute::get('/install/credentials', [InstallController::class, 'credentials']);
 
 ## INSTALACIÓN DE LAS CREDENCIALES
 DLRoute::post('/install/credentials', [InstallController::class, 'store']);
+
+## VERIFICAR LAS CREDENCIALES
+DLRoute::post('/credentials/check', [InstallController::class, 'check']);

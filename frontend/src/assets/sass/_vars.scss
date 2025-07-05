@@ -4,6 +4,7 @@ $width: calc(100% - 30px);
 // ZONA DE COLORES
 $base-color: #002844;
 $secondary-color: color.adjust($color: $base-color, $saturation: -50%, $lightness: -10%);
+$background: #060a0c;
 $dropzone-color: #121825;
 $dropzone-success-color: #052b00;
 $dropzone-error-color: #880000;
