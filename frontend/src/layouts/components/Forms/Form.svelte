@@ -80,8 +80,11 @@
             const anchor: HTMLAnchorElement = document.createElement("a");
             const href: string = route(redirect);
             anchor.href = href;
-            anchor.click();
-            anchor.remove();
+
+            setTimeout(() => {
+                anchor.click();
+                anchor.remove();
+            }, 1000);
         }
     }
 

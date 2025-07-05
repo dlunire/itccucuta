@@ -16,7 +16,7 @@
                 target="_blank"
             >
                 <IconCodigosdelFuturo />
-                <span>Códigos del Futuro (@cdelfuturo)</span>
+                <span>David E Luna M (@cdelfuturo)</span>
             </a>
         </div>
     </div>
