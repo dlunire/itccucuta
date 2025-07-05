@@ -3,12 +3,12 @@
 namespace DLUnire\Controllers\Install;
 
 use DLCore\Core\BaseController;
+use DLRoute\Config\Test;
 use DLUnire\Models\Entities\Filename;
-use DLUnire\Models\Tables\Filenames;
-use DLUnire\Models\Users;
 use DLUnire\Models\Views\TestConection;
 use DLUnire\Services\Utilities\Credentials;
 use DLUnire\Services\Utilities\File;
+use PDOException;
 
 final class InstallController extends BaseController {
     private string $entropy = "Base de datos";
@@ -114,6 +114,13 @@ final class InstallController extends BaseController {
         ];
     }
 
+    public function check_view(): string {
+        return view('install.install', [
+            "token" => $this->get_random_token(),
+            "title" => "Verifique las credenciales antes de continuar"
+        ]);
+    }
+
     /**
      * Verifica que las credenciales de acceso a la base de datos sean correctas.
      *
@@ -121,6 +128,16 @@ final class InstallController extends BaseController {
      */
     public function check(): array {
 
+        try {
+            TestConection::first();
+        } catch (PDOException $error) {
+            http_response_code(401);
+            return [
+                "status" => false,
+                "error" => $error->getMessage(),
+                "details" => $error
+            ];
+        }
         return [
             "status" => false,
             "success" => "Las credenciales ingresadas fueron instaladas con éxito"
