@@ -58,7 +58,6 @@
                 action="/credentials/check"
                 className="form--clase-01 form--clase-02"
                 redirect="/create/user"
-                backredirect="/install/credentials"
                 method="post"
                 bind:loading
             >

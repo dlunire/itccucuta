@@ -83,7 +83,7 @@
     }
     &--list {
         --padding: 20px;
-        border: 1px solid rgba($base-color, 0.5);
+        border: 1px solid $border-color;
         height: 100%;
         flex-grow: 1;
         width: 100%;
@@ -207,7 +207,7 @@
         user-select: none;
         opacity: 0;
         transition: 200ms ease;
-        border: 1px solid rgba($base-color, 0.5);
+        border: 1px solid $border-color;
         z-index: 0;
         &[data-open="true"] {
             height: var(--menu-height);
@@ -252,8 +252,8 @@
     }
     &__input {
         background-color: $secondary-color;
-        color: color.adjust($color: $base-color, $lightness: 60%);
-        border: 1px solid rgba($base-color, 0.5);
+        color: color.adjust($color: $base-color, $lightness: 70%);
+        border: 1px solid $border-color;
         padding: 0 20px;
         height: 35px;
         border-radius: 20px;
@@ -263,11 +263,13 @@
         justify-content: flex-start;
         font: inherit;
         outline: 1px solid transparent;
+        transition: 300ms ease;
         font: {
             size: 0.88rem;
         }
         &:focus {
             outline: 1px solid transparent;
+            border-color: $border-color-focused;
         }
     }
     &__buttons {

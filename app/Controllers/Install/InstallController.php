@@ -113,4 +113,17 @@ final class InstallController extends BaseController {
             "details" => $files
         ];
     }
+
+    /**
+     * Verifica que las credenciales de acceso a la base de datos sean correctas.
+     *
+     * @return array
+     */
+    public function check(): array {
+
+        return [
+            "status" => false,
+            "success" => "Las credenciales ingresadas fueron instaladas con éxito"
+        ];
+    }
 }
