@@ -12,6 +12,7 @@
     import IconLoading from "../icons/IconLoading.svelte";
     import IconKeys from "../icons/IconKeys.svelte";
     import IconInstall from "../icons/IconInstall.svelte";
+    import UserHelp from "../help/UserHelp.svelte";
 
     onMount(() => {
         if (container instanceof HTMLElement) zIndexReverse(container);
@@ -175,6 +176,6 @@
     {/snippet}
 
     {#snippet content()}
-        <InstallationHelp />
+        <UserHelp />
     {/snippet}
 </Windows>
