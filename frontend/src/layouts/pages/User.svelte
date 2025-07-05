@@ -62,9 +62,9 @@
 
             <p>&nbsp;</p>
             <Form
-                action="/install/credentials"
+                action="/create/user"
                 className="form--clase-01 form--clase-02"
-                redirect="/credentials/check"
+                redirect="/login"
                 method="post"
                 bind:loading
             >
@@ -146,7 +146,7 @@
                                 type="password"
                                 name="user-password"
                                 id="user-password"
-                                placeholder="Por ejemplo, admin"
+                                placeholder="Su contraseña aquí"
                                 class="form__input"
                                 autocomplete="off"
                                 required={true}
