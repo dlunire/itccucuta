@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace DLUnire\Controllers\Install;
 
 use DLCore\Core\BaseController;
+use DLUnire\Models\Users;
+use Exception;
 
 /**
  * Copyright (c) 2025 David E Luna M
@@ -42,6 +44,44 @@ final class UserController extends BaseController {
      * }
      */
     public function store(): array {
+        /** @var string $name */
+        $name = $this->get_required('user-name');
+
+        /** @var string $lastname */
+        $lastname = $this->get_required('user-lastname');
+
+        /** @var string $email */
+        $email = $this->get_email('user-email');
+
+        /** @var string $username */
+        $username = $this->get_required('user-username');
+
+        /** @var string $password */
+        $password = $this->get_password('user-password');
+
+        /** @var int $quantity */
+        $quantity = Users::count();
+
+        if ($quantity > 0) {
+            throw new Exception("Operación no permitida", 403);
+        }
+
+        /** @var boolean $created */
+        $created = Users::create([
+            "users_uuid" => $this->generate_uuid(),
+            "users_username" => $username,
+            "users_password" => $password,
+            "users_email" => $email,
+            "users_name" => $name,
+            "users_lastname" => $lastname,
+            "token" => $this->get_random_token()
+        ]);
+
+        if (!$created) {
+            throw new Exception("Error al crear el usuario", 500);
+        }
+
+        http_response_code(201);
         return [
             "status" => true,
             "message" => "Usuario creado correctamente"
