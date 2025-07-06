@@ -2,6 +2,7 @@
 
 use DLRoute\Requests\DLRoute;
 use DLUnire\Auth\Auth;
+use DLUnire\Controllers\Auth\AuthController;
 use DLUnire\Controllers\FileController;
 use DLUnire\Controllers\Install\InstallController;
 use DLUnire\Controllers\TestController;
@@ -30,3 +31,9 @@ $auth->authenticated(function () {
 DLRoute::get('/file/private/{uuid}', [FileController::class, 'private_file'])->filter_by_type([
     "uuid" => "uuid"
 ]);
+
+
+## Permite iniciar la sesión del usuario:
+$auth->not_authenticated(function () {
+    DLRoute::get('/login', [AuthController::class, 'index']);
+});

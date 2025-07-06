@@ -37,4 +37,16 @@ final class AuthController extends BaseController {
             "message" => "Autenticado correctamente"
         ];
     }
+
+    /**
+     * Muestra el formulario de inicio de sesión
+     *
+     * @return string
+     */
+    public function index(): string {
+        return view('home', [
+            "token" => $this->get_random_token(),
+            "title" => "Programa de instalación"
+        ]);
+    }
 }
