@@ -15,6 +15,7 @@
     export let loading: boolean = false;
     export let redirect: string | undefined = undefined;
     export let backredirect: string | undefined = undefined;
+    export let autocomplete: AutoFillBase | null | undefined = "on";
 
     let currentData: ResponseData | undefined = undefined;
     let open: boolean = false;
@@ -109,7 +110,14 @@
     });
 </script>
 
-<form {action} method="post" class="form" {onsubmit} bind:this={form}>
+<form
+    {action}
+    method="post"
+    class="form"
+    {onsubmit}
+    bind:this={form}
+    {autocomplete}
+>
     {#if content}
         {@render content()}
     {:else}

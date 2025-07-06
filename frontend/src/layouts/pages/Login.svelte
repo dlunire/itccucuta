@@ -37,20 +37,21 @@
 <Container>
     <section class="section section--install" bind:this={container}>
         <div class="section__inner section__inner--login">
-            <h2 class="section__title section__title--center">
-                <IconKeys />
-                <span>Sistema de consultas</span>
-            </h2>
-
             <div class="section__logo section__logo--login">
                 <IconCodigosdelFuturo />
             </div>
+            <h2
+                class="section__title section__title--center section__title--login"
+            >
+                <span>Ingrese sus credenciales</span>
+            </h2>
             <Form
                 action="/login"
                 className="form--clase-01 form--clase-02"
                 redirect="/dashboard"
                 method="post"
                 bind:loading
+                autocomplete="off"
             >
                 {#snippet content()}
                     <div class="form__inner">
@@ -67,21 +68,23 @@
                                 placeholder="Por ejemplo, su usuario"
                                 required={true}
                                 aria-required="true"
+                                autocomplete="off"
                             />
                         </label>
                         <label
-                            for="username"
+                            for="password"
                             class="form__label form__label--login"
                         >
                             <span>Contraseña</span>
                             <input
                                 type="password"
-                                name="username"
-                                id="username"
+                                name="password"
+                                id="password"
                                 class="form__input form__input--login"
                                 placeholder="Por ejemplo, su usuario"
                                 required={true}
                                 aria-required="true"
+                                autocomplete="new-password"
                             />
                         </label>
                     </div>
