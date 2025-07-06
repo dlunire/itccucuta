@@ -17,28 +17,28 @@ abstract class UserBase extends DLUser {
      *
      * @var string|null
      */
-    protected static ?string $username_field = null;
+    protected static ?string $username_field = 'username';
 
     /**
      * Nombre del campo de contraseña del formulario
      *
      * @var string|null
      */
-    protected static ?string $password_field = null;
+    protected static ?string $password_field = 'password';
 
     /**
      * Columna de usuario de la tabla usuarios
      *
      * @var string|null
      */
-    protected static ?string $username_column = null;
+    protected static ?string $username_column = 'users_username';
 
     /**
      * Nombre de la columna de contraseñas de la tabla de usuarios
      *
      * @var string|null
      */
-    protected static ?string $password_column = null;
+    protected static ?string $password_column = 'users_password';
 
     /**
      * Nombre de la columna tokens de la tabla de usuarios. Se recomienda usarla para 
@@ -56,7 +56,6 @@ abstract class UserBase extends DLUser {
      * @throws Error
      */
     public function capture_credentials(): bool {
-
         /**
          * Autenticación del usuario
          * 
@@ -70,7 +69,7 @@ abstract class UserBase extends DLUser {
          * @var string
          */
         $username = $this->get_required(
-            static::$username_field ?? 'username'
+            self::$username_field ?? 'username'
         );
 
         if ($username < 4) {
@@ -87,7 +86,7 @@ abstract class UserBase extends DLUser {
          * @var string
          */
         $password = $this->get_password_valid(
-            static::$password_field ?? 'password'
+            self::$password_field ?? 'password'
         );
 
         $this->set_password(
@@ -101,8 +100,8 @@ abstract class UserBase extends DLUser {
         $cookie->set_secure(DLHost::is_https());
 
         $auth_options = new DLAuthOptions();
-        $auth_options->set_username_field('username');
-        $auth_options->set_password_field('password');
+        $auth_options->set_username_field('users_username');
+        $auth_options->set_password_field('users_password');
         $auth_options->set_token_field('token');
 
         /**
