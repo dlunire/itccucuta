@@ -81,7 +81,7 @@
                                 name="password"
                                 id="password"
                                 class="form__input form__input--login"
-                                placeholder="Por ejemplo, su usuario"
+                                placeholder="Por ejemplo, su contraseña"
                                 required={true}
                                 aria-required="true"
                                 autocomplete="new-password"
