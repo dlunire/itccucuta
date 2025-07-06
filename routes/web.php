@@ -24,7 +24,13 @@ DLRoute::get('/file/public/{uuid}', [FileController::class, 'public_file'])->fil
     "uuid" => "uuid"
 ]);
 
-$auth->authenticated(function () {
+$auth->logged(function () {
+    DLRoute::get("/session-test", function () {
+        return [
+            "status" => true,
+            "success" => "Si observas esto, entonces, el inicio de sesión ha funcionado"
+        ];
+    });
 });
 
 # URL del archivo enviado al servidor. Una ruta que requiere autenticación
@@ -32,8 +38,11 @@ DLRoute::get('/file/private/{uuid}', [FileController::class, 'private_file'])->f
     "uuid" => "uuid"
 ]);
 
-
 ## Permite iniciar la sesión del usuario:
-$auth->not_authenticated(function () {
+$auth->not_logged(function () {
+    ## Formulario de inicio de sesión
     DLRoute::get('/login', [AuthController::class, 'index']);
+
+    ## Acción de inicio de sesión:
+    DLRoute::post('/login', [AuthController::class, 'login']);
 });

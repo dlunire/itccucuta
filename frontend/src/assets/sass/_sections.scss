@@ -110,11 +110,18 @@
         --icon-height: var(--icon-size);
         --icon-color: orange;
         margin: 0;
+        &--center {
+            text-align: center;
+        }
     }
     &__inner {
         margin: 0 auto;
         max-width: $max-width;
         padding: 20px;
+        &--login {
+            margin-top: 30px;
+            max-width: 500px;
+        }
     }
 }
 
