@@ -91,7 +91,10 @@
                     </div>
 
                     <div class="form__inner--login">
-                        <ToggleButton bind:active={toggleButtonActive} />
+                        <ToggleButton
+                            bind:active={toggleButtonActive}
+                            label="Mostrar contraseña"
+                        />
                     </div>
 
                     <div class="form__buttons form__buttons--login">
