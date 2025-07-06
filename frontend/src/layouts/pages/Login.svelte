@@ -10,6 +10,7 @@
     import IconHelp from "../icons/IconHelp.svelte";
     import IconLoading from "../icons/IconLoading.svelte";
     import IconKeys from "../icons/IconKeys.svelte";
+    import IconCodigosdelFuturo from "../icons/IconCodigosdelFuturo.svelte";
 
     onMount(() => {
         if (container instanceof HTMLElement) zIndexReverse(container);
@@ -38,8 +39,12 @@
         <div class="section__inner section__inner--login">
             <h2 class="section__title section__title--center">
                 <IconKeys />
-                <span>Inicio de sesión</span>
+                <span>Sistema de consultas</span>
             </h2>
+
+            <div class="section__logo section__logo--login">
+                <IconCodigosdelFuturo />
+            </div>
             <Form
                 action="/login"
                 className="form--clase-01 form--clase-02"
@@ -48,6 +53,39 @@
                 bind:loading
             >
                 {#snippet content()}
+                    <div class="form__inner">
+                        <label
+                            for="username"
+                            class="form__label form__label--login"
+                        >
+                            <span>Usuario</span>
+                            <input
+                                type="text"
+                                name="username"
+                                id="username"
+                                class="form__input form__input--login"
+                                placeholder="Por ejemplo, su usuario"
+                                required={true}
+                                aria-required="true"
+                            />
+                        </label>
+                        <label
+                            for="username"
+                            class="form__label form__label--login"
+                        >
+                            <span>Contraseña</span>
+                            <input
+                                type="password"
+                                name="username"
+                                id="username"
+                                class="form__input form__input--login"
+                                placeholder="Por ejemplo, su usuario"
+                                required={true}
+                                aria-required="true"
+                            />
+                        </label>
+                    </div>
+
                     <div class="form__buttons form__buttons--login">
                         <ButtonSubmit bind:loading>
                             {#snippet content()}
