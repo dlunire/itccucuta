@@ -33,6 +33,19 @@
             margin-top: 10px;
             display: flex;
             align-items: center;
+
+            &:hover {
+                .label {
+                    opacity: 0.85;
+                }
+            }
+
+            &:active {
+                .label {
+                    transition: none;
+                    opacity: 1;
+                }
+            }
         }
 
         & {
@@ -47,6 +60,8 @@
             width: 40px;
             border-radius: 12.5px;
             transition: 300ms ease;
+            pointer-events: none;
+            user-select: none;
 
             &::before {
                 content: "";
@@ -81,6 +96,8 @@
         padding-right: 10px;
         transition: 300ms ease;
         color: rgba(white, 0.5);
+        user-select: none;
+        pointer-events: none;
         &--active {
             color: green;
         }
