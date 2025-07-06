@@ -1,16 +1,16 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import { zIndexReverse } from "../../lib/zIndex";
-    import ButtonSubmit from "../components/Buttons/ButtonSubmit.svelte";
     import Form from "../components/Forms/Form.svelte";
     import Container from "../sections/Container.svelte";
-    import Header from "../sections/Header.svelte";
     import Windows from "../windows/Windows.svelte";
     import InstallationHelp from "../help/InstallationHelp.svelte";
     import IconHelp from "../icons/IconHelp.svelte";
     import IconLoading from "../icons/IconLoading.svelte";
     import IconKeys from "../icons/IconKeys.svelte";
     import IconCodigosdelFuturo from "../icons/IconCodigosdelFuturo.svelte";
+    import ButtonLogin from "../components/Buttons/ButtonLogin.svelte";
+    import ToggleButton from "../components/Buttons/ToggleButton.svelte";
 
     onMount(() => {
         if (container instanceof HTMLElement) zIndexReverse(container);
@@ -32,6 +32,7 @@
     }
 
     let loading: boolean = false;
+    let toggleButtonActive: boolean = false;
 </script>
 
 <Container>
@@ -77,7 +78,7 @@
                         >
                             <span>Contraseña</span>
                             <input
-                                type="password"
+                                type={toggleButtonActive ? "text" : "password"}
                                 name="password"
                                 id="password"
                                 class="form__input form__input--login"
@@ -89,14 +90,18 @@
                         </label>
                     </div>
 
+                    <div class="form__inner--login">
+                        <ToggleButton bind:active={toggleButtonActive} />
+                    </div>
+
                     <div class="form__buttons form__buttons--login">
-                        <ButtonSubmit bind:loading>
+                        <ButtonLogin bind:loading>
                             {#snippet content()}
                                 <IconKeys />
                                 <span>Iniciar sesión</span>
                                 <IconLoading bind:open={loading} size={25} />
                             {/snippet}
-                        </ButtonSubmit>
+                        </ButtonLogin>
                     </div>
                 {/snippet}
             </Form>
