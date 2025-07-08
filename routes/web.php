@@ -31,6 +31,8 @@ $auth->logged(function () {
             "success" => "Si observas esto, entonces, el inicio de sesión ha funcionado"
         ];
     });
+
+    DLRoute::get('/dashboard', []);
 });
 
 # URL del archivo enviado al servidor. Una ruta que requiere autenticación

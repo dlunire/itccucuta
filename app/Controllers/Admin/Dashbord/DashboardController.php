@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace DLUnire\Controllers\Admin\Dashbord;
 
 use DLCore\Core\BaseController;
+use DLUnire\Services\Traits\FrontendTrait;
 
 /**
  * Copyright (c) 2025 David E Luna M
@@ -27,6 +28,7 @@ use DLCore\Core\BaseController;
  * @method string index() Retorna el contenido del panel de control del usuario autenticado.
  */
 final class DashboardController extends BaseController {
+    use FrontendTrait;
 
     /**
      * Carga la página principal del usuario autenticado.
@@ -37,6 +39,6 @@ final class DashboardController extends BaseController {
      * @return string Contenido renderizado del panel de control.
      */
     public function index(): string {
-        return "";
+        return $this->get_frontend('Panel principal', 'Panel principal', $this->get_random_token());
     }
 }
