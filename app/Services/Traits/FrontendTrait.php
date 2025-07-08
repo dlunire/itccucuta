@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace DLUnire\Services\Traits;
 
+use DLStorage\Errors\ValueError;
 use DLUnire\Models\DTO\Frontend;
 use Exception;
 use InvalidArgumentException;
@@ -144,5 +145,34 @@ trait FrontendTrait {
         }
 
         $this->token_length = $length;
+    }
+
+    /**
+     * Valida el token CSRF enviado por el cliente HTTP.
+     *
+     * Este método compara de forma segura el token recibido desde una petición HTTP (por ejemplo, en un formulario POST
+     * o cabecera personalizada) con el token previamente generado y almacenado en la sesión del servidor. La comparación
+     * se realiza utilizando `hash_equals()` para evitar ataques de temporización (timing attacks).
+     *
+     * Si los tokens no coinciden, se lanza una excepción con código de estado HTTP 403, lo que indica un intento
+     * potencial de falsificación de solicitud entre sitios (CSRF).
+     *
+     * @param string $csrf_token Token CSRF recibido desde el cliente (por ejemplo, vía input hidden o cabecera HTTP).
+     * @param string|null $field [Opcional] Nombre del campo de sesión donde se encuentra el token CSRF. Por defecto: 'csrf_token'.
+     * @return void
+     *
+     * @throws ValueError Si el token proporcionado no coincide con el almacenado en la sesión.
+     *
+     * @see https://owasp.org/www-community/attacks/csrf — OWASP: Cross-Site Request Forgery (CSRF)
+     *
+     * @note Este método sigue las prácticas recomendadas de OWASP para la prevención de CSRF, incluyendo:
+     *       - Almacenamiento de tokens en la sesión del servidor.
+     *       - Envío del token mediante canal separado (POST/cabecera).
+     *       - Comparación segura con `hash_equals()`.
+     */
+    public function validate_csrf(string $csrf_token, ?string $field = null): void {
+        if (!hash_equals($this->get_csrf($field ?? 'csrf_token'), $csrf_token)) {
+            throw new ValueError("El token CSRF puede estar comprometido", 403);
+        }
     }
 }
