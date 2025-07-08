@@ -150,6 +150,10 @@
             border-right: 0;
             min-width: 300px;
         }
+        &--content {
+            flex-grow: 1;
+            padding: 40px 30px;
+        }
     }
     &--dashboard {
         display: flex;
