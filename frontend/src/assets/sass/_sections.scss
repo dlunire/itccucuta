@@ -141,7 +141,6 @@
         }
     }
     &__column {
-        border: 1px solid $border-color;
         &--sidebar {
             --icon-color: #{rgba(white, 0.6)};
             --icon-size: 20px;
@@ -149,6 +148,8 @@
             --icon-height: var(--icon-size);
             border-right: 0;
             min-width: 300px;
+            background-color: rgba($base-color, 0.1);
+            border-right: 1px solid rgba($border-color, 0.3);
         }
         &--content {
             flex-grow: 1;
@@ -157,6 +158,7 @@
     }
     &--dashboard {
         display: flex;
+        border-bottom: 1px solid rgba($border-color, 0.3);
     }
 }
 
