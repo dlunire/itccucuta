@@ -148,10 +148,10 @@
             --icon-height: var(--icon-size);
             border-right: 0;
             min-width: 300px;
-            background-color: rgba($base-color, 0.1);
             border-right: 1px solid rgba($border-color, 0.3);
         }
         &--content {
+            background-color: rgba($base-color, 0.1);
             flex-grow: 1;
             padding: 40px 30px;
         }

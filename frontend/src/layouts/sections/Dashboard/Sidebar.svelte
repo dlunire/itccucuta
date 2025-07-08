@@ -1,4 +1,5 @@
 <script>
+    import Menu from "../../components/Menues/Menu.svelte";
     import ArrowLeft from "../../icons/ArrowLeft.svelte";
 </script>
 
@@ -7,4 +8,8 @@
         <ArrowLeft />
         <span>Menú de navegación</span>
     </h2>
+
+    <div class="sidebar__content">
+        <Menu />
+    </div>
 </aside>

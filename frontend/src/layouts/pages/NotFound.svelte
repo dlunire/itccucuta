@@ -1,1 +1,1 @@
-<section class="section section--not-found"></section>
+<section class="section section--not-found">Página no encontrada</section>
