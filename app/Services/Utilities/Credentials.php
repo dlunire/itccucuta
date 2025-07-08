@@ -164,8 +164,7 @@ final class Credentials extends SaveData {
      */
     public function exists(string $filename): bool {
         /** @var string $file */
-        $file = $this->get_file_path("credentials" . DIRECTORY_SEPARATOR . $filename);
-
+        $file = $this->get_file_path("credentials" . DIRECTORY_SEPARATOR . $filename . ".dlstorage");
         return file_exists($file);
     }
 }

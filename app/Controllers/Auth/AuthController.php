@@ -5,11 +5,15 @@ declare(strict_types=1);
 namespace DLUnire\Controllers\Auth;
 
 use DLCore\Core\BaseController;
+use DLUnire\Models\DTO\Frontend;
 use DLUnire\Models\Users;
 use DLUnire\Models\Views\UserEntity;
+use DLUnire\Services\Traits\FrontendTrait;
 use Error;
 
 final class AuthController extends BaseController {
+
+    use FrontendTrait;
 
     /**
      * Inicia la sesión de usuario
@@ -44,9 +48,14 @@ final class AuthController extends BaseController {
      * @return string
      */
     public function index(): string {
-        return view('home', [
-            "token" => $this->get_random_token(),
-            "title" => "Programa de instalación"
-        ]);
+        /** @var Frontend $frontend */
+        $frontend = new Frontend();
+
+        $frontend->set_title('Inicio de sesión');
+        $frontend->set_description('Formulario de inicio de sesión');
+        $frontend->set_csrf($this->get_csrf());
+        $frontend->set_token($this->get_random_token());
+
+        return $this->get_frontend($frontend);
     }
 }

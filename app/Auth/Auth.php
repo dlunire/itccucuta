@@ -7,6 +7,7 @@
 
 namespace DLUnire\Auth;
 
+use DLStorage\Errors\StorageException;
 use Framework\Auth\AuthBase;
 use DLUnire\Models\Entities\UserData;
 use DLUnire\Models\Users;
@@ -51,7 +52,7 @@ class Auth extends AuthBase {
         $credentials = new Credentials();
 
         if (!$credentials->exists('database')) {
-            return;
+            throw new StorageException("El archivo «database.dlstorage» no existe", 404);
         }
 
         /**
@@ -73,11 +74,9 @@ class Auth extends AuthBase {
             redirect('/install/user');
         }
 
-        /**
-         * Si el usuario está autenticado se ejecutará `$callback`, caso contrario, se
-         * redireccionará a `/login`.
-         */
-        $this->restrict_route($callback, $logged, $code, '/login');
+        if ($logged) {
+            $callback();
+        }
     }
 
     /**
@@ -103,11 +102,9 @@ class Auth extends AuthBase {
          */
         $logged = $this->is_logged();
 
-        /**
-         * Si no está autenticado el usuario se va a ejecutar la función `$callback`, caso 
-         * contrario, se redirecionará a `/dashboard`
-         */
-        $this->restrict_route($callback, !$logged, 302, '/dashboard');
+        if (!$logged) {
+            $callback();
+        }
     }
 
     /**
