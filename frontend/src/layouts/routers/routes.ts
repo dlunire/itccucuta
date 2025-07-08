@@ -15,5 +15,5 @@ export const routes: Route[] = [
     route('/create/user', getComponent(User), []),
     route('/login', getComponent(Login), []),
     route('/dashboard', getComponent(DashboardContent), []),
-    route('/upload-students', getComponent(LoadStudent), []),
+    route('/dashboard/students', getComponent(LoadStudent), []),
 ];

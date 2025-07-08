@@ -4,5 +4,5 @@
 
 <ul class="menu">
     <MenuItem href="/dashboard" label="Dashboard" />
-    <MenuItem href="/upload-students" label="Cargar estudiantes" />
+    <MenuItem href="/dashboard/students" label="Cargar estudiantes" />
 </ul>
