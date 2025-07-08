@@ -140,6 +140,39 @@
             padding-bottom: 20px;
         }
     }
+    &__column {
+        border: 1px solid $border-color;
+        &--sidebar {
+            --icon-color: #{rgba(white, 0.6)};
+            --icon-size: 20px;
+            --icon-width: var(--icon-size);
+            --icon-height: var(--icon-size);
+            border-right: 0;
+            min-width: 300px;
+        }
+    }
+    &--dashboard {
+        display: flex;
+    }
+}
+
+.sidebar {
+    padding: 20px 0;
+    overflow: auto;
+    svg {
+        transform: rotate(180deg);
+    }
+    &__title {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        padding-left: 10px;
+        padding-right: 10px;
+        font: {
+            weight: 500;
+            size: 1.2rem;
+        }
+    }
 }
 
 .dropzone {
