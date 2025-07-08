@@ -40,7 +40,6 @@ export interface Route {
 export function route(pattern: string, component: typeof SvelteComponent, paramNames?: string[]) {
     const names = paramNames ?? [...pattern.matchAll(/:([^/]+)/g)].map(m => m[1]);
     const regex = new RegExp('^' + pattern.replace(/:([^/]+)/g, '([^/]+)') + '$');
-
     return {
         pattern: regex,
         component,

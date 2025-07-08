@@ -14,8 +14,6 @@
     let Page = NotFound as typeof SvelteComponent;
     let params: Record<string, string> = {};
 
-    $: console.log({ route, Page, params });
-
     $: {
         route = $currentRoute;
         Page = NotFound as typeof SvelteComponent;

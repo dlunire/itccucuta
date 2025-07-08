@@ -5,7 +5,8 @@ import User from '../pages/User.svelte';
 import Install from '../pages/Install.svelte';
 import Check from '../pages/Check.svelte';
 import Login from '../pages/Login.svelte';
-import Dashboard from '../pages/admin/Dashboard.svelte';
+import LoadStudent from '../pages/admin/LoadStudent.svelte';
+import DashboardContent from '../pages/admin/DashboardContent.svelte';
 
 export const routes: Route[] = [
     route('/', getComponent(Home), []),
@@ -13,5 +14,6 @@ export const routes: Route[] = [
     route('/credentials/check', getComponent(Check), []),
     route('/create/user', getComponent(User), []),
     route('/login', getComponent(Login), []),
-    route('/dashboard', getComponent(Dashboard), []),
+    route('/dashboard', getComponent(DashboardContent), []),
+    route('/upload-students', getComponent(LoadStudent), []),
 ];

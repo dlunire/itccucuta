@@ -12,7 +12,7 @@
 </script>
 
 <main>
-  {#if routes.includes(getPathname())}
+  {#if routes.includes(getFullURL(getPathname()))}
     <Router />
   {:else}
     <Dashboard />
