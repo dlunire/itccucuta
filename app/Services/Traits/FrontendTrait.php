@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace DLUnire\Services\Traits;
 
+use DLUnire\Models\DTO\Frontend;
 use Exception;
 use InvalidArgumentException;
 
@@ -28,19 +29,20 @@ trait FrontendTrait {
     private int $token_length = 500;
 
     /**
-     * Devuelve el Frontend del Sistema
+     * Devuelve el Frontend del sistema.
      *
-     * @param string $title Título de la ruta del sistema.
-     * @param string|null $description Descripción (opcional). Descripción de la ruta.
-     * @param string|null $token Token aleatorio (opcional). Puede ser null si aún no se ha generado.
-     * @return string
+     * Recibe una instancia de Frontend con los metadatos preparados (título, descripción, token, etc.)
+     * y renderiza la vista correspondiente, pasándola como contexto a la plantilla.
+     *
+     * @param Frontend $frontend Objeto de metadatos del frontend para inyectar en la vista.
+     * @return string Contenido HTML renderizado.
      */
-    public function get_frontend(string $title = "Título del sistema", ?string $description = null, ?string $token = null): string {
+    public function get_frontend(Frontend $frontend): string {
         return view('home', [
-            "token" => $token,
-            "title" => trim($title),
+            "frontend" => $frontend
         ]);
     }
+
 
     /**
      * Establece el token de protección contra ataques de referencia cruzada.
@@ -50,7 +52,7 @@ trait FrontendTrait {
      * 
      * @throws Exception
      */
-    private function set_csrf_token(string $field = 'csrf_token'): void {
+    private function generate_csrf_token(string $field = 'csrf_token'): void {
         $this->validate_session();
 
         if (!$this->token_exists($field)) {
@@ -69,9 +71,9 @@ trait FrontendTrait {
      * @throws Exception Si la sesión no está iniciada.
      */
 
-    public function get_csrf_token(string $field = 'csrf_token'): string {
+    public function get_csrf(string $field = 'csrf_token'): string {
         $this->validate_session();
-        $this->set_csrf_token($field);
+        $this->generate_csrf_token($field);
         return $_SESSION[$field];
     }
 

@@ -24,7 +24,7 @@ final class FrontendController extends BaseController {
 
         /** @var string $js */
         $js = $install->get_javascript();
-
+        script();
         return $js;
     }
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace DLUnire\Controllers\Admin\Dashbord;
 
 use DLCore\Core\BaseController;
+use DLUnire\Models\DTO\Frontend;
 use DLUnire\Services\Traits\FrontendTrait;
 
 /**
@@ -33,12 +34,21 @@ final class DashboardController extends BaseController {
     /**
      * Carga la página principal del usuario autenticado.
      *
-     * Este método debe estar protegido por Middleware que asegure la autenticación del usuario.
-     * Retorna la vista correspondiente al panel de control, o una cadena vacía si aún no ha sido implementado.
+     * Este método está protegido por Middleware que garantiza la autenticación del usuario.
+     * Construye una instancia de Frontend con los metadatos necesarios (título, descripción, tokens),
+     * y retorna la vista correspondiente al panel de control.
      *
      * @return string Contenido renderizado del panel de control.
      */
     public function index(): string {
-        return $this->get_frontend('Panel principal', 'Panel principal', $this->get_random_token());
+        /** @var Frontend $frontend */
+        $frontend = new Frontend();
+
+        $frontend->set_title("Dashboard");
+        $frontend->set_description("Página principal de administración del sistema");
+        $frontend->set_token($this->generate_uuid());
+        $frontend->set_csrf($this->get_csrf());
+
+        return $this->get_frontend($frontend);
     }
 }

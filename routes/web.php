@@ -2,6 +2,7 @@
 
 use DLRoute\Requests\DLRoute;
 use DLUnire\Auth\Auth;
+use DLUnire\Controllers\Admin\Dashbord\DashboardController;
 use DLUnire\Controllers\Auth\AuthController;
 use DLUnire\Controllers\FileController;
 use DLUnire\Controllers\Install\InstallController;
@@ -32,7 +33,7 @@ $auth->logged(function () {
         ];
     });
 
-    DLRoute::get('/dashboard', []);
+    DLRoute::get('/dashboard', [DashboardController::class, 'index']);
 });
 
 # URL del archivo enviado al servidor. Una ruta que requiere autenticación
