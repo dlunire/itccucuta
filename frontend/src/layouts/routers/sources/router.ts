@@ -4,19 +4,32 @@ import { getURLBase } from '../../components/Forms/lib/request';
 export const currentRoute = writable(getPathname());
 
 /**
- * Navega a una nueva ruta usando el History API.
- * Actualiza el store `currentRoute` sin recargar la página.
+ * Navega a una nueva ruta utilizando la History API sin recargar la página.
  * 
- * @param path Ruta hacia donde se dirigirá el usuario cuando presione el enlace.
+ * - Elimina cualquier slash duplicado entre `base` y `path`.
+ * - Normaliza la URL final para evitar errores en subdirectorios.
+ * 
+ * @param path Ruta relativa o absoluta a navegar (ej: "/producto/123", "producto/123")
  */
-export function navigate(path: string) {
-    let pathname: string = getPathname();
+export function navigate(path: string): void {
+    /** Elimina slashes finales */
+    const base = getURLBase().replace(/\/+$/, '');
 
-    let url: string = getFullURL(path);
+    /** Elimina slashes iniciales y finales */
+    const cleanPath = path.replace(/^\/+|\/+$/, '').replace(/\/+/, '/');
 
-    if (getFullURL(pathname) !== url) {
-        history.pushState({}, '', url);
-        currentRoute.set(url);
+    /** Ensambla la URL completa */
+    const fullURL = `${base}/${cleanPath}`;
+
+    /** Instancia de URL */
+    const url = new URL(fullURL);
+
+    /** URL Completa */
+    const current = location.href;
+
+    if (url.href !== current) {
+        history.pushState({}, '', url.href);
+        currentRoute.set(url.pathname);
     }
 }
 
