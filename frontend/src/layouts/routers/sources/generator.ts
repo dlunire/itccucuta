@@ -1,4 +1,5 @@
 import type { SvelteComponent } from "svelte";
+import { getFullURL } from "./router";
 
 /**
  * Representa una ruta del sistema de enrutamiento basado en expresiones regulares.
@@ -20,6 +21,10 @@ export interface Route {
     extractParams: (match: RegExpExecArray) => Record<string, string>;
 }
 
+export interface Params {
+    [key: string]: string;
+}
+
 /**
  * Crea una definición de ruta para un enrutador tipo SPA utilizando expresiones regulares,
  * permitiendo asociar una ruta con un componente Svelte y extraer parámetros dinámicos.
@@ -38,18 +43,48 @@ export interface Route {
 * // Coincidirá con '/profile/123' y extraerá { id: '123' }
 */
 export function route(pattern: string, component: typeof SvelteComponent, paramNames?: string[]) {
-    const names = paramNames ?? [...pattern.matchAll(/:([^/]+)/g)].map(m => m[1]);
-    const regex = new RegExp('^' + pattern.replace(/:([^/]+)/g, '([^/]+)') + '$');
+    pattern = getFullURL(pattern);
+
+    const parsed = new URL(pattern);
+    const origin = parsed.origin;
+    const path = parsed.pathname;
+
+    const names = paramNames ?? [...path.matchAll(/:([^/]+)/g)].map(m => m[1]);
+    const pathRegexStr = path.replace(/:([^/]+)/g, '([^/]+)');
+    const regex = new RegExp(`^${origin}${pathRegexStr}$`);
+
     return {
         pattern: regex,
         component,
         extractParams: (match: RegExpExecArray) => {
             const params: Record<string, string> = {};
-            names.forEach((name, i) => params[name] = match[i + 1]);
+            names.forEach((name, i) => {
+                params[name] = match[i + 1];
+            });
             return params;
         }
     };
 }
+
+export function getURL(route: string): string {
+    return getFullURL(route);
+}
+
+export function getParams(route: string) {
+    const names = [...route.matchAll(/[:]([^/]+)/g)].map(name => name[1]);
+    let params: Params = {}
+
+    const test: string = getURL("/algo/123/otro/contenido");
+
+    console.log({ test })
+    for (const name of names) {
+        params[name as keyof Params] = name;
+    }
+
+    console.log({ params })
+}
+
+
 
 /**
  * Establece la definición de tipo del componente
