@@ -38,6 +38,14 @@ export function getFullURL(path: string): string {
  * @returns 
  */
 export function getPathname(): string {
+    return getLocation().pathname;
+}
+
+/**
+ * Devuelve el objeto Location
+ * @returns 
+ */
+export function getLocation(): Location {
     let location: Location | undefined = undefined;
 
     if (typeof globalThis != "undefined" && typeof globalThis.location) {
@@ -52,7 +60,7 @@ export function getPathname(): string {
         throw new Error("No se pudo obtener «location»");
     }
 
-    return location.pathname;
+    return location;
 }
 
 // Escucha cambios de historial (botones atrás/adelante del navegador)

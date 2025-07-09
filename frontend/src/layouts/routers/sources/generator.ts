@@ -66,12 +66,23 @@ export function route(pattern: string, component: typeof SvelteComponent, paramN
     };
 }
 
+/**
+ * Devuelve la URL completa a partir de una ruta dada.
+ * 
+ * @param route Ruta que permite obtener 
+ */
 export function getURL(route: string): string {
     return getFullURL(route);
 }
 
+
+/**
+ * Extrae los parámetros de una ruta dada.
+ * 
+ * @param route Ruta a ser analizada para extraerle sus parámetros
+ */
 export function getParams(route: string) {
-    const names = [...route.matchAll(/[:]([^/]+)/g)].map(name => name[1]);
+    const names = [...route.matchAll(/[:]([^/]+)/g)].map(name => name[0]);
     let params: Params = {}
 
     const test: string = getURL("/algo/123/otro/contenido");
