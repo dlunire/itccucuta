@@ -1,107 +1,126 @@
-import type { SvelteComponent } from "svelte";
-import { getFullURL } from "./router";
+import type { SvelteComponent } from 'svelte';
+import { getURLBase } from '../../components/Forms/lib/request';
 
 /**
  * Representa una ruta del sistema de enrutamiento basado en expresiones regulares.
- * 
+ *
  * Cada ruta contiene un patrón `RegExp` que se evalúa contra la URL actual,
  * un componente Svelte que se renderiza si la ruta coincide, y una función
- * que permite extraer los parámetros dinámicos definidos en la URL.
- * 
- * Esta interfaz se utiliza junto con la función `route` para generar rutas declarativas.
+ * para extraer los parámetros dinámicos desde la coincidencia con la expresión regular.
  *
  * @interface Route
- * @property pattern - Expresión regular utilizada para hacer coincidir la ruta.
- * @property component - Componente Svelte que se mostrará si la ruta coincide.
- * @property extractParams - Función que extrae los parámetros de la ruta desde la coincidencia con la expresión regular.
  */
 export interface Route {
+    /** Expresión regular utilizada para hacer coincidir la ruta */
     pattern: RegExp;
+
+    /** Componente Svelte que se mostrará si la ruta coincide */
     component: typeof SvelteComponent;
+
+    /**
+     * Función que extrae los parámetros dinámicos de la ruta desde el match de `RegExp`
+     * @param match Resultado de `RegExp.exec(...)`
+     * @returns Objeto con parámetros clave-valor
+     */
     extractParams: (match: RegExpExecArray) => Record<string, string>;
 }
 
+/**
+ * Representa un conjunto de parámetros extraídos desde una ruta.
+ */
 export interface Params {
     [key: string]: string;
 }
 
 /**
  * Crea una definición de ruta para un enrutador tipo SPA utilizando expresiones regulares,
- * permitiendo asociar una ruta con un componente Svelte y extraer parámetros dinámicos.
+ * asociando un patrón de ruta con un componente Svelte.
  *
  * Si no se especifican los nombres de los parámetros (`paramNames`), estos se infieren
- * automáticamente a partir de los segmentos `:param` del patrón de ruta.
+ * automáticamente a partir de los segmentos tipo `:param` del patrón de ruta.
  *
- * @param pattern - Ruta con o sin parámetros (e.g., "/profile/:id").
- * @param component - Componente Svelte a renderizar si la ruta coincide.
- * @param paramNames - Opcional. Lista de nombres de parámetros si no se desea inferir automáticamente.
+ * @param pattern Ruta con o sin parámetros (e.g., "/profile/:id").
+ * @param component Componente Svelte a renderizar si la ruta coincide.
+ * @param paramNames Opcional. Lista de nombres de parámetros si no se desea inferir automáticamente.
+ * @returns Objeto `Route` con la expresión regular compilada, el componente, y la lógica para extraer parámetros.
  *
- * @returns Objeto con la expresión regular compilada, el componente, y la lógica para extraer parámetros.
-*
-* @example Ejemplo
-* route('/profile/:id', UserComponent)
-* // Coincidirá con '/profile/123' y extraerá { id: '123' }
-*/
-export function route(pattern: string, component: typeof SvelteComponent, paramNames?: string[]) {
-    pattern = getFullURL(pattern);
-
-    const parsed = new URL(pattern);
-    const origin = parsed.origin;
-    const path = parsed.pathname;
-
-    const names = paramNames ?? [...path.matchAll(/:([^/]+)/g)].map(m => m[1]);
-    const pathRegexStr = path.replace(/:([^/]+)/g, '([^/]+)');
-    const regex = new RegExp(`^${origin}${pathRegexStr}$`);
+ * @example
+ * ```ts
+ * route('/profile/:id', UserComponent)
+ * // Coincide con '/profile/123' y extrae { id: '123' }
+ * ```
+ */
+export function route(
+    pattern: string,
+    component: typeof SvelteComponent,
+    paramNames?: string[]
+): Route {
+    const path = getPathFromPattern(pattern);
+    const names = paramNames ?? extractParamNames(path);
+    const regex = buildPathRegex(path);
 
     return {
         pattern: regex,
         component,
-        extractParams: (match: RegExpExecArray) => {
-            const params: Record<string, string> = {};
-            names.forEach((name, i) => {
-                params[name] = match[i + 1];
-            });
-            return params;
-        }
+        extractParams: match => extractParamsFromMatch(names, match)
     };
 }
 
 /**
- * Devuelve la URL completa a partir de una ruta dada.
- * 
- * @param route Ruta que permite obtener 
+ * Extrae únicamente el `pathname` desde un patrón de ruta.
+ * Si se proporciona una ruta relativa, se considera relativa al host ficticio.
+ *
+ * @param pattern Ruta en formato string (absoluta o relativa)
+ * @returns Solo el `pathname` (ej. "/user/:id")
  */
-export function getURL(route: string): string {
-    return getFullURL(route);
+function getPathFromPattern(pattern: string): string {
+    return new URL(pattern, getURLBase()).pathname;
 }
 
-
 /**
- * Extrae los parámetros de una ruta dada.
- * 
- * @param route Ruta a ser analizada para extraerle sus parámetros
+ * Extrae los nombres de los parámetros tipo `:id` o `:slug` de un `pathname`.
+ *
+ * @param path Ruta tipo "/user/:id"
+ * @returns Lista de nombres de parámetros extraídos
  */
-export function getParams(route: string) {
-    const names = [...route.matchAll(/[:]([^/]+)/g)].map(name => name[0]);
-    let params: Params = {}
-
-    const test: string = getURL("/algo/123/otro/contenido");
-
-    console.log({ test })
-    for (const name of names) {
-        params[name as keyof Params] = name;
-    }
-
-    console.log({ params })
+function extractParamNames(path: string): string[] {
+    return [...path.matchAll(/:([^/]+)/g)].map(m => m[1]);
 }
 
-
+/**
+ * Construye una expresión regular para hacer coincidir una ruta concreta.
+ *
+ * @param path Ruta con segmentos dinámicos (ej. "/post/:id")
+ * @returns RegExp para evaluar coincidencia con `location.pathname`
+ */
+function buildPathRegex(path: string): RegExp {
+    const pathRegexStr = path.replace(/:([^/]+)/g, '([^/]+)');
+    return new RegExp(`^${pathRegexStr}$`);
+}
 
 /**
- * Establece la definición de tipo del componente
- * 
- * @param component Componente a ser procesado
- * @returns 
+ * Extrae los valores de parámetros desde un resultado de `RegExp.exec()`.
+ *
+ * @param names Lista de nombres de parámetros
+ * @param match Resultado del match (`RegExpExecArray`)
+ * @returns Objeto con claves y valores correspondientes a los parámetros
+ */
+function extractParamsFromMatch(
+    names: string[],
+    match: RegExpExecArray
+): Params {
+    const params: Params = {};
+    names.forEach((name, i) => {
+        params[name] = decodeURIComponent(match[i + 1]);
+    });
+    return params;
+}
+
+/**
+ * Convierte un valor desconocido en un tipo `typeof SvelteComponent`.
+ *
+ * @param component Componente Svelte genérico o dinámico
+ * @returns El componente tipado como `typeof SvelteComponent`
  */
 export function getComponent(component: unknown): typeof SvelteComponent {
     return component as typeof SvelteComponent;
