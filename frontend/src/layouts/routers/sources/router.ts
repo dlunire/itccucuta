@@ -15,8 +15,8 @@ export function navigate(path: string): void {
     /** Elimina slashes finales */
     const base = getURLBase().replace(/\/+$/, '');
 
-    /** Elimina slashes iniciales y finales */
-    const cleanPath = path.replace(/^\/+|\/+$/, '').replace(/\/+/, '/');
+    /** Elimina slashes iniciales y finales y después, elimina duplicados */
+    const cleanPath = path.replace(/^\/+|\/+$/g, '').replace(/\/+/g, '/');
 
     /** Ensambla la URL completa */
     const fullURL = `${base}/${cleanPath}`;
