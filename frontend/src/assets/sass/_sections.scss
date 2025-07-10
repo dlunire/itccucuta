@@ -148,10 +148,8 @@
             --icon-height: var(--icon-size);
             border-right: 0;
             min-width: 300px;
-            border-right: 1px solid rgba($border-color, 0.3);
         }
         &--content {
-            background-color: rgba($base-color, 0.1);
             flex-grow: 1;
             padding: 0;
             display: flex;
@@ -413,7 +411,7 @@
     position: relative;
     border: 1px solid rgba($border-color, 0.3);
     flex-grow: 1;
-    border-radius: 20px;
+    border-radius: 30px;
     padding: 40px;
     &__title {
         margin: 0;
