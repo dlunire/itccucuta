@@ -14,7 +14,6 @@
 
         const route: string | null = anchor.getAttribute("href");
         if (!route) return;
-
         navigate(route);
     }
 </script>

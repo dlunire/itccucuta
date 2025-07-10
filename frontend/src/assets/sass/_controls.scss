@@ -138,7 +138,7 @@
         animation: 600ms linear error alternate 5;
     }
     &--help {
-        border: 1px solid rgba($base-color, 0.6);
+        border: 1px solid $border-color;
         height: 30px;
         padding: 0 20px;
         path {
@@ -195,6 +195,32 @@
         }
         &:focus {
             outline: 1px solid $border-color;
+        }
+    }
+    &--settings {
+        border: 1px solid $border-color;
+        height: 30px;
+        padding: 0 20px;
+        --icon-size: 20px;
+        --icon-height: var(--icon-size);
+        --icon-width: var(--icon-size);
+        --icon-color: white;
+        &,
+        path,
+        svg {
+            transition: 300ms ease;
+        }
+        &:hover {
+            --icon-color: orange;
+            background-color: rgba($base-color, 0.2);
+        }
+        &:active {
+            background-color: transparent;
+            &,
+            path {
+                transition: none;
+                --icon-color: white;
+            }
         }
     }
 }

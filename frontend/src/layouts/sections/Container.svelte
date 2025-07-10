@@ -2,7 +2,7 @@
     import IconCodigosdelFuturo from "../icons/IconCodigosdelFuturo.svelte";
     import Footer from "./Footer.svelte";
     export let dashboard: boolean = false;
-    export let author: string = "David E Luna M (@cdelfuturo)";
+    export let author: string = "David E Luna M (DLUnire)";
 </script>
 
 <div class="container">

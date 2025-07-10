@@ -32,6 +32,10 @@
             size: 1.2rem;
         }
     }
+    &__buttons {
+        display: flex;
+        gap: 10px;
+    }
     // MODIFICADORES
     &--dashboard {
         border-bottom: 0;
