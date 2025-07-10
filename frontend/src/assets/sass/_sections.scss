@@ -40,6 +40,13 @@
         border-bottom: 0;
         background-color: unset;
         padding: 13px 0;
+        min-height: 65px;
+    }
+    &--nav {
+        border-radius: 0;
+        &:not(:first-of-type) {
+            border-left: 1px solid rgba($border-color, 0.3);
+        }
     }
 }
 
@@ -445,4 +452,10 @@
     &__title {
         margin: 0;
     }
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    animation: 300ms ease fade-in forwards;
 }

@@ -37,22 +37,7 @@
         <span>Panel de administración</span>
     </h2>
 
-    <div class="header__buttons">
-        <button
-            class="button button--settings"
-            aria-label="Configuración"
-            onclick={handleSetting}
-        >
-            <IconSettings />
-            <span>Configuración</span>
-        </button>
-        <button class="button button--help" {onclick}>
-            <IconHelp />
-            <span>Ayuda</span>
-        </button>
-
-        <HeaderRouter />
-    </div>
+    <HeaderRouter />
 </Header>
 
 <Container dashboard={true}>
