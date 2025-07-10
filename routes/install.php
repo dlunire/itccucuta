@@ -13,11 +13,8 @@ use DLUnire\Services\Install\Install;
 $install = new Install();
 $install->run();
 
+## INSTALACIÓN DE CREDENCIALES DEL SISTEMA
 DLRoute::get('/install/credentials', [InstallController::class, 'credentials']);
-
-DLRoute::get('/tu/ruta', function () {
-    # Y aquí la lógica
-});
 
 ## INSTALACIÓN DE LAS CREDENCIALES
 DLRoute::post('/install/credentials', [InstallController::class, 'store']);
