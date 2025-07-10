@@ -23,6 +23,9 @@ export interface Route {
      * @returns Objeto con parámetros clave-valor
      */
     extractParams: (match: RegExpExecArray) => Record<string, string>;
+
+    /** [Opcional] Componente auxiliar para la barra de navegación */
+    headerComponent?: typeof SvelteComponent;
 }
 
 /**
@@ -53,7 +56,8 @@ export interface Params {
 export function route(
     pattern: string,
     component: typeof SvelteComponent,
-    paramNames?: string[]
+    paramNames?: string[],
+    header?: typeof SvelteComponent
 ): Route {
     const path = getPathFromPattern(pattern);
     const names = paramNames ?? extractParamNames(path);
@@ -62,7 +66,8 @@ export function route(
     return {
         pattern: regex,
         component,
-        extractParams: match => extractParamsFromMatch(names, match)
+        extractParams: match => extractParamsFromMatch(names, match),
+        headerComponent: header
     };
 }
 

@@ -7,6 +7,7 @@ import Check from '../pages/Check.svelte';
 import Login from '../pages/Login.svelte';
 import LoadStudent from '../pages/admin/LoadStudent.svelte';
 import DashboardContent from '../pages/admin/DashboardContent.svelte';
+import Link from './components/Link.svelte';
 
 export const routes: Route[] = [
     route('/', getComponent(Home), []),
@@ -14,6 +15,6 @@ export const routes: Route[] = [
     route('/credentials/check', getComponent(Check), []),
     route('/create/user', getComponent(User), []),
     route('/login', getComponent(Login), []),
-    route('/dashboard', getComponent(DashboardContent), []),
-    route('/dashboard/students', getComponent(LoadStudent), []),
+    route('/dashboard', getComponent(DashboardContent), [], getComponent(Link)),
+    route('/dashboard/debbug-register', getComponent(LoadStudent), []),
 ];

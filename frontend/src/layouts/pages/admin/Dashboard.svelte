@@ -11,6 +11,7 @@
     import Content from "../../sections/Dashboard/Content.svelte";
     import IconSettings from "../../icons/IconSettings.svelte";
     import { navigate } from "../../routers/sources/router";
+    import HeaderRouter from "../../routers/components/HeaderRouter.svelte";
 
     onMount(() => {
         if (container instanceof HTMLElement) zIndexReverse(container);
@@ -49,6 +50,8 @@
             <IconHelp />
             <span>Ayuda</span>
         </button>
+
+        <HeaderRouter />
     </div>
 </Header>
 
