@@ -13,6 +13,10 @@
         align-items: center;
         justify-content: space-between;
         max-width: $max-width;
+        &--dashboard {
+            max-width: unset;
+            width: $width;
+        }
     }
     &__title {
         --icon-size: 20px;
@@ -27,6 +31,11 @@
         font: {
             size: 1.2rem;
         }
+    }
+    // MODIFICADORES
+    &--dashboard {
+        border-bottom: 0;
+        background-color: unset unset;
     }
 }
 
@@ -61,6 +70,9 @@
         max-width: $max-width;
         margin: 0 auto;
         padding: 5px;
+        &--dashboard {
+            max-width: unset;
+        }
     }
     &__author {
         display: flex;
@@ -97,6 +109,14 @@
         &:active {
             transition: none;
             opacity: 1;
+        }
+    }
+    // MODIFICADORES
+    &--dashboard {
+        border-top: 0;
+        background-color: unset;
+        &::before {
+            border-top: 0;
         }
     }
 }

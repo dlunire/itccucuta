@@ -9,7 +9,7 @@
     <slot>Agregue un contenido o componente aquí</slot>
 </div>
 
-<Footer>
+<Footer {dashboard}>
     <div class="footer__inner" class:footer__inner--dashboard={dashboard}>
         <div class="footer__author" class:footer__author--dashboard={dashboard}>
             Desarrollado por <a

@@ -22,7 +22,7 @@
     }
 </script>
 
-<Header>
+<Header dashboard={true}>
     <h2 class="header__title">
         <IconInstall />
         <span>Panel de administración</span>
