@@ -232,7 +232,7 @@
         border-radius: 0;
         padding: 0 10px;
         &:not(:first-of-type) {
-            border-left: 1px solid $border-color;
+            border-left: 1px solid rgba($border-color, 0.35);
         }
         &:hover {
             --icon-color: white;
