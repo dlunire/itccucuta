@@ -1,6 +1,6 @@
 @use "sass:color";
 $max-width: 1200px;
-$width: calc(100% - 30px);
+$width: calc(100% - 40px);
 // ZONA DE COLORES
 $base-color: #002844;
 $secondary-color: color.adjust($color: $base-color, $saturation: -50%, $lightness: -10%);

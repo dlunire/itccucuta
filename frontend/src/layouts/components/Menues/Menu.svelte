@@ -16,7 +16,7 @@
 </script>
 
 <ul class="menu">
-    <MenuItem href="/dashboard" label="Archivos CSV" icon={iconCSV} />
+    <MenuItem href="/dashboard" label="Archivos" icon={iconCSV} />
     <MenuItem
         href="/dashboard/debbug-register"
         label="Corrección de registros"

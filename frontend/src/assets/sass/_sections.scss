@@ -36,6 +36,7 @@
     &--dashboard {
         border-bottom: 0;
         background-color: unset;
+        padding: 10px 0;
     }
 }
 
@@ -436,7 +437,7 @@
     flex-grow: 1;
     border-radius: 30px;
     padding: 40px;
-    background-color: rgba(rgb(17, 9, 9), 0.3);
+    background-color: rgba(orangered, 0.015);
     &__title {
         margin: 0;
     }
