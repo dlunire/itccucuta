@@ -36,7 +36,7 @@
 <Container dashboard={true}>
     <section class="section section--dashboard" bind:this={container}>
         <Sidebar />
-        <Content />
+        <Content dashboard={true} />
     </section>
 </Container>
 

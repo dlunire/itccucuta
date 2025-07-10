@@ -174,10 +174,13 @@
             padding: 0;
             display: flex;
         }
+        &--dashboard {
+            padding-right: 20px;
+        }
     }
     &--dashboard {
         display: flex;
-        border-bottom: 1px solid rgba($border-color, 0.3);
+        background-color: transparent;
     }
 }
 
@@ -433,6 +436,7 @@
     flex-grow: 1;
     border-radius: 30px;
     padding: 40px;
+    background-color: rgba(rgb(17, 9, 9), 0.3);
     &__title {
         margin: 0;
     }
