@@ -15,6 +15,10 @@ $install->run();
 
 DLRoute::get('/install/credentials', [InstallController::class, 'credentials']);
 
+DLRoute::get('/tu/ruta', function () {
+    # Y aquí la lógica
+});
+
 ## INSTALACIÓN DE LAS CREDENCIALES
 DLRoute::post('/install/credentials', [InstallController::class, 'store']);
 

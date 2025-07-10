@@ -22,11 +22,6 @@ $auth->authenticated(function () {
         ];
     });
 
-
-    ## Redirige al panel de administración:
-    // DLRoute::get('/', function () {
-    //     // redirect('/dashboard');
-    // });
     DLRoute::get('/dashboard', [DashboardController::class, 'index']);
 });
 
