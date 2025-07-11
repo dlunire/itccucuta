@@ -215,8 +215,9 @@
 }
 
 .sidebar {
-    padding: 20px 0;
     overflow: auto;
+    position: relative;
+    padding-right: 10px;
     svg {
         transform: rotate(180deg);
     }
@@ -227,22 +228,16 @@
         padding-left: 20px;
         padding-right: 10px;
         gap: 5px;
+        position: sticky;
+        top: 0;
+        background-color: $base-color;
+        z-index: 1;
+        height: 40px;
+        border-radius: 0 20px 20px 0;
+        margin-bottom: 30px;
         font: {
             weight: 500;
-            size: 1.2rem;
-        }
-        & {
-            @media screen and (max-width: 750px) {
-                position: sticky;
-                top: 0;
-                background-color: $base-color;
-                z-index: 1;
-                border-radius: 0 20px 20px 0;
-                height: 40px;
-                font: {
-                    size: 1.1rem;
-                }
-            }
+            size: 1.1rem;
         }
     }
     & {
@@ -258,7 +253,6 @@
             z-index: 20;
             overflow: auto;
             background-color: $background;
-            padding-right: 20px;
             width: 100%;
             max-width: 300px;
             &[data-open='true'] {
@@ -269,6 +263,16 @@
         @media screen and (min-width: 301px) and (max-width: 750px) {
             border-right: 1px solid rgba($border-color, 0.3);
         }
+    }
+    &__content {
+        padding-right: 20px;
+        position: absolute;
+        margin: auto;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        height: 100%;
     }
 }
 
