@@ -31,10 +31,8 @@
         font: {
             size: 1.2rem;
         }
-        span {
-            @media screen and (max-width: 750px) {
-                display: none;
-            }
+        @media screen and (max-width: 750px) {
+            display: none;
         }
     }
     &__buttons {
@@ -220,12 +218,47 @@
         margin: 0;
         display: flex;
         align-items: center;
-        padding-left: 10px;
+        padding-left: 20px;
         padding-right: 10px;
         gap: 5px;
         font: {
             weight: 500;
             size: 1.2rem;
+        }
+        & {
+            @media screen and (max-width: 750px) {
+                position: sticky;
+                top: 0;
+                background-color: $base-color;
+                z-index: 1;
+                border-radius: 0 20px 20px 0;
+                height: 40px;
+                font: {
+                    size: 1.1rem;
+                }
+            }
+        }
+    }
+    & {
+        --top: 0;
+        @media screen and (max-width: 750px) {
+            display: none;
+            position: absolute;
+            margin: auto;
+            left: 0;
+            right: auto;
+            top: var(--top);
+            bottom: 0;
+            z-index: 20;
+            border-right: 1px solid $border-color;
+            overflow: auto;
+            background-color: $background;
+            padding-right: 20px;
+            max-width: 100%;
+            &[data-open='true'] {
+                animation: fadeIn 300ms ease forwards;
+                display: block;
+            }
         }
     }
 }

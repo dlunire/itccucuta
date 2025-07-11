@@ -80,6 +80,12 @@
                 background-color: rgba(red, 0.1);
             }
         }
+
+        & {
+            @media screen and (min-width: 751px) {
+                display: none;
+            }
+        }
     }
 
     .open {

@@ -30,6 +30,8 @@
         if (!(button instanceof HTMLButtonElement)) return;
         navigate("/dashboard/settings");
     }
+
+    let openMenu: boolean = true;
 </script>
 
 <Header dashboard={true}>
@@ -37,13 +39,13 @@
         <IconInstall />
         <span>Panel de administración</span>
     </h2>
-    <ButtonMenu />
+    <ButtonMenu bind:open={openMenu} />
     <HeaderRouter />
 </Header>
 
 <Container dashboard={true}>
     <section class="section section--dashboard" bind:this={container}>
-        <Sidebar />
+        <Sidebar bind:open={openMenu} />
         <Content dashboard={true} />
     </section>
 </Container>
