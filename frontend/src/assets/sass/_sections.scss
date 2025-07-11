@@ -217,7 +217,6 @@
 .sidebar {
     overflow: auto;
     position: relative;
-    padding-right: 10px;
     svg {
         transform: rotate(180deg);
     }
@@ -238,6 +237,11 @@
         font: {
             weight: 500;
             size: 1.1rem;
+        }
+        @media screen and (max-width: 750px) {
+            border-radius: 0;
+            background-color: $secondary-color;
+            border-bottom: 1px solid rgba($border-color, 0.3);
         }
     }
     & {
@@ -273,6 +277,9 @@
         top: 0;
         bottom: 0;
         height: 100%;
+        @media screen and (max-width: 750px) {
+            padding-right: 0;
+        }
     }
 }
 
