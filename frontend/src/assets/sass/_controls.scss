@@ -247,6 +247,14 @@
         path {
             transition: 300ms ease;
         }
+        span {
+            @media screen and (max-width: 1024px) {
+                display: none;
+            }
+            @media screen and (min-width: 1025px) {
+                animation: 300ms ease fadeIn forwards;
+            }
+        }
     }
 }
 

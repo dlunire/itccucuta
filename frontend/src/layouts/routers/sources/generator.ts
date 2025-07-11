@@ -79,7 +79,49 @@ export function route(
  * @returns Solo el `pathname` (ej. "/user/:id")
  */
 function getPathFromPattern(pattern: string): string {
-    return new URL(pattern, getLocalURL()).pathname;
+    const route: string = new URL(extractPath(pattern), getLocalURL()).pathname;
+    return route;
+}
+
+/**
+ * Extrae la ruta completa a partir de la URL base
+ * 
+ * @param pattern Patrón de rutas
+ * @returns 
+ */
+function extractPath(pattern: string): string {
+
+    if (typeof pattern !== "string") {
+        throw new TypeError("Se esperaba un «string» en «pattern»");
+    }
+
+    pattern = trimSlash(pattern);
+    const path: string = trimSlash(trimBaseURL(getLocalURL()));
+
+    const pathReg: RegExp = /^[^\#\?]+/;
+    const found: boolean = Boolean(pathReg.test(path));
+
+    return found ? `${path}/${pattern}` : pattern;
+}
+
+/**
+ * Elimina las barras diagonales iniciales y finales.
+ * 
+ * @param path Ruta a ser analizada
+ * @returns 
+ */
+function trimSlash(path: string): string {
+    return path.replace(/^\/+|\/$/g, '');
+}
+
+/**
+ * Elimina la URL base para obtener la ruta "física".
+ * 
+ * @param baseURL URL base a ser eliminada
+ * @returns 
+ */
+function trimBaseURL(baseURL: string): string {
+    return baseURL.trim().replace(/^http[s]{0,1}:\/\/(.*?)\//, '');
 }
 
 /**
