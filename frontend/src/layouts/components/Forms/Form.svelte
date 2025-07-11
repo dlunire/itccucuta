@@ -1,7 +1,7 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import type { Method } from "./Interface/Method";
-    import { getData, request, route } from "./lib/request";
+    import { getData, request, endpoint } from "./lib/request";
     import type {
         ResponseData,
         ResponseServer,
@@ -80,7 +80,7 @@
 
         if (redirect && success) {
             const anchor: HTMLAnchorElement = document.createElement("a");
-            const href: string = route(redirect);
+            const href: string = endpoint(redirect);
             anchor.href = href;
 
             setTimeout(() => {
@@ -91,7 +91,7 @@
 
         if (backredirect && error) {
             const anchor: HTMLAnchorElement = document.createElement("a");
-            const href: string = route(backredirect);
+            const href: string = endpoint(backredirect);
             anchor.href = href;
 
             setTimeout(() => {

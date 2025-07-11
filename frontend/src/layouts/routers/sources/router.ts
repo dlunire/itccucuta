@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import { getURLBase } from '../../components/Forms/lib/request';
+import { getLocalURL } from '../../components/Forms/lib/request';
 
 export const currentRoute = writable(getPathname());
 
@@ -13,7 +13,7 @@ export const currentRoute = writable(getPathname());
  */
 export function navigate(path: string): void {
     /** Elimina slashes finales */
-    const base = getURLBase().replace(/\/+$/, '');
+    const base = getLocalURL().replace(/\/+$/, '');
 
     /** Elimina slashes iniciales y finales y después, elimina duplicados */
     const cleanPath = path.replace(/^\/+|\/+$/g, '').replace(/\/+/g, '/');
@@ -41,7 +41,7 @@ export function navigate(path: string): void {
  */
 export function getFullURL(path: string): string {
     path = path.replace(/^\/+|\/+$/, '');
-    let url: string = `${getURLBase()}/${path}`;
+    let url: string = `${getLocalURL()}/${path}`;
     return url;
 }
 

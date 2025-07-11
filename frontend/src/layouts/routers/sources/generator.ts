@@ -1,5 +1,5 @@
 import type { SvelteComponent } from 'svelte';
-import { getURLBase } from '../../components/Forms/lib/request';
+import { getLocalURL } from '../../components/Forms/lib/request';
 
 /**
  * Representa una ruta del sistema de enrutamiento basado en expresiones regulares.
@@ -79,7 +79,7 @@ export function route(
  * @returns Solo el `pathname` (ej. "/user/:id")
  */
 function getPathFromPattern(pattern: string): string {
-    return new URL(pattern, getURLBase()).pathname;
+    return new URL(pattern, getLocalURL()).pathname;
 }
 
 /**

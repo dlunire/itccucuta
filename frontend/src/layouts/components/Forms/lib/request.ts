@@ -1,3 +1,4 @@
+import { getLocation } from "../../../routers/sources/router";
 import type { ResponseData, ResponseServerData } from "../Interface/ResponseServer";
 
 /**
@@ -14,10 +15,8 @@ import type { ResponseData, ResponseServerData } from "../Interface/ResponseServ
  * @returns 
  */
 export async function request(action: string, init?: RequestInit): Promise<unknown> {
-
-    const urlBase: string = getURLBase();
     try {
-        const response: Response = await fetch(`${urlBase}${action}`, init);
+        const response: Response = await fetch(endpoint(action), init);
         const status = response.status;
 
         const data = await safeJSON(response, {});
@@ -54,21 +53,102 @@ export async function safeJSON<T = unknown>(response: Response, fallback: T | nu
     }
 }
 
-// <link rel="canonical" href="{{ route('') }}" />
+/**
+ * Obtiene la URL base pública definida en la etiqueta `<link rel="canonical">`.
+ *
+ * Esta función se utiliza principalmente para obtener la URL base del sitio en producción,
+ * como por ejemplo `https://misitio.com`, partiendo del valor del atributo `href` de un
+ * elemento `<link rel="canonical">`.
+ *
+ * - Si la etiqueta `<link rel="canonical">` no está presente o no es válida, la función
+ *   retorna la URL actual del navegador (`location.href`) como fallback.
+ *
+ * - El valor retornado es normalizado, eliminando cualquier barra final redundante (`/`).
+ *
+ * @example
+ * // HTML en producción:
+ * // <link rel="canonical" href="https://misitio.com/" />
+ *
+ * const base = getURLBase();
+ * // base === "https://misitio.com"
+ *
+ * @returns {string} URL base pública sin barras finales.
+ */
 export function getURLBase(): string {
     const link: HTMLLinkElement | null = document.querySelector("[rel='canonical']");
 
-    const url: URL = new URL(location.href);
-    const { origin } = url;
+    if (!(link instanceof HTMLLinkElement)) {
+        return getLocation().href;
+    }
 
-    if (!(link instanceof HTMLLinkElement)) return origin;
-    return link.href.replace(/\/+$/, '');
+    const url: URL = new URL(link.href);
+    return url.href.replace(/\/+$/, '');
 }
 
-export function route(route: string): string {
+
+/**
+ * Obtiene la URL base local desde el atributo `data-href` del `<link rel="canonical">`.
+ *
+ * Esta función está pensada para entornos de desarrollo (por ejemplo, cuando se utiliza Vite)
+ * donde la URL base del frontend puede diferir de la URL pública declarada en producción.
+ *
+ * - Si el atributo `data-href` está presente en el elemento `<link rel="canonical">`,
+ *   se considera como la URL local (por ejemplo: `http://localhost:5173`).
+ *
+ * - Si `data-href` no está presente o el elemento no existe, la función retorna la
+ *   URL pública usando `getURLBase()` como fallback.
+ *
+ * - El valor retornado es normalizado, eliminando cualquier barra final redundante (`/`).
+ *
+ * @example
+ * // HTML en desarrollo:
+ * // <link rel="canonical" href="http://localhost:4000" data-href="http://localhost:5173" />
+ *
+ * const localBase = getLocalURL();
+ * // localBase === "http://localhost:5173"
+ *
+ * @returns {string} URL base local sin barras finales.
+ */
+export function getLocalURL(): string {
+    const link: HTMLLinkElement | null = document.querySelector('[rel="canonical"]');
+
+    if (!(link instanceof HTMLLinkElement)) {
+        return getURLBase();
+    }
+
+    const { href } = link.dataset;
+    if (!href) return getURLBase();
+
+    const url: URL = new URL(href);
+    return url.href.replace(/\/+$/, '');
+}
+
+
+/**
+ * Construye una ruta absoluta a partir de una ruta lógica relativa.
+ *
+ * Esta función utiliza `getURLBase()` como base y concatena la ruta lógica proporcionada,
+ * garantizando que no haya dobles slashes (`//`) entre los segmentos.
+ *
+ * - Elimina automáticamente cualquier barra inicial redundante en la ruta lógica.
+ * - Funciona correctamente incluso si el sistema está desplegado en un subdirectorio
+ *   (ej. `https://dominio.com/carpeta/`).
+ *
+ * @example
+ * // Supongamos que el canonical es:
+ * // <link rel="canonical" href="https://dominio.com/app/" />
+ *
+ * route('api/usuario'); // → "https://dominio.com/app/api/usuario"
+ * route('/api/usuario'); // → "https://dominio.com/app/api/usuario"
+ *
+ * @param {string} route Ruta lógica relativa (por ejemplo: "api/usuario" o "/api/usuario").
+ * @returns {string} Ruta absoluta correctamente compuesta a partir de la URL base.
+ */
+export function endpoint(route: string): string {
     route = route.replace(/^\/+/, '');
     return `${getURLBase()}/${route}`;
 }
+
 
 /**
  * Devuelve la respuesta del servidor formateada a formato legible.
@@ -79,7 +159,6 @@ export function route(route: string): string {
 export function getData(input: unknown): ResponseData {
     const data: ResponseServerData = input as ResponseServerData;
 
-    console.log({ status: data.status })
     return {
         error: !data.status,
         message: data.error ?? data.message ?? data.success ?? '',
