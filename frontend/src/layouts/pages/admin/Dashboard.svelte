@@ -9,7 +9,6 @@
     import UserHelp from "../../help/UserHelp.svelte";
     import Sidebar from "../../sections/Dashboard/Sidebar.svelte";
     import Content from "../../sections/Dashboard/Content.svelte";
-    import IconSettings from "../../icons/IconSettings.svelte";
     import { navigate } from "../../routers/sources/router";
     import HeaderRouter from "../../routers/components/HeaderRouter.svelte";
     import ButtonMenu from "../../components/Buttons/ButtonMenu.svelte";
@@ -31,7 +30,8 @@
         navigate("/dashboard/settings");
     }
 
-    let openMenu: boolean = true;
+    let openMenu: boolean = false;
+    let headerHeight: number = 0;
 </script>
 
 <Header dashboard={true}>
@@ -39,13 +39,13 @@
         <IconInstall />
         <span>Panel de administración</span>
     </h2>
-    <ButtonMenu bind:open={openMenu} />
+    <ButtonMenu bind:open={openMenu} bind:top={headerHeight} />
     <HeaderRouter />
 </Header>
 
 <Container dashboard={true}>
     <section class="section section--dashboard" bind:this={container}>
-        <Sidebar bind:open={openMenu} />
+        <Sidebar bind:open={openMenu} bind:top={headerHeight} />
         <Content dashboard={true} />
     </section>
 </Container>

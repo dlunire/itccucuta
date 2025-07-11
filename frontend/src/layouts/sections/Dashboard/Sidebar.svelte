@@ -2,13 +2,13 @@
     import Menu from "../../components/Menues/Menu.svelte";
     import IconDashboard from "../../icons/IconDashboard.svelte";
     export let open: boolean = false;
-
-    $: console.log({ test: true, open });
+    export let top: number = 0;
 </script>
 
 <aside
     class="sidebar section__column section__column--sidebar"
     data-open={open}
+    style="--top: {top}px"
 >
     <h2 class="sidebar__title">
         <IconDashboard />

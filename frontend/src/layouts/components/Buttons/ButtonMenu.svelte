@@ -1,8 +1,17 @@
 <script lang="ts">
     export let open: boolean = false;
+    export let top: number = 0;
 
     function onclick(event: MouseEvent): void {
+        const { target: button } = event;
+        if (!(button instanceof HTMLButtonElement)) return;
+
         open = !open;
+
+        const header: HTMLElement | null = button.closest("header");
+        if (!(header instanceof HTMLElement)) return;
+        const size: DOMRect = header.getBoundingClientRect();
+        top = size.height - 1;
     }
 
     addEventListener("click", function (event: MouseEvent) {
@@ -12,6 +21,11 @@
         const { menu } = element.dataset;
         if (typeof menu !== "undefined") return;
         open = false;
+    });
+
+    addEventListener("keydown", function (event: KeyboardEvent) {
+        const { key } = event;
+        if (key === "Escape") open = false;
     });
 </script>
 
