@@ -182,6 +182,7 @@
         }
     }
     &__column {
+        position: relative;
         &--sidebar {
             --icon-color: #{rgba(white, 0.6)};
             --icon-size: 20px;
@@ -197,12 +198,6 @@
             flex-grow: 1;
             padding: 0;
             display: flex;
-        }
-        &--dashboard {
-            padding-right: 20px;
-            @media screen and (max-width: 750px) {
-                padding-right: unset;
-            }
         }
     }
     &--dashboard {
@@ -511,10 +506,18 @@
 }
 
 .content {
-    position: relative;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    height: 100%;
     border: 1px solid rgba($border-color, 0.3);
+    border-right: 0;
     flex-grow: 1;
     border-radius: 30px;
+    border-radius: 30px 0 0 30px;
     padding: 40px;
     background-color: rgba(orangered, 0.015);
     transition: 300ms ease;
