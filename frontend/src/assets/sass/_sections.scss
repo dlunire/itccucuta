@@ -31,6 +31,11 @@
         font: {
             size: 1.2rem;
         }
+        span {
+            @media screen and (max-width: 750px) {
+                display: none;
+            }
+        }
     }
     &__buttons {
         display: flex;
@@ -180,6 +185,9 @@
             --icon-height: var(--icon-size);
             border-right: 0;
             min-width: 300px;
+            @media screen and (max-width: 750px) {
+                min-width: unset;
+            }
         }
         &--content {
             flex-grow: 1;
@@ -188,11 +196,17 @@
         }
         &--dashboard {
             padding-right: 20px;
+            @media screen and (max-width: 750px) {
+                padding-right: unset;
+            }
         }
     }
     &--dashboard {
         display: flex;
         background-color: transparent;
+        @media screen and (max-width: 750px) {
+            flex-direction: column;
+        }
     }
 }
 
@@ -449,8 +463,15 @@
     border-radius: 30px;
     padding: 40px;
     background-color: rgba(orangered, 0.015);
+    transition: 300ms ease;
     &__title {
         margin: 0;
+    }
+    @media screen and (max-width: 750px) {
+        border-radius: 0;
+        border-left: 0;
+        border-right: 0;
+        border-top: 0;
     }
 }
 
