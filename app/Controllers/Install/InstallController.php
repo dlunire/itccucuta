@@ -3,22 +3,28 @@
 namespace DLUnire\Controllers\Install;
 
 use DLCore\Core\BaseController;
-use DLRoute\Config\Test;
+use DLUnire\Models\DTO\Frontend;
 use DLUnire\Models\Entities\Filename;
 use DLUnire\Models\Views\TestConection;
+use DLUnire\Services\Traits\FrontendTrait;
 use DLUnire\Services\Utilities\Credentials;
 use DLUnire\Services\Utilities\File;
 use PDOException;
 
 final class InstallController extends BaseController {
+    use FrontendTrait;
+
     private string $entropy = "Base de datos";
 
     public function credentials(): string {
+        /** @var Frontend $frontend */
+        $frontend = new Frontend();
 
-        return view('install.install', [
-            "token" => $this->get_random_token(),
-            "title" => "Programa de instalación"
-        ]);
+        $frontend->set_title("Programa de instación");
+        $frontend->set_description("Rellene el formulario para conectar con el servidor de base de datos");
+        $frontend->set_csrf($this->get_csrf());
+        $frontend->set_token($this->get_random_token());
+        return $this->get_frontend($frontend);
     }
 
     /**
