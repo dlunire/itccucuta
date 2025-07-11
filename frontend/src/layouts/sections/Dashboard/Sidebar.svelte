@@ -1,11 +1,11 @@
 <script>
     import Menu from "../../components/Menues/Menu.svelte";
-    import ArrowLeft from "../../icons/ArrowLeft.svelte";
+    import IconDashboard from "../../icons/IconDashboard.svelte";
 </script>
 
 <aside class="sidebar section__column section__column--sidebar">
     <h2 class="sidebar__title">
-        <ArrowLeft />
+        <IconDashboard />
         <span>Menú de navegación</span>
     </h2>
 
