@@ -14,6 +14,10 @@
     </Icon>
 
     {#if show}
-        <Table bind:show />
+        <Table bind:show>
+            {#snippet content()}
+                <IconStudents />
+            {/snippet}
+        </Table>
     {/if}
 </section>
