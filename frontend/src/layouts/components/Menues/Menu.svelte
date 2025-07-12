@@ -17,7 +17,7 @@
 </script>
 
 <ul class="menu">
-    <MenuItem href="/dashboard" label="Archivos" icon={iconCSV} />
+    <MenuItem href="/dashboard" label="Estudiantes" icon={iconCSV} />
     <MenuItem
         href="/dashboard/certificate"
         label="Certificados"
