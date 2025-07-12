@@ -256,6 +256,13 @@
             }
         }
     }
+    &--table {
+        display: flex;
+        border-radius: 0;
+        height: 30px;
+        width: 100%;
+        white-space: nowrap;
+    }
 }
 
 .list {

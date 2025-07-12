@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { onMount, type SvelteComponent } from "svelte";
+    import { onMount } from "svelte";
 
-    export let show: boolean = false;
+    export let hidden: boolean = false;
     export let title: string = "Estudiantes";
     export let content: Function | undefined = undefined;
     onMount(() => {
@@ -15,7 +15,7 @@
             <div class="icon-graphic__icon">
                 {@render content()}
             </div>
-            {#if show}
+            {#if !hidden}
                 <h2 class="icon-graphic__title">
                     {@render content()}
                     <span>{title}</span>

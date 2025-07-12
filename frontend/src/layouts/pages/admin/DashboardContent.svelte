@@ -7,13 +7,13 @@
 </script>
 
 <section class="content">
-    <Icon title="Estudiantes" bind:show>
+    <Icon title="Estudiantes" bind:hidden={show}>
         {#snippet content()}
             <IconStudents />
         {/snippet}
     </Icon>
 
     {#if show}
-        <Table />
+        <Table bind:show />
     {/if}
 </section>
