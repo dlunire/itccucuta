@@ -1,8 +1,14 @@
 <script lang="ts">
+    import Icon from "../../components/Graphics/Icon.svelte";
+    import IconCertificate from "../../icons/IconCertificate.svelte";
+
+    let show: boolean = true;
 </script>
 
 <section class="content">
-    <h2 class="content__title">
-        <span>Zona de carga de estudiantes</span>
-    </h2>
+    <Icon bind:show title="Certificados">
+        {#snippet content()}
+            <IconCertificate />
+        {/snippet}
+    </Icon>
 </section>

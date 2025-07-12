@@ -1,4 +1,5 @@
 <script lang="ts">
+    import Icon from "../../components/Graphics/Icon.svelte";
     import IconStudents from "../../icons/IconStudents.svelte";
 
     let show: boolean = true;
@@ -11,17 +12,9 @@
         </h2>
     {/if}
 
-    {#if show}
-        <div class="icon-graphic">
-            <div class="icon-graphic__inner">
-                <div class="icon-graphic__icon">
-                    <IconStudents />
-                </div>
-                <h2 class="icon-graphic__title">
-                    <IconStudents />
-                    <span>ESTUDIANTES</span>
-                </h2>
-            </div>
-        </div>
-    {/if}
+    <Icon title="Estudiantes" bind:show>
+        {#snippet content()}
+            <IconStudents />
+        {/snippet}
+    </Icon>
 </section>
