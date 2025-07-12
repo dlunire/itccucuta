@@ -6,7 +6,7 @@
         family: "Roboto", "Open Sans", sans-serif, arial;
     }
     line-height: 1.6;
-    background-color: color.adjust($color: $background, $lightness: 3%);
+    background-color: color.adjust($color: $background, $lightness: 0%);
     color: white;
 }
 

@@ -4,6 +4,10 @@
     import type { DataTable, Register } from "./interfaces/DataTable";
 
     export let show: boolean = false;
+    export let action: string | undefined = undefined;
+    export let title: string = "Lista de estudiantes";
+    export let content: Function | undefined = undefined;
+
     const data: DataTable = unknown as DataTable;
     //     columns: {
     //         name: "Nombres",
@@ -58,21 +62,31 @@
 
         console.log({ show });
     });
+
+    $: console.log({ action });
 </script>
 
 {#if show}
     <div class="table-container">
+        <header class="table-container__header">
+            <h2 class="table-container__title">
+                {#if content}
+                    {@render content()}
+                {/if}
+                <span>{title}</span>
+            </h2>
+        </header>
         <table class="table">
             <colgroup>
-                {#each Object.keys(data.columns) as item}
+                {#each Object.entries(data.columns) as [key, label]}
                     <col />
                 {/each}
             </colgroup>
 
             <thead>
                 <tr>
-                    {#each Object.keys(data.columns) as item}
-                        <th>{item}</th>
+                    {#each Object.entries(data.columns) as [key, label]}
+                        <th>{label}</th>
                     {/each}
                 </tr>
             </thead>
