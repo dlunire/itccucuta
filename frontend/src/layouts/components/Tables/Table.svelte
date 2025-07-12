@@ -2,6 +2,7 @@
     import { onMount } from "svelte";
     import unknown from "./data.json";
     import type { DataTable, Register } from "./interfaces/DataTable";
+    import IconSearchRegister from "../../icons/IconSearchRegister.svelte";
 
     export let show: boolean = false;
     export let action: string | undefined = undefined;
@@ -75,6 +76,24 @@
                 {/if}
                 <span>{title}</span>
             </h2>
+
+            <div class="table-container__buttons">
+                <form {action} class="form form--search">
+                    <div class="form__search">
+                        <input
+                            type="search"
+                            name="query"
+                            id="query"
+                            placeholder="Criterio de búsqueda"
+                            class="form__input form__input--query"
+                            autocomplete="off"
+                        />
+                        <button class="button button--query">
+                            <IconSearchRegister />
+                        </button>
+                    </div>
+                </form>
+            </div>
         </header>
         <table class="table">
             <colgroup>
