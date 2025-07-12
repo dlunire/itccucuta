@@ -9,16 +9,18 @@
     });
 </script>
 
-{#if show && content}
+{#if content}
     <div class="icon-graphic">
         <div class="icon-graphic__inner">
             <div class="icon-graphic__icon">
                 {@render content()}
             </div>
-            <h2 class="icon-graphic__title">
-                {@render content()}
-                <span>{title}</span>
-            </h2>
+            {#if show}
+                <h2 class="icon-graphic__title">
+                    {@render content()}
+                    <span>{title}</span>
+                </h2>
+            {/if}
         </div>
     </div>
 {/if}
