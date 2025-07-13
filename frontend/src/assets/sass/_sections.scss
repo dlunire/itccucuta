@@ -784,9 +784,14 @@
         right: 0;
         top: var(--top);
         bottom: 0;
+        padding-right: 15px;
     }
     & {
         position: relative;
         background-color: $background;
+        min-height: 100px;
+        min-width: 170px;
+        border: 1px solid $border-color;
+        animation: 300ms ease fade-in forwards;
     }
 }
