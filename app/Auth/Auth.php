@@ -7,11 +7,12 @@
 
 namespace DLUnire\Auth;
 
-use DLStorage\Errors\StorageException;
 use Framework\Auth\AuthBase;
 use DLUnire\Models\Entities\UserData;
 use DLUnire\Models\Users;
+use DLUnire\Models\Views\TestConection;
 use DLUnire\Services\Utilities\Credentials;
+use PDOException;
 
 /**
  * Clase encargada de la autenticación de usuarios en el entorno de DLUnire.
@@ -43,16 +44,21 @@ class Auth extends AuthBase {
     /**
      * Permite rutas autenticadas, caso contrario, redirige al formulario de inicio de sesión.
      *
-     * @param callable $callback
+     * @param callable $callback Función pasada como argumento que será ejecutada para registrar rutas autenticadas
+     * @param int $code [Opcional] Código de redirección HTTP
      * @return void
      */
-    public function authenticated(callable $callback, $code = 301): void {
+    public function authenticated(callable $callback, $code = 302): void {
+
+        if (!self::connected_database()) {
+            return;
+        }
 
         /** @var Credentials $credentials */
         $credentials = new Credentials();
 
         if (!$credentials->exists('database')) {
-            throw new StorageException("El archivo «database.dlstorage» no existe", 404);
+            return;
         }
 
         /**
@@ -71,7 +77,7 @@ class Auth extends AuthBase {
 
         if ($logged && $quantity < 1) {
             $this->clear_auth();
-            redirect('/install/user');
+            redirect('/install/user', $code);
         }
 
         if ($logged) {
@@ -95,6 +101,10 @@ class Auth extends AuthBase {
      */
 
     public function not_authenticated(callable $callback): void {
+        if (!self::connected_database()) {
+            return;
+        }
+
         /**
          * Indicador de autenticación del usuario de la aplicación
          * 
@@ -217,5 +227,20 @@ class Auth extends AuthBase {
         $uuid = $auth->get_userdata('users_uuid');
 
         return new UserData($uuid);
+    }
+
+    /**
+     * Verifica si la conexión con el motor de base de datos es correcta
+     *
+     * @return bool
+     */
+    public static function connected_database(): bool {
+
+        try {
+            TestConection::first();
+            return true;
+        } catch (PDOException $error) {
+            return false;
+        }
     }
 }

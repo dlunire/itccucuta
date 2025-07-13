@@ -269,12 +269,27 @@
         width: 60px;
         height: 35px;
         border-radius: 0 20px 20px 0;
+        --icon-size: 15px;
         &,
         path {
             transition: 300ms;
         }
         &:hover {
             background-color: rgba($base-color, 0.7);
+        }
+    }
+    &--user {
+        --button-size: 40px;
+        width: var(--button-size);
+        height: var(--button-size);
+        border: 1px solid $border-color;
+        img {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center center;
         }
     }
 }

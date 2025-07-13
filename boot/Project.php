@@ -28,10 +28,12 @@ class Project implements ProjectInterface {
      * @return void
      */
     private static function includes(string $folder = "app/Helpers"): void {
-        $root = DLServer::get_document_root();
-        $dir = "{$root}/{$folder}";
+        /** @var string $separator */
+        $separator = DIRECTORY_SEPARATOR;
 
-        
+        $root = DLServer::get_document_root();
+        $dir = "{$root}{$separator}{$folder}";
+
         if (!file_exists($dir) || !is_dir($dir)) {
             return;
         }
@@ -49,9 +51,16 @@ class Project implements ProjectInterface {
          * @var array<string>
          */
         $filenames = glob($search_files);
+        $install = "{$dir}{$separator}install.php";
+
+        if (file_exists($install)) {
+            include $install;
+        }
 
         foreach ($filenames as $filename) {
             $filename = trim($filename);
+            $file = basename($filename);
+            if ($file === "install.php") continue;
             include $filename;
         }
     }
@@ -78,7 +87,7 @@ class Project implements ProjectInterface {
         Authorizations::init();
 
         SystemCredentials::load();
-        
+
         self::includes();
         self::includes('app/Constants');
         self::includes("routes");

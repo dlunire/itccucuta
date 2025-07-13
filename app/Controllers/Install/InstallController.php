@@ -2,18 +2,15 @@
 
 namespace DLUnire\Controllers\Install;
 
-use DLCore\Core\BaseController;
 use DLUnire\Models\DTO\Frontend;
 use DLUnire\Models\Entities\Filename;
 use DLUnire\Models\Views\TestConection;
-use DLUnire\Services\Traits\FrontendTrait;
 use DLUnire\Services\Utilities\Credentials;
 use DLUnire\Services\Utilities\File;
+use Framework\Abstracts\BaseController;
 use PDOException;
 
 final class InstallController extends BaseController {
-    use FrontendTrait;
-
     private string $entropy = "Base de datos";
 
     public function credentials(): string {
@@ -121,10 +118,15 @@ final class InstallController extends BaseController {
     }
 
     public function check_view(): string {
-        return view('install.install', [
-            "token" => $this->get_random_token(),
-            "title" => "Verifique las credenciales antes de continuar"
-        ]);
+        /** @var Frontend $frontend */
+        $frontend = new Frontend();
+
+        $frontend->set_title('Comprobar credenciales');
+        $frontend->set_description('Presiona el botón Verificar credenciales para comprobar la conexión con la base de datos. Si los datos ingresados son válidos, continuarás con la creación del usuario administrador. En caso contrario, podrás corregir las credenciales antes de seguir con la instalación.');
+        $frontend->set_token($this->get_random_token());
+        $frontend->set_csrf($this->get_csrf());
+
+        return $this->get_frontend($frontend);
     }
 
     /**
@@ -133,17 +135,7 @@ final class InstallController extends BaseController {
      * @return array
      */
     public function check(): array {
-
-        try {
-            TestConection::first();
-        } catch (PDOException $error) {
-            http_response_code(401);
-            return [
-                "status" => false,
-                "error" => $error->getMessage(),
-                "details" => $error
-            ];
-        }
+        $this->check_conection();
         return [
             "status" => true,
             "success" => "Las credenciales ingresadas fueron instaladas con éxito"

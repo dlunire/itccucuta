@@ -3,10 +3,12 @@
     import unknown from "./data.json";
     import type { DataTable, Register } from "./interfaces/DataTable";
     import IconSearchRegister from "../../icons/IconSearchRegister.svelte";
+    import { endpoint } from "../Forms/lib/request";
 
     export let show: boolean = false;
     export let action: string | undefined = undefined;
     export let title: string = "Lista de estudiantes";
+    export let showNumber: boolean = true;
     export let content: Function | undefined = undefined;
 
     const data: DataTable = unknown as DataTable;
@@ -60,11 +62,12 @@
         if (!data) return;
         const { length } = data.records;
         show = length > 0;
-
-        console.log({ show });
     });
 
-    $: console.log({ action });
+    async function onsubmit(event: SubmitEvent): Promise<void> {
+        event.preventDefault();
+        console.log({ action, endpoint: endpoint(action ?? "") });
+    }
 </script>
 
 {#if show}
@@ -78,7 +81,7 @@
             </h2>
 
             <div class="table-container__buttons">
-                <form {action} class="form form--search">
+                <form {action} class="form form--search" {onsubmit}>
                     <div class="form__search">
                         <input
                             type="search"
@@ -97,22 +100,33 @@
         </header>
         <table class="table">
             <colgroup>
+                {#if showNumber}
+                    <col />
+                {/if}
                 {#each Object.entries(data.columns) as [key, label]}
                     <col />
                 {/each}
             </colgroup>
 
-            <thead>
+            <thead class="fixed fixed--panel">
                 <tr>
+                    {#if showNumber}
+                        <th class="fixed fixed--column">Nº</th>
+                    {/if}
                     {#each Object.entries(data.columns) as [key, label]}
-                        <th>{label}</th>
+                        <th data-key={key}>{label}</th>
                     {/each}
                 </tr>
             </thead>
 
             <tbody>
-                {#each data.records as record}
+                {#each data.records as record, index}
                     <tr>
+                        {#if showNumber}
+                            <td class="center fixed fixed--column"
+                                >{index + 1}</td
+                            >
+                        {/if}
                         {#each Object.keys(data.columns) as item}
                             <td>
                                 <button

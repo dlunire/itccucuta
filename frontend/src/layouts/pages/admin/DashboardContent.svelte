@@ -14,7 +14,7 @@
     </Icon>
 
     {#if show}
-        <Table bind:show>
+        <Table bind:show action="/v1/dashboard/query">
             {#snippet content()}
                 <IconStudents />
             {/snippet}

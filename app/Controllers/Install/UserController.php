@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace DLUnire\Controllers\Install;
 
-use DLCore\Core\BaseController;
+use DLUnire\Models\DTO\Frontend;
 use DLUnire\Models\Users;
 use Exception;
+use Framework\Abstracts\BaseController;
 
 /**
  * Copyright (c) 2025 David E Luna M
@@ -29,10 +30,13 @@ final class UserController extends BaseController {
      * @return string HTML renderizado del formulario.
      */
     public function user_form(): string {
-        return view('install.install', [
-            "token" => $this->get_random_token(),
-            "title" => "Creación de usuario del sistema"
-        ]);
+        $frontend = new Frontend();
+        $frontend->set_title('Crear usuario del sistema');
+        $frontend->set_description("Llene el formulario para crear su usuario");
+        $frontend->set_csrf($this->get_csrf());
+        $frontend->set_token($this->get_random_token());
+
+        return $this->get_frontend($frontend);
     }
 
     /**
@@ -63,7 +67,7 @@ final class UserController extends BaseController {
         $quantity = Users::count();
 
         if ($quantity > 0) {
-            throw new Exception("Operación no permitida", 403);
+            throw new Exception("No puedes utilizar este formulario para crear un usuario, porque el usuario del sistema ya existe en la base de datos. ", 403);
         }
 
         /** @var boolean $created */

@@ -12,6 +12,7 @@
     import { navigate } from "../../routers/sources/router";
     import HeaderRouter from "../../routers/components/HeaderRouter.svelte";
     import ButtonMenu from "../../components/Buttons/ButtonMenu.svelte";
+    import Auth from "../../components/User/Auth.svelte";
 
     onMount(() => {
         if (container instanceof HTMLElement) zIndexReverse(container);
@@ -40,7 +41,10 @@
         <span>Panel de administración</span>
     </h2>
     <ButtonMenu bind:open={openMenu} bind:top={headerHeight} />
-    <HeaderRouter />
+    <div class="header__options">
+        <HeaderRouter />
+        <Auth />
+    </div>
 </Header>
 
 <Container dashboard={true}>

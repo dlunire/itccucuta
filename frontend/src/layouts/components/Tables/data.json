@@ -2,42 +2,49 @@
     "columns": {
         "name": "Nombres",
         "lastname": "Apellidos",
+        "documentType": "Tipo de documento",
         "documentNumber": "Nº de documento",
         "email": "Correo electrónico"
     },
     "records": [{
             "name": "Carlos Andrés",
             "lastname": "Pérez Gómez",
+            "documentType": "Cédula de Ciudadanía (CC)",
             "documentNumber": 1234567,
             "email": "carlos.perez@example.com"
         },
         {
             "name": "María Fernanda",
             "lastname": "Rodríguez Díaz",
+            "documentType": "Cédula de Ciudadanía (CC)",
             "documentNumber": 2345678,
             "email": "maria.fernandez@example.com"
         },
         {
             "name": "Luis Alberto",
             "lastname": "García Torres",
+            "documentType": "Cédula de Ciudadanía (CC)",
             "documentNumber": 3456789,
             "email": "luis.garcia@example.com"
         },
         {
             "name": "Ana Sofía",
             "lastname": "Martínez Rivas",
+            "documentType": "Cédula de Ciudadanía (CC)",
             "documentNumber": 4567890,
             "email": "ana.martinez@example.com"
         },
         {
             "name": "Jorge Enrique",
             "lastname": "Ramírez López",
+            "documentType": "Cédula de Ciudadanía (CC)",
             "documentNumber": 5678901,
             "email": "jorge.ramirez@example.com"
         },
         {
             "name": "Camila Julieta",
             "lastname": "Morales Vega",
+            "documentType": "Cédula de Ciudadanía (CC)",
             "documentNumber": 6789012,
             "email": "camila.morales@example.com"
         }

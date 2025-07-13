@@ -6,7 +6,7 @@
         family: "Roboto", "Open Sans", sans-serif, arial;
     }
     line-height: 1.6;
-    background-color: color.adjust($color: $background, $lightness: 0%);
+    background-color: color.adjust($color: $background, $lightness: -0.5%);
     color: white;
 }
 
@@ -75,4 +75,8 @@ code {
     font: {
         size: 0.9rem;
     }
+}
+
+.center {
+    text-align: center;
 }
