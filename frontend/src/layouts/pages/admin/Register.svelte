@@ -2,7 +2,7 @@
     import Icon from "../../components/Graphics/Icon.svelte";
     import IconSearchRegister from "../../icons/IconSearchRegister.svelte";
 
-    let show: boolean = true;
+    let show: boolean = false;
 </script>
 
 <section class="content">
