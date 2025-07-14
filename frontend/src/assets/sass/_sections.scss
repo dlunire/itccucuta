@@ -792,6 +792,7 @@
         top: var(--top);
         bottom: 0;
         padding-right: 15px;
+        overflow: auto;
     }
     & {
         position: relative;
@@ -804,6 +805,8 @@
         margin-left: auto;
         margin-right: 0;
         overflow: hidden;
+        padding-top: 10px;
+        padding-bottom: 10px;
     }
     &__header {
         --icon-size: 100px;
@@ -867,5 +870,14 @@
     }
     &__link {
         color: rgba(white, 0.8);
+        display: flex;
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        &>* {
+            pointer-events: none;
+            user-select: none;
+        }
     }
 }

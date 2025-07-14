@@ -2,7 +2,11 @@
     import IconExit from "../../icons/IconExit.svelte";
     import IconLoading from "../../icons/IconLoading.svelte";
     import IconUser from "../../icons/IconUser.svelte";
-    import { getFullURL, getLocation } from "../../routers/sources/router";
+    import {
+        getFullURL,
+        getLocation,
+        navigate,
+    } from "../../routers/sources/router";
     import { endpoint } from "../Forms/lib/request";
 
     export let title: string = "Información del usuario";
@@ -70,6 +74,16 @@
         a.click();
         a.remove();
     }
+
+    function handleAnchor(event: MouseEvent): void {
+        event.preventDefault();
+
+        const { target: anchor } = event;
+        if (!(anchor instanceof HTMLAnchorElement)) return;
+        const href: string | null = anchor.getAttribute("href");
+        if (!href) return;
+        navigate(href);
+    }
 </script>
 
 <nav class="auth">
@@ -120,8 +134,9 @@
 
                 <div class="profile__links">
                     <a
-                        href={getFullURL("/dashboard/profile")}
+                        href="/dashboard/profile"
                         class="profile__link"
+                        onclick={handleAnchor}
                     >
                         <span>Revisar mi perfil</span>
                     </a>
