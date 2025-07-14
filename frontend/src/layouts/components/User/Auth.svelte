@@ -1,15 +1,18 @@
 <script lang="ts">
     import IconExit from "../../icons/IconExit.svelte";
+    import IconLoading from "../../icons/IconLoading.svelte";
     import IconUser from "../../icons/IconUser.svelte";
-    import { getFullURL } from "../../routers/sources/router";
+    import { getFullURL, getLocation } from "../../routers/sources/router";
+    import { endpoint } from "../Forms/lib/request";
+
     export let title: string = "Información del usuario";
     export let openMenu: boolean = false;
-
-    $: console.log({ openMenu });
+    export let action: string = "/logout";
 
     let top: number = 0;
     let error: boolean = false;
     let label: string = "David E Luna M";
+    let loadingOpen: boolean = false;
 
     function onclick(event: MouseEvent): void {
         const { target: button } = event;
@@ -39,9 +42,10 @@
     addEventListener("click", function (event: MouseEvent) {
         const { target: element } = event;
         if (!(element instanceof HTMLElement)) return;
+        const { auth } = element.dataset;
+        if (typeof auth == "string") return;
 
-        const { open } = element.dataset;
-        if (open || open === "false") return;
+        console.log({ test: "Esta es una prueba" });
         openMenu = false;
     });
 
@@ -51,6 +55,21 @@
             openMenu = false;
         }
     });
+
+    async function closeSession(event: MouseEvent): Promise<void> {
+        const url: string = endpoint(action);
+        loadingOpen = true;
+        await fetch(url, {
+            method: "DELETE",
+            credentials: "include",
+        });
+        loadingOpen = false;
+
+        const a: HTMLAnchorElement = document.createElement("a");
+        a.href = getFullURL("/login");
+        a.click();
+        a.remove();
+    }
 </script>
 
 <nav class="auth">
@@ -59,7 +78,7 @@
         aria-label="Usuario"
         {title}
         {onclick}
-        data-open={String(openMenu)}
+        data-auth=""
     >
         <IconUser />
     </button>
@@ -86,9 +105,16 @@
                     <button
                         class="button button--profile"
                         aria-label="Cerrar sesión"
+                        data-auth=""
+                        onclick={closeSession}
                     >
                         <IconExit />
                         <span>Cerrar sesión</span>
+                        <IconLoading
+                            bind:open={loadingOpen}
+                            position="absolute"
+                            size={30}
+                        />
                     </button>
                 </div>
 

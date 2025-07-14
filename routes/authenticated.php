@@ -5,6 +5,7 @@ declare(strict_types=1);
 use DLRoute\Requests\DLRoute;
 use DLUnire\Auth\Auth;
 use DLUnire\Controllers\Admin\Dashbord\DashboardController;
+use DLUnire\Controllers\Auth\AuthController;
 
 /** @var Auth $auth */
 $auth = Auth::get_instance();
@@ -30,4 +31,9 @@ $auth->authenticated(function () {
     DLRoute::get('/login', function () {
         redirect("/dashboard");
     });
+});
+
+$auth->logged(function () {
+    ## CERRAR SESIÓN
+    DLRoute::delete('/logout', [AuthController::class, 'logout']);
 });

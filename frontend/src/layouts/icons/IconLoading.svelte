@@ -172,6 +172,7 @@
             $color: $base-color,
             $lightness: -15%,
         );
+
         background-color: rgba($color, 0.6);
         z-index: 20;
 
@@ -201,6 +202,7 @@
         background-color: var(--background);
         border-radius: inherit;
         background-color: $secondary-color;
+        border-radius: inherit;
 
         &--translucent {
             --background: #{rgba(white, 0.4)};

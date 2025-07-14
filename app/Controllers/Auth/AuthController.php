@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace DLUnire\Controllers\Auth;
 
 use DLCore\Core\BaseController;
+use DLUnire\Auth\Auth;
 use DLUnire\Models\DTO\Frontend;
 use DLUnire\Models\Users;
 use DLUnire\Models\Views\UserEntity;
@@ -39,6 +40,20 @@ final class AuthController extends BaseController {
         return [
             "status" => true,
             "message" => "Autenticado correctamente"
+        ];
+    }
+
+    /**
+     * Cierra la sesión del usuario liberarando los datos de la sesión
+     *
+     * @return array
+     */
+    public function logout(): array {
+        $auth = Auth::get_instance();
+        $auth->clear_auth();
+        return [
+            "status" => true,
+            "success" => "Se ha cerrado la sesión del usuario"
         ];
     }
 

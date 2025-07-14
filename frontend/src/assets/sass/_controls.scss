@@ -299,14 +299,13 @@
         }
     }
     &--profile {
+        --icon-color: white;
         flex-grow: 1;
         height: 40px;
-        border-radius: 0 0 30px 30px;
-        border-left: 1px solid;
-        border-right: 1px solid;
-        border-bottom: 1px solid;
+        border-radius: 30px;
+        border: 1px solid;
         border-color: rgba(white, 0.2);
-        --icon-color: white;
+        display: flex;
         font: inherit;
         &:hover {
             background-color: rgba(red, 0.05);
