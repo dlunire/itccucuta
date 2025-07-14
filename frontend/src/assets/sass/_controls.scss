@@ -298,6 +298,12 @@
             opacity: 1;
         }
     }
+    &--profile {
+        flex-grow: 1;
+        height: 40px;
+        border-top: 1px solid rgba(red, 0.3);
+        border-radius: 0;
+    }
 }
 
 .list {

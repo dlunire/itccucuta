@@ -7,6 +7,7 @@
 
     let top: number = 0;
     let error: boolean = false;
+    let label: string = "David E Luna M";
 
     function onclick(event: MouseEvent): void {
         const { target: button } = event;
@@ -77,7 +78,17 @@
                     />
                 {/if}
             </header>
-            <div class="profile__content"></div>
+            <div class="profile__content">
+                <h2 class="profile__title">{label}</h2>
+                <div class="profile__buttons">
+                    <button
+                        class="button button--profile"
+                        aria-label="Cerrar sesión"
+                    >
+                        <span>Cerrar sesión</span>
+                    </button>
+                </div>
+            </div>
         </section>
     </div>
 {/if}
