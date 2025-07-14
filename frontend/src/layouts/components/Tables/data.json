@@ -47,6 +47,27 @@
             "documentType": "Cédula de Ciudadanía (CC)",
             "documentNumber": 6789012,
             "email": "camila.morales@example.com"
+        },
+        {
+            "name": "Jorge Enrique",
+            "lastname": "Ramírez López",
+            "documentType": "Cédula de Ciudadanía (CC)",
+            "documentNumber": 5678901,
+            "email": "jorge.ramirez@example.com"
+        },
+        {
+            "name": "Jorge Enrique",
+            "lastname": "Ramírez López",
+            "documentType": "Cédula de Ciudadanía (CC)",
+            "documentNumber": 5678901,
+            "email": "jorge.ramirez@example.com"
+        },
+        {
+            "name": "Jorge Enrique",
+            "lastname": "Ramírez López",
+            "documentType": "Cédula de Ciudadanía (CC)",
+            "documentNumber": 5678901,
+            "email": "jorge.ramirez@example.com"
         }
     ]
 }

@@ -6,12 +6,19 @@
     $: console.log({ openMenu });
 
     let top: number = 0;
+    let error: boolean = false;
 
     function onclick(event: MouseEvent): void {
         const { target: button } = event;
         if (!(button instanceof HTMLButtonElement)) return;
         openMenu = !openMenu;
         loadSize(button);
+    }
+
+    function onerror(event: Event): void {
+        const { target: image } = event;
+        if (!(image instanceof HTMLImageElement)) return;
+        error = true;
     }
 
     function loadSize(button: HTMLButtonElement): void {
@@ -57,6 +64,20 @@
 
 {#if openMenu}
     <div class="profile-container" style="--top: {top}px">
-        <section class="profile"></section>
+        <section class="profile">
+            <header class="profile__header">
+                {#if error}
+                    <IconUser />
+                {:else}
+                    <img
+                        src=""
+                        alt="Perfil de usuario"
+                        loading="lazy"
+                        {onerror}
+                    />
+                {/if}
+            </header>
+            <div class="profile__content"></div>
+        </section>
     </div>
 {/if}
