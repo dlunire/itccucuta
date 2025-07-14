@@ -807,6 +807,9 @@
         overflow: hidden;
         padding-top: 10px;
         padding-bottom: 10px;
+        @media screen and (max-width: 340px) {
+            margin-left: 10px;
+        }
     }
     &__header {
         --icon-size: 100px;

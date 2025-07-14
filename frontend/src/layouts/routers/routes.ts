@@ -11,6 +11,7 @@ import Buttons from '../components/Nav/Buttons.svelte';
 import CertificateButtons from '../components/Nav/CertificateButtons.svelte';
 import History from '../pages/admin/History.svelte';
 import Register from '../pages/admin/Register.svelte';
+import Profile from '../pages/admin/Profile.svelte';
 
 export const routes: Route[] = [
     route('/', getComponent(Home), []),
@@ -22,4 +23,5 @@ export const routes: Route[] = [
     route('/dashboard/certificate', getComponent(LoadStudent), [], getComponent(CertificateButtons)),
     route('/dashboard/history', getComponent(History), [], getComponent(CertificateButtons)),
     route('/dashboard/register', getComponent(Register), [], getComponent(CertificateButtons)),
+    route('/dashboard/profile', getComponent(Profile), [], getComponent(CertificateButtons)),
 ];

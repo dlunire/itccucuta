@@ -6,6 +6,7 @@ use DLRoute\Requests\DLRoute;
 use DLUnire\Auth\Auth;
 use DLUnire\Controllers\Admin\Dashbord\DashboardController;
 use DLUnire\Controllers\Auth\AuthController;
+use DLUnire\Models\Users;
 
 /** @var Auth $auth */
 $auth = Auth::get_instance();
@@ -36,4 +37,8 @@ $auth->authenticated(function () {
 $auth->logged(function () {
     ## CERRAR SESIÓN
     DLRoute::delete('/logout', [AuthController::class, 'logout']);
+
+    DLRoute::get('/test', function () {
+        return Users::paginate(1, 10);
+    });
 });
