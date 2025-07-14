@@ -310,6 +310,10 @@
         &:hover {
             background-color: rgba(red, 0.05);
         }
+        &:active {
+            transition: none;
+            background-color: transparent;
+        }
     }
 }
 

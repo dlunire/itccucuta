@@ -799,7 +799,7 @@
         background-color: $background;
         width: 100%;
         max-width: 340px;
-        border: 1px solid $border-color;
+        border: 1px solid rgba(white, 0.1);
         animation: 300ms ease fade-in forwards;
         border-radius: 20px;
         margin-left: auto;
@@ -821,7 +821,6 @@
         border-left: 2px solid green;
         border-right: 2px solid red;
         border-top: 2px solid #0080d4;
-        // border-bottom: 2px solid rgba()
         img,
         svg {
             display: flex;
