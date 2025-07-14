@@ -301,8 +301,12 @@
     &--profile {
         flex-grow: 1;
         height: 40px;
-        border-top: 1px solid rgba(red, 0.2);
-        border-radius: 0;
+        border-radius: 0 0 30px 30px;
+        border-left: 1px solid;
+        border-right: 1px solid;
+        border-bottom: 1px solid;
+        border-color: rgba(white, 0.2);
+        --icon-color: white;
         font: inherit;
         &:hover {
             background-color: rgba(red, 0.05);

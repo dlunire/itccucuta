@@ -1,5 +1,7 @@
 <script lang="ts">
+    import IconExit from "../../icons/IconExit.svelte";
     import IconUser from "../../icons/IconUser.svelte";
+    import { getFullURL } from "../../routers/sources/router";
     export let title: string = "Información del usuario";
     export let openMenu: boolean = false;
 
@@ -85,8 +87,18 @@
                         class="button button--profile"
                         aria-label="Cerrar sesión"
                     >
+                        <IconExit />
                         <span>Cerrar sesión</span>
                     </button>
+                </div>
+
+                <div class="profile__links">
+                    <a
+                        href={getFullURL("/dashboard/profile")}
+                        class="profile__link"
+                    >
+                        <span>Revisar mi perfil</span>
+                    </a>
                 </div>
             </div>
         </section>
