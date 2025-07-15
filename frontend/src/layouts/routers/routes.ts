@@ -22,8 +22,8 @@ export const routes: Route[] = [
     route('/login', getComponent(Login), []),
     route('/dashboard', getComponent(DashboardContent), [], getComponent(Buttons)),
     route('/dashboard/certificate', getComponent(LoadStudent), [], getComponent(CertificateButtons)),
-    route('/dashboard/history', getComponent(History), [], getComponent(CertificateButtons)),
-    route('/dashboard/register', getComponent(Register), [], getComponent(CertificateButtons)),
+    route('/dashboard/history', getComponent(History), []),
+    route('/dashboard/register', getComponent(Register), []),
     route('/dashboard/profile', getComponent(Profile), []),
     route('/dashboard/settings', getComponent(Settings), []),
 ];

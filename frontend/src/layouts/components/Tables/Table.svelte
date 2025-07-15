@@ -3,7 +3,7 @@
     import unknown from "./data.json";
     import type { DataTable, Register } from "./interfaces/DataTable";
     import IconSearchRegister from "../../icons/IconSearchRegister.svelte";
-    import { endpoint } from "../Forms/lib/request";
+    import Paginate from "../Paginate/Paginate.svelte";
 
     export let show: boolean = false;
     export let action: string | undefined = undefined;
@@ -11,7 +11,7 @@
     export let showNumber: boolean = true;
     export let content: Function | undefined = undefined;
 
-    const data: DataTable = unknown as DataTable;
+    let data: DataTable = unknown as DataTable;
     //     columns: {
     //         name: "Nombres",
     //         lastname: "Apellidos",
@@ -66,7 +66,6 @@
 
     async function onsubmit(event: SubmitEvent): Promise<void> {
         event.preventDefault();
-        console.log({ action, endpoint: endpoint(action ?? "") });
     }
 </script>
 
@@ -80,68 +79,81 @@
                 <span>{title}</span>
             </h2>
 
-            <div class="table-container__buttons">
-                <form {action} class="form form--search" {onsubmit}>
-                    <div class="form__search">
-                        <input
-                            type="search"
-                            name="query"
-                            id="query"
-                            placeholder="Criterio de búsqueda"
-                            class="form__input form__input--query"
-                            autocomplete="off"
-                        />
-                        <button class="button button--query">
-                            <IconSearchRegister />
-                        </button>
-                    </div>
-                </form>
+            <div class="table-container__controls">
+                <div class="table-container__buttons">
+                    <form {action} class="form form--search" {onsubmit}>
+                        <div class="form__search">
+                            <input
+                                type="search"
+                                name="query"
+                                id="query"
+                                placeholder="Criterio de búsqueda"
+                                class="form__input form__input--query"
+                                autocomplete="off"
+                            />
+                            <button class="button button--query">
+                                <IconSearchRegister />
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </header>
-        <table class="table">
-            <colgroup>
-                {#if showNumber}
-                    <col />
-                {/if}
-                {#each Object.entries(data.columns) as [key, label]}
-                    <col />
-                {/each}
-            </colgroup>
-
-            <thead class="fixed fixed--panel">
-                <tr>
-                    {#if showNumber}
-                        <th class="fixed fixed--column">Nº</th>
-                    {/if}
-                    {#each Object.entries(data.columns) as [key, label]}
-                        <th data-key={key}>{label}</th>
-                    {/each}
-                </tr>
-            </thead>
-
-            <tbody>
-                {#each data.records as record, index}
-                    <tr>
+        <div class="table-container__container">
+            <div class="table-container__content">
+                <table class="table">
+                    <colgroup>
                         {#if showNumber}
-                            <td class="center fixed fixed--column"
-                                >{index + 1}</td
-                            >
+                            <col />
                         {/if}
-                        {#each Object.keys(data.columns) as item}
-                            <td>
-                                <button
-                                    class="button button--table"
-                                    aria-label={String(
-                                        record[item as keyof Register],
-                                    )}
-                                >
-                                    {record[item as keyof Register]}
-                                </button>
-                            </td>
+                        {#each Object.entries(data.columns) as [key, label]}
+                            <col />
                         {/each}
-                    </tr>
-                {/each}
-            </tbody>
-        </table>
+                    </colgroup>
+
+                    <thead class="fixed fixed--panel">
+                        <tr>
+                            {#if showNumber}
+                                <th class="fixed fixed--column">Nº</th>
+                            {/if}
+                            {#each Object.entries(data.columns) as [key, label]}
+                                <th data-key={key}>{label}</th>
+                            {/each}
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {#each data.records as record, index}
+                            <tr>
+                                {#if showNumber}
+                                    <td class="center fixed fixed--column"
+                                        >{index + 1}</td
+                                    >
+                                {/if}
+                                {#each Object.keys(data.columns) as item}
+                                    <td>
+                                        <button
+                                            class="button button--table"
+                                            aria-label={String(
+                                                record[item as keyof Register],
+                                            )}
+                                        >
+                                            {record[item as keyof Register]}
+                                        </button>
+                                    </td>
+                                {/each}
+                            </tr>
+                        {/each}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <footer class="table-container__footer">
+            <div class="table-container__info"></div>
+            <div class="table-container__info">
+                <Paginate bind:data />
+            </div>
+        </footer>
     </div>
 {/if}

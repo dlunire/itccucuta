@@ -315,6 +315,29 @@
             background-color: transparent;
         }
     }
+    &--paginate {
+        --icon-color: white;
+        border: 1px solid $border-color;
+        width: 40px;
+        height: 30px;
+        display: flex;
+        &[data-direction="left"] {
+            border-radius: 4px 0 0 4px;
+        }
+        &[data-direction="right"] {
+            border-radius: 0 4px 4px 0;
+            border-left: 0;
+            svg {
+                transform: rotate(180deg);
+            }
+        }
+        &:hover {
+            background-color: rgba($base-color, 0.5);
+        }
+        &:active {
+            background-color: transparent;
+        }
+    }
 }
 
 .list {

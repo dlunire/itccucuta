@@ -658,30 +658,46 @@
         right: 0;
         top: 0;
         bottom: 0;
-        border-radius: inherit;
-        overflow: inherit;
-        height: 100%;
-        width: 100%;
+        display: flex;
+        flex-direction: column;
         &__header {
-            min-height: 40px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background-color: $background;
-            background-image: linear-gradient(30deg, $secondary-color transparent);
-            border-bottom: 1px solid rgba($border-color, 0.3);
-            position: sticky;
-            left: 0;
-            top: 0;
             border-radius: 30px 0 0 0;
             overflow: hidden;
             padding-top: 7px;
             padding-bottom: 7px;
-            padding-left: 25px;
-            padding-right: 15px;
+            padding-left: 13px;
+            padding-right: 10px;
+            min-height: 50px;
+            background-color: $background;
             @media screen and (max-width: 750px) {
                 border-radius: 0;
             }
+        }
+        &__container {
+            flex-grow: 1;
+            position: relative;
+            height: 100%;
+        }
+        &__content {
+            position: absolute;
+            margin: auto;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            height: 100%;
+            overflow: auto;
+        }
+        &__footer {
+            background-color: $background;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 7px 10px;
+            border-top: 1px solid rgba($border-color, 0.3);
         }
         &__title {
             margin: 0;
@@ -704,6 +720,11 @@
             align-items: center;
             justify-content: flex-end;
         }
+        &__controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
     }
     & {
         width: 100%;
@@ -719,11 +740,13 @@
             padding-top: 5px;
             padding-bottom: 5px;
             padding-left: 10px;
+            padding-right: 10px;
         }
         th,
         td {
             border: 1px solid rgba($border-color, 0.2);
             vertical-align: middle;
+            white-space: nowrap;
         }
         td {
             position: relative;
@@ -776,10 +799,15 @@
     }
     thead {
         position: sticky;
-        top: var(--top);
+        top: 0;
         left: 0;
         background-color: $background;
         z-index: 1;
+        &::before {
+            content: "";
+            pointer-events: none;
+            user-select: none;
+        }
     }
 }
 
@@ -881,5 +909,14 @@
             pointer-events: none;
             user-select: none;
         }
+    }
+}
+
+.paginate {
+    display: flex;
+    &__info {
+        display: flex;
+        align-items: center;
+        padding-right: 5px;
     }
 }
