@@ -338,6 +338,27 @@
             background-color: transparent;
         }
     }
+    &--table-header {
+        display: flex;
+        border-radius: 0;
+        height: 100%;
+        min-width: 100%;
+        height: 35px;
+        padding: 0 10px;
+        margin-left: -1px;
+        margin-right: -1px;
+        position: relative;
+        padding-right: 30px;
+        svg {
+            display: flex;
+            position: absolute;
+            margin: auto;
+            left: auto;
+            right: 10px;
+            top: 0;
+            bottom: 0;
+        }
+    }
 }
 
 .list {

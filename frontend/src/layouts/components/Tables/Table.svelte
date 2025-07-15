@@ -4,6 +4,7 @@
     import type { DataTable, Register } from "./interfaces/DataTable";
     import IconSearchRegister from "../../icons/IconSearchRegister.svelte";
     import Paginate from "../Paginate/Paginate.svelte";
+    import ArrowLeft from "../../icons/ArrowLeft.svelte";
 
     export let show: boolean = false;
     export let action: string | undefined = undefined;
@@ -114,10 +115,18 @@
                     <thead class="fixed fixed--panel">
                         <tr>
                             {#if showNumber}
-                                <th class="fixed fixed--column">Nº</th>
+                                <th class="fixed fixed--column">
+                                    <span>Nº</span>
+                                </th>
                             {/if}
                             {#each Object.entries(data.columns) as [key, label]}
-                                <th data-key={key}>{label}</th>
+                                <th data-key={key}>
+                                    <button class="button button--table-header">
+                                        <span>{label}</span>
+                                        <ArrowLeft />
+                                        <ArrowLeft />
+                                    </button>
+                                </th>
                             {/each}
                         </tr>
                     </thead>
@@ -127,7 +136,7 @@
                             <tr>
                                 {#if showNumber}
                                     <td class="center fixed fixed--column"
-                                        >{index + 1}</td
+                                        ><span>{index + 1}</span></td
                                     >
                                 {/if}
                                 {#each Object.keys(data.columns) as item}
