@@ -1,12 +1,13 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import type { Method } from "./Interface/Method";
-    import { getData, request, endpoint } from "./lib/request";
+    import { getData, request } from "./lib/request";
     import type {
         ResponseData,
         ResponseServer,
     } from "./Interface/ResponseServer";
     import NotificationFile from "../Notifications/NotificationFile.svelte";
+    import { getFullURL } from "../../routers/sources/router";
 
     export let method: Method = undefined;
     export let action: string = "/";
@@ -80,7 +81,7 @@
 
         if (redirect && success) {
             const anchor: HTMLAnchorElement = document.createElement("a");
-            const href: string = endpoint(redirect);
+            const href: string = getFullURL(redirect);
             anchor.href = href;
 
             setTimeout(() => {
@@ -91,7 +92,7 @@
 
         if (backredirect && error) {
             const anchor: HTMLAnchorElement = document.createElement("a");
-            const href: string = endpoint(backredirect);
+            const href: string = getFullURL(backredirect);
             anchor.href = href;
 
             setTimeout(() => {

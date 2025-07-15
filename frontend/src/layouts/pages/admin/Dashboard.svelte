@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { onMount } from "svelte";
+    import { onDestroy, onMount } from "svelte";
     import { zIndexReverse } from "../../../lib/zIndex";
     import Container from "../../sections/Container.svelte";
     import Header from "../../sections/Header.svelte";
