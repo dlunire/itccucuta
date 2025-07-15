@@ -418,14 +418,14 @@
         flex-direction: column;
         background-color: $background-modal;
         &__header {
-            background-color: color.adjust($color: $secondary-color, $lightness: 2%, $saturation: -50%);
+            background-color: $secondary-color;
             color: white;
             display: flex;
             align-items: center;
             padding: 10px 15px;
             position: sticky;
             top: 0;
-            border-bottom: 1px solid rgba(white, 0.15);
+            border-bottom: 1px solid rgba(white, 0.1);
             z-index: 2;
         }
         &__title {
@@ -468,6 +468,7 @@
         box-shadow: 2px 2px 0 2px rgba(white, 0.04);
         @media screen and (min-width: $max-width) {
             border: 1px solid rgba(white, 0.1);
+            border-radius: 30px 30px 0 0;
         }
     }
     &__inner {
@@ -477,10 +478,10 @@
     }
     &__content {
         padding: 20px;
-        background-color: color.adjust($color: $secondary-color, $lightness: 5%, $saturation: -70%);
         color: rgba(white, 0.8);
         min-height: 100px;
         line-height: 1.5rem;
+        background-color: $background;
     }
     &__footer {
         background-color: $secondary-color;
@@ -583,7 +584,7 @@
             margin: 0;
             transition: 300ms ease;
             user-select: none;
-            animation: 500ms ease fade-in 170ms forwards;
+            animation: 500ms ease fade-in 100ms forwards;
             opacity: 0;
             text-align: center;
             svg {

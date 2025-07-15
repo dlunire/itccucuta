@@ -12,7 +12,6 @@
     import HeaderRouter from "../../routers/components/HeaderRouter.svelte";
     import ButtonMenu from "../../components/Buttons/ButtonMenu.svelte";
     import Auth from "../../components/User/Auth.svelte";
-    import IconSettings from "../../icons/IconSettings.svelte";
     import FixedButtons from "../../components/Nav/FixedButtons.svelte";
 
     onMount(() => {
@@ -21,10 +20,9 @@
 
     let container: HTMLElement | null = null;
 
-    let open: boolean = false;
-
     let openMenu: boolean = false;
     let headerHeight: number = 0;
+    let openHelp: boolean = false;
 </script>
 
 <Header dashboard={true}>
@@ -35,7 +33,7 @@
     <ButtonMenu bind:open={openMenu} bind:top={headerHeight} />
     <div class="header__options">
         <HeaderRouter />
-        <FixedButtons />
+        <FixedButtons bind:openHelp />
         <Auth />
     </div>
 </Header>
@@ -47,7 +45,7 @@
     </section>
 </Container>
 
-<Windows bind:open title="Usuario del sistema">
+<Windows bind:open={openHelp} title="Usuario del sistema">
     {#snippet contentHeader()}
         <IconHelp />
     {/snippet}

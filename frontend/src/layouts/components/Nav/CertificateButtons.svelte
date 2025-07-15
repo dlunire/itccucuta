@@ -1,9 +1,16 @@
 <script lang="ts">
+    import { onDestroy, onMount } from "svelte";
+    import { buttonsExists } from "../../../lib/store/store";
     import IconCertificate from "../../icons/IconCertificate.svelte";
-    import IconCsv from "../../icons/IconCSV.svelte";
-    import IconHelp from "../../icons/IconHelp.svelte";
-    import IconSettings from "../../icons/IconSettings.svelte";
     import IconUpload from "../../icons/IconUpload.svelte";
+
+    onMount(() => {
+        buttonsExists.set(true);
+    });
+
+    onDestroy(() => {
+        buttonsExists.set(false);
+    });
 </script>
 
 <nav class="nav">

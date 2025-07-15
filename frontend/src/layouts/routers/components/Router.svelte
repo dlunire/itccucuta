@@ -1,34 +1,36 @@
 <script lang="ts">
-    /**
-     * Componente que maneja el enrutamiento basado en rutas definidas
-     * en el archivo `routes.ts`. Este componente se encarga de renderizar
-     * el componente correspondiente a la ruta actual y pasarle los parámetros
-     * extraídos de la URL como props.
-     */
     import { type SvelteComponent } from "svelte";
     import { currentRoute } from "../sources/router";
     import NotFound from "../../pages/NotFound.svelte";
     import { routes } from "../routes";
 
-    let route = $currentRoute;
-    let Page = NotFound as typeof SvelteComponent;
+    // Componente y parámetros que se actualizarán automáticamente cuando cambie la ruta
+    let Page: typeof SvelteComponent = NotFound as typeof SvelteComponent;
     let params: Record<string, string> = {};
 
+    // Reacción automática a los cambios de ruta
     $: {
-        route = $currentRoute;
-        Page = NotFound as typeof SvelteComponent;
-        params = {};
+        const path = $currentRoute;
+        let matched = false;
 
         for (const r of routes) {
-            const match = r.pattern.exec(route);
+            const match = r.pattern.exec(path);
             if (match) {
                 Page = r.component;
                 params = r.extractParams(match);
+                matched = true;
                 break;
             }
+        }
+
+        if (!matched) {
+            Page = NotFound as typeof SvelteComponent;
+            params = {};
         }
     }
 </script>
 
-<!-- Renderizamos el componente correspondiente a la ruta y le pasamos los parámetros extraídos -->
-<svelte:component this={Page as typeof SvelteComponent} {...params} />
+<!-- El uso de {#key} fuerza el desmontaje completo del componente anterior -->
+{#key $currentRoute}
+    <svelte:component this={Page} {...params} />
+{/key}

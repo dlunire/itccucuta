@@ -3,17 +3,16 @@
     import { currentRoute } from "../sources/router";
     import { routes } from "../routes";
 
-    let route = $currentRoute;
     let Header: typeof SvelteComponent | null = null;
     let params: Record<string, string> = {};
 
     $: {
-        route = $currentRoute;
+        const path = $currentRoute;
         Header = null;
         params = {};
 
         for (const r of routes) {
-            const match = r.pattern.exec(route);
+            const match = r.pattern.exec(path);
             if (match && r.headerComponent) {
                 Header = r.headerComponent;
                 params = r.extractParams(match);
@@ -24,5 +23,7 @@
 </script>
 
 {#if Header}
-    <svelte:component this={Header} {...params} />
+    {#key $currentRoute}
+        <svelte:component this={Header} {...params} />
+    {/key}
 {/if}
