@@ -852,6 +852,16 @@
             bottom: 0;
             z-index: 6;
         }
+        th {
+            &:not(:first-of-type) {
+                border-left: 1px solid rgba($border-color, 0.3);
+            }
+            &:first-of-type {
+                &::before {
+                    border-right: 2px solid rgba($border-color, 0.3);
+                }
+            }
+        }
     }
     tbody {
         tr {
