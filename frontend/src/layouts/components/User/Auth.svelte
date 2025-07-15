@@ -48,8 +48,6 @@
         if (!(element instanceof HTMLElement)) return;
         const { auth } = element.dataset;
         if (typeof auth == "string") return;
-
-        console.log({ test: "Esta es una prueba" });
         openMenu = false;
     });
 

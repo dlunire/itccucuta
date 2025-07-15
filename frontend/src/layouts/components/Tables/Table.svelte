@@ -5,6 +5,7 @@
     import IconSearchRegister from "../../icons/IconSearchRegister.svelte";
     import Paginate from "../Paginate/Paginate.svelte";
     import ArrowLeft from "../../icons/ArrowLeft.svelte";
+    import { asClassComponent } from "svelte/legacy";
 
     export let show: boolean = false;
     export let action: string | undefined = undefined;
@@ -68,6 +69,29 @@
     async function onsubmit(event: SubmitEvent): Promise<void> {
         event.preventDefault();
     }
+
+    function handleOrder(event: MouseEvent): void {
+        const { target: button } = event;
+        if (!(button instanceof HTMLButtonElement)) return;
+
+        const thead: HTMLTableSectionElement | null = button.closest("thead");
+        if (!(thead instanceof HTMLTableSectionElement)) return;
+
+        const otherButtons: NodeListOf<HTMLButtonElement> =
+            thead.querySelectorAll("[data-direction]");
+
+        for (const currentButton of otherButtons) {
+            if (!(currentButton instanceof HTMLButtonElement)) continue;
+            const { index: currentIndex } = currentButton.dataset;
+            const { index } = button.dataset;
+            if (index == currentIndex) continue;
+
+            currentButton.removeAttribute("data-direction");
+        }
+
+        const { direction } = button.dataset;
+        button.dataset.direction = direction === "asc" ? "desc" : "asc";
+    }
 </script>
 
 {#if show}
@@ -119,9 +143,13 @@
                                     <span>Nº</span>
                                 </th>
                             {/if}
-                            {#each Object.entries(data.columns) as [key, label]}
+                            {#each Object.entries(data.columns) as [key, label], index}
                                 <th data-key={key}>
-                                    <button class="button button--table-header">
+                                    <button
+                                        class="button button--table-header"
+                                        onclick={handleOrder}
+                                        data-index={index}
+                                    >
                                         <span>{label}</span>
                                         <ArrowLeft />
                                         <ArrowLeft />

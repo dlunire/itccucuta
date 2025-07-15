@@ -349,6 +349,10 @@
         margin-right: -1px;
         position: relative;
         padding-right: 30px;
+        background-color: $background;
+        --icon-size: 15px;
+        --icon-width: var(--icon-size);
+        --icon-height: var(--icon-size);
         svg {
             display: flex;
             position: absolute;
@@ -357,6 +361,40 @@
             right: 10px;
             top: 0;
             bottom: 0;
+            transition: 300ms ease;
+            &:first-of-type {
+                transform: rotate(90deg) translateX(-4px);
+            }
+            &:last-of-type {
+                transform: rotate(-90deg) translateX(-4px);
+            }
+        }
+        &:hover {
+            background-color: color.adjust($color: $background, $lightness: 3%);
+        }
+        &:active {
+            background-color: $background;
+        }
+        &[data-direction] {
+            svg {
+                &:first-of-type {
+                    display: none;
+                }
+            }
+        }
+        &[data-direction="asc"] {
+            svg {
+                &:last-of-type {
+                    transform: rotate(90deg);
+                }
+            }
+        }
+        &[data-direction="desc"] {
+            svg {
+                &:last-of-type {
+                    transform: rotate(-90deg);
+                }
+            }
         }
     }
 }
