@@ -883,6 +883,7 @@
         bottom: 0;
         padding-right: 15px;
         overflow: auto;
+        pointer-events: none;
     }
     & {
         position: relative;
@@ -897,6 +898,7 @@
         overflow: hidden;
         padding-top: 10px;
         padding-bottom: 10px;
+        pointer-events: all;
         @media screen and (max-width: 340px) {
             margin-left: 10px;
         }

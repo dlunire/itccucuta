@@ -1,11 +1,14 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import unknown from "./data.json";
-    import type { DataTable, Register } from "./interfaces/DataTable";
+    import type {
+        DataTable,
+        Direction,
+        Register,
+    } from "./interfaces/DataTable";
     import IconSearchRegister from "../../icons/IconSearchRegister.svelte";
     import Paginate from "../Paginate/Paginate.svelte";
     import ArrowLeft from "../../icons/ArrowLeft.svelte";
-    import { asClassComponent } from "svelte/legacy";
 
     export let show: boolean = false;
     export let action: string | undefined = undefined;
@@ -64,6 +67,12 @@
         if (!data) return;
         const { length } = data.records;
         show = length > 0;
+
+        const records: Register[] = data.records.map((value: Register) => {
+            return value;
+        });
+
+        data.records = [...records];
     });
 
     async function onsubmit(event: SubmitEvent): Promise<void> {
@@ -91,24 +100,51 @@
 
         const { direction } = button.dataset;
         button.dataset.direction = direction === "asc" ? "desc" : "asc";
+
+        const { key } = button.dataset;
+        if (!key) return;
+        orderRegister(key, (direction as Direction) ?? "desc");
+        console.log({ key });
     }
 
-    function orderRegister(direction: string): void {
-        if (!direction || typeof direction != "string") {
-            throw new TypeError(
-                "orderRegister: Se esperaba un argumento tipo «string» en «direction»",
-            );
-        }
+    function orderRegister(
+        key: keyof Register,
+        direction: "asc" | "desc",
+    ): void {
+        data.records = [...data.records].sort((a: Register, b: Register) => {
+            const valueA = a[key];
+            const valueB = b[key];
 
-        if (direction != "asc" && direction != "desc") {
-            throw new TypeError(
-                "orderRegister: Solo se admiten los valores «asc» o «desc» como argumento en «direction»",
-            );
-        }
+            // Manejo de nulls y undefined
+            if (valueA == null && valueB != null)
+                return direction === "asc" ? 1 : -1;
+            if (valueA != null && valueB == null)
+                return direction === "asc" ? -1 : 1;
+            if (valueA == null && valueB == null) return 0;
 
-        if (!data || data.records.length < 1) return;
+            // Comparación de strings y números
+            if (typeof valueA === "string" && typeof valueB === "string") {
+                return direction === "asc"
+                    ? valueA.localeCompare(valueB)
+                    : valueB.localeCompare(valueA);
+            }
 
-        console.log({ records: data.records });
+            if (typeof valueA === "number" && typeof valueB === "number") {
+                return direction === "asc" ? valueA - valueB : valueB - valueA;
+            }
+
+            // Comparación de booleanos
+            if (typeof valueA === "boolean" && typeof valueB === "boolean") {
+                return direction === "asc"
+                    ? Number(valueA) - Number(valueB)
+                    : Number(valueB) - Number(valueA);
+            }
+
+            // Si son de tipo mixto, conviértelos a string
+            return direction === "asc"
+                ? String(valueA).localeCompare(String(valueB))
+                : String(valueB).localeCompare(String(valueA));
+        });
     }
 </script>
 
@@ -167,6 +203,7 @@
                                         class="button button--table-header"
                                         onclick={handleOrder}
                                         data-index={index}
+                                        data-key={key}
                                     >
                                         <span>{label}</span>
                                         <ArrowLeft />

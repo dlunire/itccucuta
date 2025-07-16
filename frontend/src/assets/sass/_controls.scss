@@ -270,6 +270,10 @@
             text-align: center;
             justify-content: center;
         }
+        &[data-align="right"] {
+            text-align: right;
+            justify-content: flex-end;
+        }
     }
     &--query {
         border: 1px solid $border-color;
