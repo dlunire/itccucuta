@@ -92,6 +92,20 @@
         const { direction } = button.dataset;
         button.dataset.direction = direction === "asc" ? "desc" : "asc";
     }
+
+    function orderRegister(direction: string): void {
+        if (!direction || typeof direction != "string") {
+            throw new TypeError(
+                "orderRegister: Se esperaba un argumento tipo «string» en «direction»",
+            );
+        }
+
+        if (direction != "asc" && direction != "desc") {
+            throw new TypeError(
+                "orderRegister: Solo se admiten los valores «asc» o «desc» como argumento en «direction»",
+            );
+        }
+    }
 </script>
 
 {#if show}
