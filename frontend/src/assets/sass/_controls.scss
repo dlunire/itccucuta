@@ -257,11 +257,19 @@
         }
     }
     &--table {
+        --padding: 15px;
         display: flex;
         border-radius: 0;
         height: 33px;
         width: 100%;
         white-space: nowrap;
+        padding-left: var(--padding);
+        padding-right: var(--padding);
+        justify-content: flex-start;
+        &[data-align="center"] {
+            text-align: center;
+            justify-content: center;
+        }
     }
     &--query {
         border: 1px solid $border-color;

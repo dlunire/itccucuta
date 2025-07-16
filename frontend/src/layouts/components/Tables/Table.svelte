@@ -105,6 +105,10 @@
                 "orderRegister: Solo se admiten los valores «asc» o «desc» como argumento en «direction»",
             );
         }
+
+        if (!data || data.records.length < 1) return;
+
+        console.log({ records: data.records });
     }
 </script>
 
