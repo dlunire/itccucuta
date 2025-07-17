@@ -44,11 +44,38 @@ final class DashboardController extends BaseController {
     }
 
     /**
+     * Página de certificados
+     *
+     * @return string
+     */
+    public function certificate(): string {
+        return $this->get_frontend_content("Certificados", "Revise y consulte los certificados de los estudiantes inscritos");
+    }
+
+    /**
+     * Historial de carga
+     *
+     * @return string
+     */
+    public function history(): string {
+        return $this->get_frontend_content("Historial", "Revisa el histórico de actividades");
+    }
+
+    /**
      * Página de configuración
      *
      * @return string
      */
     public function settings(): string {
         return $this->get_frontend_content("Configuración", "Coloque el nombre de su empresa o marca personal, logotipo y más");
+    }
+
+    /**
+     * Página de perfil
+     *
+     * @return string
+     */
+    public function profile(): string {
+        return $this->get_frontend_content("Mi perfil", "Actualice su contraseña");
     }
 }

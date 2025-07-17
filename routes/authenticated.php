@@ -21,8 +21,17 @@ $auth->authenticated(function () {
     # Panel principal
     DLRoute::get('/dashboard', [DashboardController::class, 'index']);
 
+    ## Certificados
+    DLRoute::get('/dashboard/certificate', [DashboardController::class, 'certificate']);
+
+    ## Historial
+    DLRoute::get('/dashboard/history', [DashboardController::class, 'history']);
+
     ## Zona de de configuración:
     DLRoute::get('/dashboard/settings', [DashboardController::class, 'settings']);
+
+    ## Zona de de configuración:
+    DLRoute::get('/dashboard/profile', [DashboardController::class, 'profile']);
 });
 
 ## RUTAS QUE DEBEN SER REDIRIGIDA O DEBEN APLICAR UN REDIRECT
