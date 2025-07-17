@@ -9,7 +9,7 @@ use DLUnire\Models\Views\TestConection;
 use PDOException;
 
 /**
- * Copyright (c) 2025 David E Luna M
+ * Copyright (c) 2025 Códigos del Futuro
  * Licensed under the MIT License. See LICENSE file for details.
  *
  * Trait CheckConectionTrait
@@ -20,9 +20,9 @@ use PDOException;
  *
  * @package DLUnire\Services\Traits
  * @version v0.0.1
- * @author David E Luna M
+ * @author Códigos del Futuro (cdelfuturo)
  * @license MIT
- * @copyright 2025 David E Luna M
+ * @copyright 2025 Códigos del Futuro
  *
  * @method bool connected_database() Verifica si existe una conexión activa con la base de datos.
  */

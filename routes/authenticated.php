@@ -15,16 +15,14 @@ DLRoute::get('/', function () {
     redirect("/login");
 });
 
+## AUTENTICACIÓN CON RUTAS INEXISTENTES O NO REGISTRADAS PARA FACILITAR REDIRECCIÓN
 $auth->authenticated(function () {
 
-    DLRoute::get("/session-test", function () {
-        return [
-            "status" => true,
-            "success" => "Si observas esto, entonces, el inicio de sesión ha funcionado"
-        ];
-    });
-
+    # Panel principal
     DLRoute::get('/dashboard', [DashboardController::class, 'index']);
+
+    ## Zona de de configuración:
+    DLRoute::get('/dashboard/settings', [DashboardController::class, 'settings']);
 });
 
 ## RUTAS QUE DEBEN SER REDIRIGIDA O DEBEN APLICAR UN REDIRECT
@@ -34,6 +32,7 @@ $auth->authenticated(function () {
     });
 });
 
+## AUTENTICACIÓN CON MENSAJE EXPLÍCITO
 $auth->logged(function () {
     ## CERRAR SESIÓN
     DLRoute::delete('/logout', [AuthController::class, 'logout']);
@@ -41,4 +40,6 @@ $auth->logged(function () {
     DLRoute::get('/test', function () {
         return Users::paginate(1, 10);
     });
+
+    ##
 });

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace DLUnire\Controllers\Admin\Dashbord;
 
-use DLCore\Core\BaseController;
 use DLUnire\Models\DTO\Frontend;
 use DLUnire\Services\Traits\FrontendTrait;
+use Framework\Abstracts\BaseController;
 
 /**
  * Copyright (c) 2025 David E Luna M
@@ -50,5 +50,9 @@ final class DashboardController extends BaseController {
         $frontend->set_csrf($this->get_csrf());
 
         return $this->get_frontend($frontend);
+    }
+
+    public function settings(): string {
+        return "";
     }
 }

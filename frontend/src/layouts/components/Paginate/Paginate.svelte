@@ -1,10 +1,25 @@
 <script lang="ts">
     import ArrowLeft from "../../icons/ArrowLeft.svelte";
+    import { request } from "../Forms/lib/request";
     import type { DataTable } from "../Tables/interfaces/DataTable";
 
     export let data: DataTable | undefined = undefined;
+    export let action: string | undefined = undefined;
 
     let paginate: string = "1 de 3";
+
+    async function requestServer(action: string | undefined): Promise<void> {
+        if (!action) return;
+        const newData: unknown = await request(action, {
+            credentials: "include",
+            method: "GET",
+        });
+
+        const dataTable: DataTable = newData as DataTable;
+        data = { ...dataTable };
+    }
+
+    $: requestServer(action);
 </script>
 
 {#if data}
