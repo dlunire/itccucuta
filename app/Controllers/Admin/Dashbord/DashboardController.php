@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace DLUnire\Controllers\Admin\Dashbord;
 
-use DLUnire\Models\DTO\Frontend;
 use DLUnire\Services\Traits\FrontendTrait;
 use Framework\Abstracts\BaseController;
 
@@ -41,18 +40,15 @@ final class DashboardController extends BaseController {
      * @return string Contenido renderizado del panel de control.
      */
     public function index(): string {
-        /** @var Frontend $frontend */
-        $frontend = new Frontend();
-
-        $frontend->set_title("Dashboard");
-        $frontend->set_description("Página principal de administración del sistema");
-        $frontend->set_token($this->generate_uuid());
-        $frontend->set_csrf($this->get_csrf());
-
-        return $this->get_frontend($frontend);
+        return $this->get_frontend_content("Dashboard", "Página principal de adminsitración del sistema");
     }
 
+    /**
+     * Página de configuración
+     *
+     * @return string
+     */
     public function settings(): string {
-        return "";
+        return $this->get_frontend_content("Configuración", "Coloque el nombre de su empresa o marca personal, logotipo y más");
     }
 }
