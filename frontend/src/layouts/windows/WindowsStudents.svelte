@@ -58,7 +58,7 @@
         </header>
         <section class="windows__content">
             {#if add}
-                <Upload action="/dashboard/upload/file" multiple={true} />
+                <Upload action="/dashboard/upload/file" />
             {:else}
                 <div class="windows__table">
                     <Table bind:data showControls={false} />

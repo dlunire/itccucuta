@@ -341,13 +341,18 @@
         background-color: $secondary-color;
         flex-direction: column;
         p {
-            margin: 0;
+            margin: 0 auto;
             margin-top: 10px;
+            max-width: 600px;
+            text-align: center;
+            font: {
+                weight: 300;
+            }
         }
     }
     &--copying {
         $color: color.adjust($color: $base-color, $saturation: 50%, $lightness: -5%);
-        $color: rgb(200, 255, 0);
+        $color: #0f0;
         &::before {
             width: var(--progress);
             background-color: $color;
@@ -443,7 +448,7 @@
             z-index: 2;
         }
         &__title {
-            --icon-color: orange;
+            --icon-color: #0f0;
             --icon-size: 20px;
             --icon-width: var(--icon-size);
             --icon-height: var(--icon-size);

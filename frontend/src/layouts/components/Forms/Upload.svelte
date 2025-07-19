@@ -275,7 +275,15 @@
                 {/snippet}
             </ButtonPrimary>
             <p>
-                <span>Arrastra tus documentos aquí o pégalos con Ctrl + V</span>
+                <strong
+                    >Arrastra tus documentos aquí o pégalos con Ctrl + V
+                </strong>
+            </p>
+
+            <p>
+                También puedes seleccionarlos desde tu dispositivo. El
+                formulario admite carga por botón, arrastrar y soltar o copiar y
+                pegar.
             </p>
         </div>
     </section>
