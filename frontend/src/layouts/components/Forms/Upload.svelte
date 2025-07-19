@@ -8,6 +8,8 @@
         getType,
         type ServerResponse,
     } from "../Notifications/ErrorInterface";
+    import IconFiles from "../../icons/IconFiles.svelte";
+    import Icon from "../Graphics/Icon.svelte";
 
     export let content: Function | undefined = undefined;
     export let buttonContent: Function | undefined = undefined;
@@ -18,6 +20,7 @@
     export let data: unknown = undefined;
     export let error: string | null = null;
     export let abort: string | null = null;
+    export let added: boolean = false;
 
     let inputFile: HTMLInputElement | null = null;
     let form: HTMLFormElement | null = null;
@@ -248,9 +251,18 @@
             {#if content}
                 {@render content()}
             {:else}
-                <span>Arrastra tus documentos aquí o pégalos con Ctrl + V</span>
+                <Icon
+                    hidden={added}
+                    title="Cargue sus archivos aquí"
+                    relative={true}
+                >
+                    {#snippet content()}
+                        <IconFiles />
+                    {/snippet}
+                </Icon>
             {/if}
         </header>
+
         <div class="dropzone__content">
             <ButtonPrimary type="button" {onclick}>
                 {#snippet content()}
@@ -262,6 +274,9 @@
                     {/if}
                 {/snippet}
             </ButtonPrimary>
+            <p>
+                <span>Arrastra tus documentos aquí o pégalos con Ctrl + V</span>
+            </p>
         </div>
     </section>
 

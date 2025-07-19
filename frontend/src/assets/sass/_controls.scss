@@ -17,6 +17,7 @@
     transition: 300ms ease;
     position: relative;
     cursor: pointer;
+    white-space: nowrap;
     &:active {
         transition: none;
     }

@@ -14,7 +14,7 @@
 
     let open: boolean = false;
     let element: HTMLElement | null = null;
-    let add: boolean = false;
+    let add: boolean = true;
     onMount(() => {
         if (!(element instanceof HTMLElement)) return;
         document.body.appendChild(element);
@@ -58,7 +58,7 @@
         </header>
         <section class="windows__content">
             {#if add}
-                <Upload action="/dashboard/upload/file" />
+                <Upload action="/dashboard/upload/file" multiple={true} />
             {:else}
                 <div class="windows__table">
                     <Table bind:data showControls={false} />
