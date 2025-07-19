@@ -16,7 +16,7 @@
     export let showNumber: boolean = true;
     export let content: Function | undefined = undefined;
 
-    let data: DataTable = unknown as DataTable;
+    export let data: DataTable = unknown as DataTable;
     //     columns: {
     //         name: "Nombres",
     //         lastname: "Apellidos",

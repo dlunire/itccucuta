@@ -21,7 +21,7 @@ $auth->not_authenticated(function () {
     DLRoute::post('/login', [AuthController::class, 'login']);
 });
 
-## RUTAS QUE DEBEN IMPLEMENTAR RECIRECT
+## RUTAS QUE DEBEN IMPLEMENTAR REDIRECT
 $auth->not_authenticated(function () {
     DLRoute::get('/dashboard', function () {
         redirect('/login');

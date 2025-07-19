@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace DLUnire\Controllers\Auth;
 
-use DLCore\Core\BaseController;
 use DLUnire\Auth\Auth;
 use DLUnire\Models\DTO\Frontend;
 use DLUnire\Models\Users;
 use DLUnire\Models\Views\UserEntity;
 use DLUnire\Services\Traits\FrontendTrait;
 use Error;
+use Framework\Abstracts\BaseController;
 
 final class AuthController extends BaseController {
 
@@ -63,14 +63,13 @@ final class AuthController extends BaseController {
      * @return string
      */
     public function index(): string {
-        /** @var Frontend $frontend */
-        $frontend = new Frontend();
+        /** @var int $quantity */
+        $quantity = Users::count();
 
-        $frontend->set_title('Inicio de sesión');
-        $frontend->set_description('Formulario de inicio de sesión');
-        $frontend->set_csrf($this->get_csrf());
-        $frontend->set_token($this->get_random_token());
+        if ($quantity < 1) {
+            redirect("/create/user");
+        }
 
-        return $this->get_frontend($frontend);
+        return $this->get_frontend_content("Inicio de sesión", "Formulario de inicio de sesión");
     }
 }

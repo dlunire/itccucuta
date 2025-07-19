@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
+use DLCore\Database\DLDatabase;
 use DLRoute\Requests\DLRoute;
 use DLUnire\Auth\Auth;
-use DLUnire\Controllers\Admin\Dashbord\DashboardController;
+use DLUnire\Controllers\Admin\Dashboard\DashboardController;
 use DLUnire\Controllers\Auth\AuthController;
 use DLUnire\Models\Users;
 

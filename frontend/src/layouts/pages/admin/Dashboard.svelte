@@ -1,18 +1,20 @@
 <script lang="ts">
-    import { onDestroy, onMount } from "svelte";
+    import { onMount } from "svelte";
     import { zIndexReverse } from "../../../lib/zIndex";
     import Container from "../../sections/Container.svelte";
     import Header from "../../sections/Header.svelte";
     import IconInstall from "../../icons/IconInstall.svelte";
-    import IconHelp from "../../icons/IconHelp.svelte";
     import Windows from "../../windows/Windows.svelte";
-    import UserHelp from "../../help/UserHelp.svelte";
     import Sidebar from "../../sections/Dashboard/Sidebar.svelte";
     import Content from "../../sections/Dashboard/Content.svelte";
     import HeaderRouter from "../../routers/components/HeaderRouter.svelte";
     import ButtonMenu from "../../components/Buttons/ButtonMenu.svelte";
     import Auth from "../../components/User/Auth.svelte";
     import FixedButtons from "../../components/Nav/FixedButtons.svelte";
+    import IconHelp from "../../icons/IconHelp.svelte";
+    import UserHelp from "../../help/UserHelp.svelte";
+    import WindowsStudents from "../../windows/WindowsStudents.svelte";
+    import type { DataTable } from "../../components/Tables/interfaces/DataTable";
 
     onMount(() => {
         if (container instanceof HTMLElement) zIndexReverse(container);
@@ -23,6 +25,7 @@
     let openMenu: boolean = false;
     let headerHeight: number = 0;
     let openHelp: boolean = false;
+    let data: DataTable;
 </script>
 
 <Header dashboard={true}>
@@ -54,3 +57,5 @@
         <UserHelp />
     {/snippet}
 </Windows>
+
+<WindowsStudents bind:data />

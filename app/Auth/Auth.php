@@ -77,7 +77,7 @@ class Auth extends AuthBase {
 
         if ($logged && $quantity < 1) {
             $this->clear_auth();
-            redirect('/install/user', $code);
+            redirect('/create/user', $code);
         }
 
         if ($logged) {
