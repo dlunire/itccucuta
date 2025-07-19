@@ -4,8 +4,12 @@
     import type { DataTable } from "../components/Tables/interfaces/DataTable";
     import { openStudents } from "./store/windows";
     import IconClose from "../icons/IconClose.svelte";
+    import Upload from "../components/Forms/Upload.svelte";
+    import Icon from "../components/Graphics/Icon.svelte";
+    import IconProfile from "../icons/IconProfile.svelte";
+    import IconFiles from "../icons/IconFiles.svelte";
 
-    export let data: DataTable;
+    export let data: DataTable = { columns: {}, records: [] };
     export let title: string = "Agregar estudiantes";
 
     let open: boolean = false;
@@ -47,14 +51,25 @@
         <header class="windows__header">
             <span>{title}</span>
 
-            <button class="button button--close-window" {onclick}>
+            <button class="button button--windows-close" {onclick}>
                 <IconClose />
             </button>
         </header>
-        <section class="windows__content modal">
-            <div class="modal__upload"></div>
-            <div class="modal__table">
-                <Table bind:data />
+        <section class="windows__content">
+            <!-- <div class="windows__upload">
+                <Upload action="/dashboard/upload/file" />
+            </div> -->
+            <div class="windows__table">
+                <Table bind:data showControls={false} />
+
+                <Icon
+                    hidden={data.records.length > 0}
+                    title="Cargue un archivo CSV"
+                >
+                    {#snippet content()}
+                        <IconFiles />
+                    {/snippet}
+                </Icon>
             </div>
         </section>
 

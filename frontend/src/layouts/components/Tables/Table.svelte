@@ -15,6 +15,7 @@
     export let title: string = "Lista de estudiantes";
     export let showNumber: boolean = true;
     export let content: Function | undefined = undefined;
+    export let showControls: boolean = true;
 
     export let data: DataTable = unknown as DataTable;
     //     columns: {
@@ -150,34 +151,36 @@
 
 {#if show}
     <div class="table-container">
-        <header class="table-container__header">
-            <h2 class="table-container__title">
-                {#if content}
-                    {@render content()}
-                {/if}
-                <span>{title}</span>
-            </h2>
+        {#if showControls}
+            <header class="table-container__header">
+                <h2 class="table-container__title">
+                    {#if content}
+                        {@render content()}
+                    {/if}
+                    <span>{title}</span>
+                </h2>
 
-            <div class="table-container__controls">
-                <div class="table-container__buttons">
-                    <form {action} class="form form--search" {onsubmit}>
-                        <div class="form__search">
-                            <input
-                                type="search"
-                                name="query"
-                                id="query"
-                                placeholder="Criterio de búsqueda"
-                                class="form__input form__input--query"
-                                autocomplete="off"
-                            />
-                            <button class="button button--query">
-                                <IconSearchRegister />
-                            </button>
-                        </div>
-                    </form>
+                <div class="table-container__controls">
+                    <div class="table-container__buttons">
+                        <form {action} class="form form--search" {onsubmit}>
+                            <div class="form__search">
+                                <input
+                                    type="search"
+                                    name="query"
+                                    id="query"
+                                    placeholder="Criterio de búsqueda"
+                                    class="form__input form__input--query"
+                                    autocomplete="off"
+                                />
+                                <button class="button button--query">
+                                    <IconSearchRegister />
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
-        </header>
+            </header>
+        {/if}
         <div class="table-container__container">
             <div class="table-container__content">
                 <table class="table">

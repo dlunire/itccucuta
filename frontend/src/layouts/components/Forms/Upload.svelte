@@ -244,24 +244,25 @@
     class:dropzone--dragenter={isEnter}
 >
     <section class="dropzone__inner">
-        <span>
+        <header class="dropzone__header">
             {#if content}
                 {@render content()}
             {:else}
                 <span>Arrastra tus documentos aquí o pégalos con Ctrl + V</span>
             {/if}
-        </span>
-
-        <ButtonPrimary type="button" {onclick}>
-            {#snippet content()}
-                {#if buttonContent}
-                    {@render buttonContent()}
-                {:else}
-                    <IconUpload />
-                    <span>Subir archivos</span>
-                {/if}
-            {/snippet}
-        </ButtonPrimary>
+        </header>
+        <div class="dropzone__content">
+            <ButtonPrimary type="button" {onclick}>
+                {#snippet content()}
+                    {#if buttonContent}
+                        {@render buttonContent()}
+                    {:else}
+                        <IconUpload />
+                        <span>Subir archivos</span>
+                    {/if}
+                {/snippet}
+            </ButtonPrimary>
+        </div>
     </section>
 
     <section class="dropzone__info" class:dropzone__info--loading={inProgress}>
@@ -300,13 +301,5 @@
         display: flex;
         align-items: center;
         justify-content: center;
-    }
-
-    :global(.button) {
-        display: flex;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 10px;
-        margin-bottom: 0;
     }
 </style>
