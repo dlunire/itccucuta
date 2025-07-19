@@ -9,9 +9,6 @@
         type ServerResponse,
     } from "../Notifications/ErrorInterface";
     import IconFiles from "../../icons/IconFiles.svelte";
-    import Icon from "../Graphics/Icon.svelte";
-
-    export let content: Function | undefined = undefined;
     export let buttonContent: Function | undefined = undefined;
     export let name: string = "file";
     export let multiple: boolean = false;
@@ -20,7 +17,7 @@
     export let data: unknown = undefined;
     export let error: string | null = null;
     export let abort: string | null = null;
-    export let added: boolean = false;
+    export let success: boolean = false;
 
     let inputFile: HTMLInputElement | null = null;
     let form: HTMLFormElement | null = null;
@@ -30,7 +27,6 @@
     let inProgress: boolean = false;
     let open: boolean = false;
     let errorStatus: boolean = false;
-    let success: boolean = false;
     let warning: boolean = false;
     let info: boolean = false;
     let message: string = "";
@@ -133,6 +129,11 @@
                     response.message ??
                     response.success ??
                     "";
+
+                console.log({ success });
+                success = true;
+
+                console.log({ success });
             },
             function (xhr: XMLHttpRequest): void {
                 error = "Error al subir el archivo";
@@ -248,19 +249,10 @@
 >
     <section class="dropzone__inner">
         <header class="dropzone__header">
-            {#if content}
-                {@render content()}
-            {:else}
-                <Icon
-                    hidden={added}
-                    title="Cargue sus archivos aquí"
-                    relative={true}
-                >
-                    {#snippet content()}
-                        <IconFiles />
-                    {/snippet}
-                </Icon>
-            {/if}
+            <h2 class="dropzone__title">
+                <IconFiles />
+                <span>Cargue sus archivos aquí</span>
+            </h2>
         </header>
 
         <div class="dropzone__content">
@@ -274,11 +266,9 @@
                     {/if}
                 {/snippet}
             </ButtonPrimary>
-            <p>
-                <strong
-                    >Arrastra tus documentos aquí o pégalos con Ctrl + V
-                </strong>
-            </p>
+            <h3 class="dropzone__subtitle">
+                Arrastra tus archivos aquí o pégalos con Ctrl + V
+            </h3>
 
             <p>
                 También puedes seleccionarlos desde tu dispositivo. El
@@ -301,6 +291,10 @@
             </div>
         </div>
     </section>
+</div>
+
+<div class="watermark">
+    <IconFiles />
 </div>
 
 <NotificationFile
