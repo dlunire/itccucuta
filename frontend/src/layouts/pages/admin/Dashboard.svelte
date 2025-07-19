@@ -25,7 +25,6 @@
     let openMenu: boolean = false;
     let headerHeight: number = 0;
     let openHelp: boolean = false;
-    let data: DataTable;
 </script>
 
 <Header dashboard={true}>
@@ -57,5 +56,3 @@
         <UserHelp />
     {/snippet}
 </Windows>
-
-<WindowsStudents bind:data />

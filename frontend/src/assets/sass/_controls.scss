@@ -409,6 +409,28 @@
             }
         }
     }
+    &--options {
+        position: relative;
+        &::before {
+            content: "";
+            display: block;
+            position: absolute;
+            margin: auto;
+            left: 0;
+            right: 0;
+            top: auto;
+            bottom: -4px;
+            width: 30%;
+            border-bottom: 2px solid transparent;
+        }
+        &-selected {
+            --icon-color: #0f0;
+            color: var(--icon-color);
+            &::before {
+                border-bottom: 2px solid var(--icon-color);
+            }
+        }
+    }
 }
 
 .list {

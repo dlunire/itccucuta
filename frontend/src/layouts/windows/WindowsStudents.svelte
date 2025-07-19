@@ -8,6 +8,7 @@
     import Icon from "../components/Graphics/Icon.svelte";
     import IconProfile from "../icons/IconProfile.svelte";
     import IconFiles from "../icons/IconFiles.svelte";
+    import WindowsControls from "../components/Nav/WindowsControls.svelte";
 
     export let data: DataTable = { columns: {}, records: [] };
     export let title: string = "Agregar estudiantes";
@@ -51,6 +52,7 @@
         <header class="windows__header">
             <span>{title}</span>
 
+            <WindowsControls />
             <button class="button button--windows-close" {onclick}>
                 <IconClose />
             </button>
@@ -72,9 +74,5 @@
                 </Icon>
             </div>
         </section>
-
-        <footer class="windows__footer">
-            <button class="button button--test" {onclick}>Test</button>
-        </footer>
     </div>
 {/if}
