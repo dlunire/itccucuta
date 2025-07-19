@@ -429,6 +429,12 @@
             &::before {
                 border-bottom: 2px solid var(--icon-color);
             }
+            &:hover {
+                color: color.adjust($color: #0f0, $lightness: 3%);
+            }
+            &:active {
+                color: var(--icon-color);
+            }
         }
     }
 }

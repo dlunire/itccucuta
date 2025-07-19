@@ -2,6 +2,18 @@
     import IconRegisterAdd from "../../icons/IconRegisterAdd.svelte";
     import IconTable from "../../icons/IconTable.svelte";
     export let add: boolean = false;
+
+    function addStudents(event: MouseEvent): void {
+        const { target: button } = event;
+        if (!(button instanceof HTMLButtonElement)) return;
+        add = true;
+    }
+
+    function showStudents(event: MouseEvent): void {
+        const { target: button } = event;
+        if (!(button instanceof HTMLButtonElement)) return;
+        add = false;
+    }
 </script>
 
 <nav class="fixed-buttons">
@@ -10,6 +22,7 @@
         class:button--options-selected={add}
         aria-label="Configuración"
         title="Configuración"
+        onclick={addStudents}
     >
         <IconRegisterAdd />
         <span>Agregar estudiante</span>
@@ -18,6 +31,7 @@
         class="button button--nav button--options"
         title="Mostrar registro de estudiantes"
         class:button--options-selected={!add}
+        onclick={showStudents}
     >
         <IconTable />
         <span>Mostrar registro</span>

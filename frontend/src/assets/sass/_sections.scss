@@ -292,8 +292,7 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    border-radius: 0;
-    border: 0;
+    flex-grow: 1;
     &::before,
     &::after {
         content: "";
@@ -304,7 +303,7 @@
         right: auto;
         top: auto;
         bottom: 0;
-        height: 8px;
+        height: 20px;
     }
     &::before {
         width: 0;
@@ -313,7 +312,6 @@
         pointer-events: none;
         user-select: none;
         z-index: 1;
-        height: 6px;
         transition: none;
     }
     &::after {
