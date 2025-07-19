@@ -426,6 +426,11 @@
         position: relative;
         width: 100%;
         z-index: 1;
+        pointer-events: none;
+        user-select: none;
+        button {
+            pointer-events: all;
+        }
     }
     &__info {
         position: absolute;
