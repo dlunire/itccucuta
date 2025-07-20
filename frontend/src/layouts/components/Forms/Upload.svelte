@@ -133,11 +133,6 @@
                     response.message ??
                     response.success ??
                     "";
-
-                console.log({ success });
-                success = true;
-
-                console.log({ success });
             },
             function (xhr: XMLHttpRequest): void {
                 error = "Error al subir el archivo";

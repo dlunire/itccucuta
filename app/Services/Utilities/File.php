@@ -61,7 +61,7 @@ final class File {
                 'filenames_timezone' => Filenames::get_timezone()
             ];
 
-            self::escape_file($file->target_file, $file->type);
+            // self::escape_file($file->target_file, $file->type);
 
             $datafiles[] = $datafile;
             $filenames[] = new Filename($datafile);
