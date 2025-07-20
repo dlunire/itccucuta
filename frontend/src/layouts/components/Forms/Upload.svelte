@@ -18,6 +18,7 @@
     export let error: string | null = null;
     export let abort: string | null = null;
     export let success: boolean = false;
+    export let add: boolean = false;
 
     let dragEnterTitle: string = multiple
         ? "Suelte los archivos a copiar"
@@ -133,6 +134,8 @@
                     response.message ??
                     response.success ??
                     "";
+
+                add = !success;
             },
             function (xhr: XMLHttpRequest): void {
                 error = "Error al subir el archivo";

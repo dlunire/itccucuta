@@ -15,7 +15,8 @@
     let open: boolean = false;
     let element: HTMLElement | null = null;
     let add: boolean = true;
-    let success: boolean = !add;
+    let showContent: boolean = false;
+    let success: boolean = false;
 
     onMount(() => {
         if (!(element instanceof HTMLElement)) return;
@@ -35,8 +36,6 @@
     onDestroy(() => {
         unsubscribe();
     });
-
-    $: console.log({ open });
 
     addEventListener("keydown", function (event: KeyboardEvent) {
         const { key } = event;
@@ -60,11 +59,7 @@
         </header>
         <section class="windows__content">
             {#if add}
-                <Upload
-                    action="/dashboard/upload"
-                    bind:success
-                    multiple={true}
-                />
+                <Upload action="/dashboard/upload" bind:success bind:add />
             {:else}
                 <div class="windows__table">
                     <Table bind:data showControls={false} />
