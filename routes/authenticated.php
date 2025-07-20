@@ -6,6 +6,7 @@ use DLCore\Database\DLDatabase;
 use DLRoute\Requests\DLRoute;
 use DLUnire\Auth\Auth;
 use DLUnire\Controllers\Admin\Dashboard\DashboardController;
+use DLUnire\Controllers\Admin\Files\FileController;
 use DLUnire\Controllers\Auth\AuthController;
 use DLUnire\Models\Users;
 
@@ -50,6 +51,6 @@ $auth->logged(function () {
     DLRoute::get('/test', function () {
         return Users::paginate(1, 10);
     });
-
-    ##
 });
+## Certificados al servidor:
+DLRoute::post('/dashboard/upload', [FileController::class, 'upload']);

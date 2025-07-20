@@ -322,6 +322,7 @@
         left: 0;
         right: 0;
         width: 100%;
+        opacity: 0;
     }
     &__header {
         height: auto;
@@ -348,7 +349,7 @@
             max-width: 600px;
             text-align: center;
             font: {
-                weight: 300;
+                weight: 400;
             }
         }
     }
@@ -360,6 +361,8 @@
         color: white;
         margin: 0;
         text-transform: uppercase;
+        animation: 350ms ease 50ms fade-in forwards;
+        opacity: 0;
         font: {
             weight: 400;
         }
@@ -398,16 +401,30 @@
     }
     &--dragenter {
         &::after {
+            content: attr(data-title);
+            -moz-backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
             width: 100%;
             height: 100%;
-            background-color: rgb(6, 29, 44);
+            background-color: rgba($secondary-color, 0.9);
             z-index: 1;
-            content: "Suelte el archivo para copiar";
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px dashed rgba(white, 0.3);
-            animation: 200ms ease fade-in forwards;
+            border: 1.5px dashed rgba(white, 0.3);
+            transition: 300ms ease opacity;
+            opacity: 1;
+            font: {
+                size: 1.5rem;
+                family: "Roboto Condensed", "Roboto", "Open Sans", sans-serif, arial;
+                weight: 400;
+            }
+            text-transform: uppercase;
+            text-shadow: 2px 2px 2px $secondary-color;
+            @media screen and (max-width: 600px) {
+                font-size: 1rem;
+            }
         }
         &>* {
             pointer-events: none;
@@ -443,11 +460,13 @@
         align-items: center;
         justify-content: center;
         z-index: 2;
-        background-color: rgba(black, 0.9);
-        border: 1px solid rgba(white, 0.1);
+        background-color: rgba(black, 0.5);
         pointer-events: none;
         opacity: 0;
-        border-radius: 10px 10px 0 0;
+        -moz-backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        transition: 300ms ease;
         &--loading {
             pointer-events: all;
             opacity: 1;

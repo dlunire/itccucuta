@@ -12,7 +12,7 @@
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
-    "noEmit": true,
+    "noEmit": false,
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
@@ -20,7 +20,8 @@
     // "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
     // "noUncheckedSideEffectImports": true,
-    "incremental": true
+    "incremental": true,
+    "composite": true
   },
   "include": [
     "vite.config.ts"

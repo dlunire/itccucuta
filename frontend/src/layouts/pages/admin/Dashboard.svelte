@@ -13,8 +13,6 @@
     import FixedButtons from "../../components/Nav/FixedButtons.svelte";
     import IconHelp from "../../icons/IconHelp.svelte";
     import UserHelp from "../../help/UserHelp.svelte";
-    import WindowsStudents from "../../windows/WindowsStudents.svelte";
-    import type { DataTable } from "../../components/Tables/interfaces/DataTable";
 
     onMount(() => {
         if (container instanceof HTMLElement) zIndexReverse(container);

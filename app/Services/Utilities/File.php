@@ -4,6 +4,7 @@ namespace DLUnire\Services\Utilities;
 
 use DLCore\Core\BaseController;
 use DLRoute\Requests\Filename as RequestsFilename;
+use DLRoute\Server\DLServer;
 use DLStorage\Errors\StorageException;
 use DLUnire\Models\Entities\Filename;
 use DLUnire\Models\Tables\Filenames;
@@ -30,6 +31,7 @@ final class File {
 
         /** @var string $token */
         $token = $controller->generate_uuid();
+
 
         /** @var array $files */
         $files = $controller->upload_file($field, $mimetype);
@@ -59,16 +61,62 @@ final class File {
                 'filenames_timezone' => Filenames::get_timezone()
             ];
 
+            self::escape_file($file->target_file, $file->type);
+
             $datafiles[] = $datafile;
             $filenames[] = new Filename($datafile);
         }
 
         if (count($datafiles) < 1) {
-            throw new StorageException("Error durante el almacenamiento de la referencia del archivo enviado al servidor", 500);
+            throw new StorageException("Tipo MIME inesperado: se esperaba «{$mimetype}».", 400);
         }
 
+        // throw new Error(DLOutput::get_json($filenames, true), 200);
         Filenames::create($datafiles);
 
         return $filenames;
+    }
+
+    /**
+     * Escapa el contenido del archivo enviadoal servidor.
+     *
+     * @param string $target_file Archivo de destino
+     * @param string $type Tipo de archivo
+     * @return void
+     */
+    public static function escape_file(string $target_file, string $type): void {
+
+        /** @var string $root */
+        $root = DLServer::get_document_root();
+
+        /** @var string $separator */
+        $separator = DIRECTORY_SEPARATOR;
+
+        /** @var string $filename */
+        $filename = "{$root}{$separator}{$target_file}";
+
+        if (!file_exists($filename)) return;
+        if (!self::sensitive_file($type)) return;
+
+        /** @var string $content */
+        $content = file_get_contents($filename);
+        $content = htmlentities($content);
+
+        file_put_contents($filename, $content);
+    }
+
+    /**
+     * Evalúa si el archivo es sensible
+     *
+     * @param string $type Tipo a analizar
+     * @return boolean
+     */
+    public static function sensitive_file(string $type): bool {
+        $type = trim($type);
+
+        /** @var string $pattern */
+        $pattern = '/^(.*?)\/+(.*?)(php|phar|html?)(.*?)$/i';
+
+        return boolval(preg_match($pattern, $type));
     }
 }

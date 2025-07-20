@@ -6,7 +6,7 @@ namespace DLUnire\Models\Views;
 
 use DLCore\Database\Model;
 use DLStorage\Errors\StorageException;
-use DLUnire\Models\Entities\Filename;
+use DLUnire\Models\DTO\FilenameData;
 
 
 /**
@@ -44,11 +44,11 @@ final class FilenameView extends Model {
      *
      * @param string $uuid Identificador UUIDv4 del archivo a recuperar.
      * @param boolean $private Opcional. Indica si se debe buscar en almacenamiento privado (`true`) o público (`false`). Por defecto es `true`.
-     * @return Filename Objeto que representa el archivo encontrado.
+     * @return FilenameData Objeto que representa el archivo encontrado.
      *
      * @throws StorageException Si no se encuentra ningún archivo asociado al UUID dado.
      */
-    public static function get_file(string $uuid, bool $private = true): Filename {
+    public static function get_file(string $uuid, bool $private = true): FilenameData {
         /** @var array $datafile */
         $datafile = self::where('filenames_uuid', $uuid)->first([
             ":private" => $private ? 1 : 0
@@ -58,6 +58,6 @@ final class FilenameView extends Model {
             throw new StorageException("El archivo identificado por «{$uuid}» no existe", 404);
         }
 
-        return new Filename($datafile);
+        return new FilenameData($datafile);
     }
 }

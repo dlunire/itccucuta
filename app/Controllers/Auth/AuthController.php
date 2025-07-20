@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace DLUnire\Controllers\Auth;
 
 use DLUnire\Auth\Auth;
-use DLUnire\Models\DTO\Frontend;
 use DLUnire\Models\Users;
 use DLUnire\Models\Views\UserEntity;
 use DLUnire\Services\Traits\FrontendTrait;

@@ -19,6 +19,10 @@
     export let abort: string | null = null;
     export let success: boolean = false;
 
+    let dragEnterTitle: string = multiple
+        ? "Suelte los archivos a copiar"
+        : "Suelte el archivo a copiar";
+
     let inputFile: HTMLInputElement | null = null;
     let form: HTMLFormElement | null = null;
     let progress: number = 0;
@@ -246,6 +250,7 @@
     style="--progress: {progress}%"
     class:dropzone--copying={initialized}
     class:dropzone--dragenter={isEnter}
+    data-title={dragEnterTitle}
 >
     <section class="dropzone__inner">
         <header class="dropzone__header">
@@ -271,10 +276,14 @@
             </h3>
 
             <p>
-                También puedes seleccionarlos desde tu dispositivo. El
-                formulario admite carga por botón, arrastrar y soltar o copiar y
-                pegar.
+                El formulario también permite seleccionar archivos desde tu
+                dispositivo. Puedes usar el botón, arrastrar y soltar, o copiar
+                y pegar.
             </p>
+
+            <pre>
+                {message}
+            </pre>
         </div>
     </section>
 
