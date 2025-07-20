@@ -10,7 +10,7 @@
     export let success: boolean = false;
     export let warning: boolean = false;
     export let info: boolean = false;
-    export let closeButton: boolean = false;
+    export let closeButton: boolean = true;
 
     let notification: HTMLElement | null = null;
     let timeout: number | null = null;
@@ -59,8 +59,8 @@
             class="notification__inner"
             class:notification__inner--info={info}
             class:notification__inner--success={success}
-            class:notification__inner--warning={warning}
             class:notification__inner--error={error}
+            class:notification__inner--warning={warning}
         >
             <div class="notification__content">
                 {#if content}
@@ -72,15 +72,14 @@
                     >
                 {/if}
             </div>
-
-            <footer class="notification__footer">
-                <ButtonClose {onclick} bind:close={closeButton}>
-                    {#snippet content()}
+            {#if closeButton}
+                <footer class="notification__footer">
+                    <button class="button button--dialog-close" {onclick}>
                         <IconClose />
                         <span>Aceptar</span>
-                    {/snippet}
-                </ButtonClose>
-            </footer>
+                    </button>
+                </footer>
+            {/if}
         </div>
     </section>
 {/if}

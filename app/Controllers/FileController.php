@@ -48,7 +48,7 @@ final class FileController extends BaseController {
         /** @var FilenameData $filename */
         $filename = FilenameView::get_file($uuid, $private);
 
-        $this->download_file($filename);
+        $this->download_file($filename, 100 * 1024 * 1024);
 
         /** @var string $root */
         $root = DLServer::get_document_root();

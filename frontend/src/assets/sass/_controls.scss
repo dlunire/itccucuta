@@ -438,6 +438,34 @@
             }
         }
     }
+    &--dialog {
+        &-close {
+            --icon-color: white;
+            border: 1px solid $border-color;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 30px;
+            border-radius: 4px;
+            color: var(--icon-color);
+            path {
+                transition: 300ms ease;
+            }
+            &:hover {
+                border-color: rgba(red, 0.8);
+                background-color: rgba(red, 0.03);
+                --icon-color: red;
+            }
+            &:active {
+                background-color: transparent;
+                --icon-color: white;
+                path {
+                    transition: none;
+                }
+            }
+        }
+    }
 }
 
 .list {

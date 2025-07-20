@@ -280,10 +280,6 @@
                 dispositivo. Puedes usar el botón, arrastrar y soltar, o copiar
                 y pegar.
             </p>
-
-            <pre>
-                {message}
-            </pre>
         </div>
     </section>
 

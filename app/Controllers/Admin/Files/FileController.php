@@ -35,7 +35,7 @@ final class FileController extends BaseController {
      */
     public function upload(): array {
         /** @var Filename[] $filenames */
-        $filenames = File::upload($this, 'file', 'text/*', '/storage/uploads/file');
+        $filenames = File::upload($this, 'file', '*/*', '/storage/uploads/file');
 
         http_response_code(201);
         return [

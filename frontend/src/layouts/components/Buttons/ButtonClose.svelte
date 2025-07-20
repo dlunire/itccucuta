@@ -7,7 +7,7 @@
 </script>
 
 <button
-    class="button button--normalize button--close"
+    class="button button--normalize"
     class:button--close={close}
     class:button--primary={!close}
     type="button"
