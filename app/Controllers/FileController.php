@@ -8,6 +8,7 @@ use DLCore\Core\BaseController;
 use DLRoute\Server\DLServer;
 use DLUnire\Models\DTO\FilenameData;
 use DLUnire\Models\Views\FilenameView;
+use DLUnire\Services\Utilities\File;
 use Exception;
 
 final class FileController extends BaseController {
@@ -46,6 +47,8 @@ final class FileController extends BaseController {
 
         /** @var FilenameData $filename */
         $filename = FilenameView::get_file($uuid, $private);
+
+        $this->download_file($filename);
 
         /** @var string $root */
         $root = DLServer::get_document_root();
@@ -91,8 +94,47 @@ final class FileController extends BaseController {
         }
 
         header("Content-type: {$filename->type}", true, 200);
-        // header("Content-type: text/html", true, 200);
+
+        if (File::sensitive_file($filename->type)) {
+            $content = view('code', [
+                "size" => $filename->readable_size,
+                "code" => $filename->size > 5 * 1024 ? substr($content, 0, 5 * 1024) . "\n..." : $content,
+                "name" => basename($filename->name),
+                "type" => $filename->type
+            ]);
+        }
         print_r($content);
+        exit;
+    }
+
+    /**
+     * Fuerza a descargar el archivo si supera el umbral de los 10 MB por defecto. Puede
+     * cambiar el tamaño máximo antes de permitir la descarga.
+     *
+     * @param FilenameData $file Archivo a ser analizado
+     * @param integer $max_size [Opcional] Tamaño máximo permitido sin descargar
+     * @return void
+     */
+    private function download_file(FilenameData $file, int $max_size = 10485760): void {
+        if ($file->size < $max_size) return;
+
+        $filename = basename($file->name);
+
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename="' . $filename . '"');
+        header('Content-Transfer-Encoding: binary');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length: ' . $file->size);
+
+        if (ob_get_length()) {
+            ob_clean();
+        }
+        flush();
+
+        readfile($file->name);
         exit;
     }
 }
