@@ -15,7 +15,6 @@
     let open: boolean = false;
     let element: HTMLElement | null = null;
     let add: boolean = true;
-    let showContent: boolean = false;
     let success: boolean = false;
 
     onMount(() => {

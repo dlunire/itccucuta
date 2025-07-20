@@ -135,7 +135,11 @@
                     response.success ??
                     "";
 
-                add = !success;
+                if (success) {
+                    setTimeout(() => {
+                        add = false;
+                    }, 7000);
+                }
             },
             function (xhr: XMLHttpRequest): void {
                 error = "Error al subir el archivo";
@@ -306,6 +310,7 @@
     bind:success
     bind:info
     bind:warning
+    bind:add
 >
     {#snippet content()}
         <span>{message}</span>

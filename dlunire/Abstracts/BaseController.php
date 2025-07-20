@@ -45,8 +45,6 @@ abstract class BaseController extends CoreBaseController {
 
         /** @var string $content */
         $content = $this->get_csv_content($file->name);
-
-        throw new Exception($content, 404);
         return [];
     }
 

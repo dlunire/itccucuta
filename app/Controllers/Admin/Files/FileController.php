@@ -55,11 +55,11 @@ final class FileController extends BaseController {
 
         /** @var string $name_only */
         $name_only = basename($filedata->name);
-
+        $name_only = preg_replace("/\-[0-9a-f]+/i", '', $name_only);
         http_response_code(201);
         return [
             "status" => true,
-            "success" => "El archivo «{$name_only}»",
+            "success" => "El archivo «{$name_only}» ha sido recibido con éxito",
             "details" => $this->csv_to_array($filedata)
         ];
     }

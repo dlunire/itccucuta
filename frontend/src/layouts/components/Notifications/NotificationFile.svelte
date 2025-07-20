@@ -1,6 +1,5 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import ButtonClose from "../Buttons/ButtonClose.svelte";
     import IconClose from "../../icons/IconClose.svelte";
 
     export let content: Function | undefined = undefined;
@@ -11,6 +10,7 @@
     export let warning: boolean = false;
     export let info: boolean = false;
     export let closeButton: boolean = true;
+    export let add: boolean = true;
 
     let notification: HTMLElement | null = null;
     let timeout: number | null = null;
@@ -42,6 +42,10 @@
      * Reinicia el mensaje
      */
     function reset(): void {
+        if (add) {
+            add = !success;
+        }
+
         error = false;
         warning = false;
         success = false;
