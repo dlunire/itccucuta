@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace DLUnire\Controllers\Admin\Files;
 
+use DLUnire\Models\DTO\FilenameData;
 use DLUnire\Models\Entities\Filename;
+use DLUnire\Models\Tables\Filenames;
 use DLUnire\Services\Utilities\File;
+use Exception;
 use Framework\Abstracts\BaseController;
 
 /**
@@ -37,11 +40,27 @@ final class FileController extends BaseController {
         /** @var Filename[] $filenames */
         $filenames = File::upload($this, 'file', 'text/*', '/storage/uploads/file');
 
+        /** @var Filename|null $filename */
+        $filename = $filenames[0] ?? null;
+
+        if (!($filename instanceof Filename)) {
+            throw new Exception("Se produjo un error al obtener los datos del archivo de la base de datos", 500);
+        }
+
+        /** @var array $file */
+        $file = Filenames::where('filenames_uuid', $filename->uuid)->first();
+
+        /** @var FilenameData $filedata */
+        $filedata = new FilenameData($file);
+
+        /** @var string $name_only */
+        $name_only = basename($filedata->name);
+
         http_response_code(201);
         return [
             "status" => true,
-            "success" => "Se ha recibido el archivo correctamente",
-            "details" => $filenames
+            "success" => "El archivo «{$name_only}»",
+            "details" => $this->csv_to_array($filedata)
         ];
     }
 }
