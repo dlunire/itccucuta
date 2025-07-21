@@ -134,12 +134,6 @@
                     response.message ??
                     response.success ??
                     "";
-
-                if (success) {
-                    setTimeout(() => {
-                        add = false;
-                    }, 7000);
-                }
             },
             function (xhr: XMLHttpRequest): void {
                 error = "Error al subir el archivo";

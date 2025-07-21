@@ -39,11 +39,16 @@ hr {
     pointer-events: none;
     overflow: auto;
     padding: 40px 20px;
+    display: flex;
+    align-items: center;
+    @media screen and (max-height: 600px) {
+        align-items: flex-start;
+    }
     &__inner {
         --border-color: silver;
         background-color: $secondary-color;
         border-radius: 15px;
-        max-width: 400px;
+        max-width: 450px;
         width: 100%;
         pointer-events: all;
         animation: 300ms ease fade-in forwards;
@@ -61,7 +66,7 @@ hr {
             size: 0.98rem;
             weight: 400
         }
-        @media screen and (max-width: 700px) {
+        @media screen and (max-width: 500px) {
             border-radius: 10px 10px 5px 5px;
             max-width: unset;
         }
@@ -96,8 +101,8 @@ hr {
         left: 0;
         width: 100%;
         padding: 13px 10px;
-        background-color: $secondary-color;
-        border-top: 1px solid rgba(white, 0.1);
+        background-color: color.adjust($color: $background, $lightness: 2%);
+        border-top: 1px solid rgba($border-color, 0.5);
         display: flex;
         justify-content: center;
         align-items: center;

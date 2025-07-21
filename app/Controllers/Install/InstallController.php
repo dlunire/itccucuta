@@ -4,11 +4,9 @@ namespace DLUnire\Controllers\Install;
 
 use DLUnire\Models\DTO\Frontend;
 use DLUnire\Models\Entities\Filename;
-use DLUnire\Models\Views\TestConection;
 use DLUnire\Services\Utilities\Credentials;
 use DLUnire\Services\Utilities\File;
 use Framework\Abstracts\BaseController;
-use PDOException;
 
 final class InstallController extends BaseController {
     private string $entropy = "Base de datos";
