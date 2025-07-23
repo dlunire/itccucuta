@@ -3,11 +3,13 @@
 declare(strict_types=1);
 
 use DLRoute\Requests\DLRoute;
+use DLRoute\Server\DLServer;
 use DLUnire\Auth\Auth;
 use DLUnire\Controllers\Admin\Dashboard\DashboardController;
 use DLUnire\Controllers\Admin\Files\FileController;
 use DLUnire\Controllers\Auth\AuthController;
 use DLUnire\Models\Users;
+use DLUnire\Services\Utilities\CSVParser;
 
 /** @var Auth $auth */
 $auth = Auth::get_instance();
@@ -53,3 +55,22 @@ $auth->logged(function () {
 });
 ## Certificados al servidor:
 DLRoute::post('/dashboard/upload', [FileController::class, 'upload']);
+
+## Test de compilación:
+DLRoute::get('/compiler', function () {
+
+    /** @var string $root */
+    $root = DLServer::get_document_root();
+
+    /** @var string $separator */
+    $separator = DIRECTORY_SEPARATOR;
+
+    /** @var string $file */
+    $file = "/storage/customers-10000.csv";
+
+    $parser = new CSVParser();
+
+    $value = $parser->render_to_array($file);
+
+    return $value;
+});

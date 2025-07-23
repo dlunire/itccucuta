@@ -116,6 +116,7 @@ final class FileController extends BaseController {
      * @return void
      */
     private function download_file(FilenameData $file, int $max_size = 10485760): void {
+        return;
         if ($file->size < $max_size) return;
 
         $filename = basename($file->name);
