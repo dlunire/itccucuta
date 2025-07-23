@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace DLUnire\Services\Utilities;
 
-use DLRoute\Requests\DLOutput;
 use DLRoute\Server\DLServer;
 use DLUnire\Errors\CSVParserException;
 
@@ -31,30 +30,30 @@ use DLUnire\Errors\CSVParserException;
 class CSVParser {
 
     /** @var string SUBSTRING */
-    private const SUBSTRING = "__SUBSTRING_0A_";
+    private const SUBSTRING = "__SUBSTRING_";
 
     /** @var string STRING */
-    private const STRING = "__STRING_0A_";
+    private const STRING = "__STRING_";
 
     /** @var string NUMBER */
-    private const NUMBER = "__NUMBER_0A_";
+    private const NUMBER = "__NUMBER_";
 
     /** @var string BOOLEAN */
-    private const BOOLEAN = "__BOOLEAN_0A_";
+    private const BOOLEAN = "__BOOLEAN_";
 
     /** @var string DATE */
-    private const DATE = "__DATE_0A_";
+    private const DATE = "__DATE_";
 
     /** @var string HOUR */
-    private const HOUR = "__HOUR_0A_";
+    private const HOUR = "__HOUR_";
 
     /** @var string[] BOM */
     private const BOM = [
-        "\xFE\xFF",           // UTF-16 BE
-        "\xFF\xFE",           // UTF-16 LE
-        "\xEF\xBB\xBF",       // UTF-8
-        "\x00\x00\xFE\xFF",   // UTF-32 BE
-        "\xFF\xFE\x00\x00",   // UTF-32 LE,
+        "/\xFE\xFF/",           // UTF-16 BE
+        "/\xFF\xFE/",           // UTF-16 LE
+        "/\xEF\xBB\xBF/",       // UTF-8
+        "/\x00\x00\xFE\xFF/",   // UTF-32 BE
+        "/\xFF\xFE\x00\x00/",   // UTF-32 LE,
     ];
 
     /**
@@ -62,7 +61,7 @@ class CSVParser {
      * 
      * @var string[] BREAK_LINES
      */
-    private const BREAK_LINES = ["\x0D\x0A", "\x0D"];
+    private const BREAK_LINES = ["/\x0D\x0A/", "/\x0D/"];
 
     /**
      * Salto de línea normalizado
@@ -299,7 +298,7 @@ class CSVParser {
      * @return void
      */
     private function normalize_line(): void {
-        $this->tokenized_content = str_replace(static::BREAK_LINES, static::BREAK, $this->tokenized_content);
+        $this->tokenized_content = preg_replace(static::BREAK_LINES, static::BREAK, $this->tokenized_content);
     }
 
     /**
@@ -310,7 +309,7 @@ class CSVParser {
      */
     private function remove_bom(string &$input): void {
         if ($this->delete_bom) {
-            $input = str_replace(static::BOM, '', $input);
+            $input = preg_replace(static::BOM, '', $input);
         }
     }
 
@@ -537,25 +536,24 @@ class CSVParser {
         $index = 0;
 
         $content = preg_replace_callback($pattern, function (array $value) use (&$index, $token_name) {
-            ++$index;
-
             /** @var string $subcontent */
             $subcontent = $value[0] ?? '';
-            $subcontent = trim($subcontent, $this->delimiter);
-            $subcontent = trim($subcontent);
-            $subcontent = "{$this->delimiter}{$subcontent}{$this->delimiter}";
 
             /** @var string $token */
             $token = str_replace('0A', strval($index), $token_name);
+            $token = $this->get_token($token_name, $index);
 
             switch ($token_name) {
                 case $token_name === static::SUBSTRING:
-                    $this->substrings[$token] = "{$this->delimiter}{$this->delimiter}{$subcontent}{$this->delimiter}{$this->delimiter}";
+                    $this->clean_substring($subcontent);
+                    $this->substrings[$token] = $subcontent;
                     break;
                 case $token_name === static::STRING:
+                    $this->clean_content($subcontent, true);
                     $this->strings[$token] = $subcontent;
                     break;
                 default:
+                    $this->clean_substring($subcontent);
                     $this->substrings[$token] = $subcontent;
                     break;
             }
@@ -564,6 +562,58 @@ class CSVParser {
         }, $this->tokenized_content);
 
         $this->tokenized_content = $content;
+    }
+
+    /**
+     * Devuelve el token a partirdel tipo e índice
+     *
+     * @param string $type Tipo de token
+     * @param integer $index Índice de token
+     * @return string
+     */
+    private function get_token(string $type, int &$index): string {
+        return $type . ++$index . "_";
+    }
+
+    /**
+     * Limpia el contenido mal formateado
+     *
+     * @param string|null $content Contenido a ser analizado
+     * @param boolean $is_string Indica si se trata de una cadena de texto
+     * @return void
+     */
+    private function clean_content(?string &$content, bool $is_string = false): void {
+        if (is_null($content)) return;
+
+        if (is_string($this->delimiter)) {
+            $content = trim($content, $this->delimiter);
+        }
+
+        $content = trim($content);
+
+        if ($is_string && is_string($this->delimiter)) {
+            $content = "{$this->delimiter}{$content}{$this->delimiter}";
+        }
+    }
+
+    /**
+     * Limpia el contenido de la subcadena
+     *
+     * @param string|null $content
+     * @return void
+     */
+    private function clean_substring(?string &$content): void {
+        if (is_null($content)) return;
+
+        if (is_string($this->delimiter)) {
+            $content = trim($content, $this->delimiter);
+        }
+
+        $content = trim($content);
+
+        if (is_string($this->delimiter)) {
+            $content = "{$this->delimiter}{$this->delimiter}{$content}{$this->delimiter}{$this->delimiter}";
+        }
     }
 
     /**
@@ -598,11 +648,12 @@ class CSVParser {
 
         /** @var string $content */
         $content = preg_replace_callback($pattern, function (array $value) use (&$index) {
-            ++$index;
+            /** @var string $subcontent */
             $subcontent = $value[0] ?? '';
+            $this->clean_content($subcontent);
 
             /** @var string $token */
-            $token = str_replace('0A', strval($index), static::DATE);
+            $token = $this->get_token(static::DATE, $index);
 
             $this->dates[$token] = $subcontent;
             return $token;
@@ -626,9 +677,10 @@ class CSVParser {
         $content = preg_replace_callback($pattern, function (array $value) use (&$index) {
             /** @var string $subcontent */
             $subcontent = $value[0] ?? '';
+            $this->clean_content($subcontent);
 
             /** @var string $token */
-            $token = str_replace("0A", strval(++$index), static::HOUR);
+            $token = $this->get_token(static::HOUR, $index);
 
             $this->hours[$token] = $subcontent;
             return $token;
@@ -652,11 +704,12 @@ class CSVParser {
         $content = preg_replace_callback($pattern, function (array $value) use (&$index) {
             /** @var string $subcontent */
             $subcontent = $value[0] ?? '';
+            $this->clean_content($subcontent);
 
             /** @var string $token */
-            $token = str_replace('0A', strval(++$index), static::NUMBER);
-            $this->numbers[$token] = $subcontent;
+            $token = $this->get_token(static::NUMBER, $index);
 
+            $this->numbers[$token] = $subcontent;
             return $token;
         }, $this->tokenized_content);
 
@@ -678,9 +731,10 @@ class CSVParser {
         $content = preg_replace_callback($pattern, function (array $value) use (&$index) {
             /** @var string $subcontent */
             $subcontent = $value[0] ?? '';
+            $this->clean_content($subcontent);
 
             /** @var string $token */
-            $token = str_replace("0A", strval(++$index), static::BOOLEAN);
+            $token = $this->get_token(static::BOOLEAN, $index);
 
             $this->booleans[$token] = $subcontent;
             return $token;
@@ -698,7 +752,7 @@ class CSVParser {
         if (!is_string($this->separator) || empty($this->separator)) return;
 
         /** @var string $content */
-        $content = str_replace($this->separator, static::BINARY_SEPARATOR, $this->tokenized_content);
+        $content = preg_replace("/{$this->separator}/i", static::BINARY_SEPARATOR, $this->tokenized_content);
 
         $this->tokenized_content = $content;
     }
@@ -712,33 +766,45 @@ class CSVParser {
     private function reset_content(): void {
         /** @var string $content */
         $content = $this->tokenized_content;
+        if (!is_string($content)) return;
 
-        /** @var string $delimiter */
+        /** @var string|null $delimiter */
         $delimiter = $this->delimiter;
 
         foreach ($this->strings as $token => $value) {
-            $content = str_replace($token, $value, $content);
+            if (!is_string($value)) continue;
+            $content = preg_replace("/$token/i", $value, $content);
         }
 
         foreach ($this->substrings as $token => $value) {
-            $value = str_replace("{$delimiter}{$delimiter}", static::BINARY_DELIMITER, $value);
-            $content = str_replace($token, $value, $content);
+            if (!is_string($value)) continue;
+
+            if (is_string($delimiter)) {
+                $value = str_replace("{$delimiter}{$delimiter}", static::BINARY_DELIMITER, $value);
+            }
+
+            $content = preg_replace("/$token/i", $value, $content);
         }
 
         foreach ($this->dates as $token => $date) {
-            $content = str_replace($token, $date, $content);
+            if (!is_string($date)) continue;
+            $content = preg_replace("/$token/i", $date, $content);
         }
 
         foreach ($this->hours as $token => $hour) {
-            $content = str_replace($token, $hour, $content);
+            if (!is_string($hour)) continue;
+            $content = preg_replace("/$token/i", $hour, $content);
         }
 
         foreach ($this->booleans as $token => $boolean) {
-            $content = str_replace($token, $boolean, $content);
+            if (!is_string($boolean)) continue;
+            $content = preg_replace("/$token/i", $boolean, $content);
         }
 
         foreach ($this->numbers as $token => $number) {
-            $content = str_replace($token, $number, $content);
+            if (!is_string($number)) continue;
+
+            $content = preg_replace("/$token/i", $number, $content);
         }
 
         $this->tokenized_content = $content;

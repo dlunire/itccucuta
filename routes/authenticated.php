@@ -63,3 +63,16 @@ $auth->logged(function () {
 });
 ## Certificados al servidor:
 DLRoute::post('/dashboard/upload', [FileController::class, 'upload']);
+
+## PROBAR COMPILADOR
+DLRoute::get('/compiler', function () {
+
+    /** @var CSVParser */
+    $reader = new CSVParser();
+
+    /** @var string $file */
+    $file = "/storage/customers-10000.csv";
+    $file = "/storage/test.csv";
+
+    return $reader->render_to_array($file);
+});
