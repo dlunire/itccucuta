@@ -605,14 +605,15 @@
         }
     }
     &__fieldset {
-        border: 1px solid rgba($border-color, 0.6);
+        border: 1px solid rgba($border-color, 0.3);
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         gap: 20px;
-        border-radius: 10px;
+        border-radius: 4px;
         background-color: $secondary-color;
         padding: 30px;
         padding-bottom: 50px;
+        opacity: 0;
         @media screen and (max-width: 600px) {
             grid-template-columns: 1fr;
         }

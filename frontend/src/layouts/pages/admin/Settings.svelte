@@ -1,11 +1,28 @@
 <script lang="ts">
+    import { onMount } from "svelte";
     import Form from "../../components/Forms/Form.svelte";
     import Icon from "../../components/Graphics/Icon.svelte";
     import IconFolder from "../../icons/IconFolder.svelte";
     import IconSettings from "../../icons/IconSettings.svelte";
     import IconTable from "../../icons/IconTable.svelte";
+    import { request } from "../../components/Forms/lib/request";
 
     let hidden: boolean = true;
+    let actions: string = "/dashboard/current/settings";
+
+    onMount(() => {
+        loadSettings();
+    });
+
+    async function loadSettings(): Promise<void> {
+        const data: unknown = await request(actions, {
+            credentials: "include",
+            method: "GET",
+        });
+
+        // const status = data.status;
+        // console.log({ status });
+    }
 </script>
 
 <section class="content content--settings">
@@ -16,7 +33,9 @@
                     <IconTable />
                     <span>Configurar columnas</span>
                 </h3>
-                <fieldset class="form__fieldset fieldset fieldset--settings">
+                <fieldset
+                    class="form__fieldset fieldset fieldset--settings fade-in-delay"
+                >
                     <legend class="form__legend"
                         >Establezca nombre de columnas</legend
                     >

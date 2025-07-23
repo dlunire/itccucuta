@@ -36,3 +36,7 @@
 .deploy-down {
     animation: 300ms deploy-down ease forwards 1;
 }
+
+.fade-in-delay {
+    animation: 300ms ease fade-in 50ms forwards;
+}
