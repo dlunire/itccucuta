@@ -55,7 +55,11 @@ $auth->logged(function () {
         return Users::paginate(1, 10);
     });
 
+    ## Devuelve la configuración actual del sistema
     DLRoute::get('/dashboard/current/settings', [SettingsController::class, 'index']);
+
+    ## Actualiza la configuración del sistema:
+    DLRoute::post('/dashboard/settings', [SettingsController::class, 'store']);
 });
 ## Certificados al servidor:
 DLRoute::post('/dashboard/upload', [FileController::class, 'upload']);

@@ -512,6 +512,7 @@
 .form {
     position: relative;
     margin: 0 auto;
+    background-color: $secondary-color;
     &__inner {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -605,21 +606,24 @@
         }
     }
     &__fieldset {
-        border: 1px solid rgba($border-color, 0.3);
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         gap: 20px;
         border-radius: 4px;
-        background-color: $secondary-color;
+        background-color: $background;
         padding: 30px;
         padding-bottom: 50px;
         opacity: 0;
+        border: 1px solid rgba(white, 0.1);
         @media screen and (max-width: 600px) {
             grid-template-columns: 1fr;
         }
     }
     &__legend {
         color: orange;
+        border: 1px solid rgba(white, 0.1);
+        padding: 5px 20px;
+        border-radius: 15px;
     }
     &__label {
         span {
