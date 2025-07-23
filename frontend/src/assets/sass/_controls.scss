@@ -603,24 +603,13 @@
         }
     }
     &__fieldset {
-        border: 0;
-        position: absolute;
-        left: 10px;
-        top: 0;
-        padding: 10px;
-        transform: translateY(-50%);
-        background-color: $secondary-color;
-        color: orangered;
-        font: {
-            size: 0.9rem;
-        }
-        span {
-            white-space: nowrap;
-            display: block;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 200px;
-        }
+        border: 1px solid rgba($border-color, 0.6);
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 10px;
+    }
+    &__legend {
+        color: orange;
     }
     &__label {
         &--login {
@@ -636,5 +625,14 @@
         display: flex;
         align-items: center;
         --icon-color: white;
+    }
+    &__title {
+        --icon-size: 20px;
+        --icon-width: var(--icon-size);
+        --icon-height: var(--icon-size);
+        --icon-color: white;
+        display: flex;
+        align-items: center;
+        gap: 5px;
     }
 }
