@@ -8,7 +8,7 @@
     let hidden: boolean = true;
 </script>
 
-<section class="content">
+<section class="content content--settings">
     <div class="form-container">
         <Form action="/dashboard/settings" method="post">
             {#snippet content()}
@@ -49,7 +49,7 @@
                     <label
                         for="document"
                         class="form__label"
-                        aria-label="document"
+                        aria-label="Documento"
                     >
                         <span>Nº de documento:</span>
                         <input
@@ -61,13 +61,24 @@
                         />
                     </label>
 
-                    <label for="date" class="form__label" aria-label="document">
+                    <label for="date" class="form__label" aria-label="Fecha">
                         <span>Fecha:</span>
                         <input
                             type="date"
                             name="date"
                             id="date"
                             placeholder="Por ejemplo, 21/01/1985"
+                            class="form__input"
+                        />
+                    </label>
+
+                    <label for="date" class="form__label" aria-label="Fecha">
+                        <span>Fecha:</span>
+                        <input
+                            type="text"
+                            name="date"
+                            id="date"
+                            placeholder="Por ejemplo, Curso"
                             class="form__input"
                         />
                     </label>
