@@ -7,6 +7,7 @@ namespace DLUnire\Controllers\Admin\Files;
 use DLUnire\Models\DTO\FilenameData;
 use DLUnire\Models\Entities\Filename;
 use DLUnire\Models\Tables\Filenames;
+use DLUnire\Services\Utilities\CSVParser;
 use DLUnire\Services\Utilities\File;
 use Exception;
 use Framework\Abstracts\BaseController;
@@ -53,14 +54,21 @@ final class FileController extends BaseController {
         /** @var FilenameData $filedata */
         $filedata = new FilenameData($file);
 
+        /** @var CSVParser $csv */
+        $csv = new CSVParser();
+
+        /** @var array<int,array<string,string>> */
+        $records = $csv->render_to_array($filedata->name);
+
         /** @var string $name_only */
         $name_only = basename($filedata->name);
-        $name_only = preg_replace("/(\-{1}[0-9a-f]+)/i", '', $name_only);
+
+
         http_response_code(201);
         return [
             "status" => true,
             "success" => "Archivo recibido correctamente",
-            "details" => $this->csv_to_array($filedata)
+            "details" => $records
         ];
     }
 }

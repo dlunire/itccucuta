@@ -394,7 +394,10 @@ class CSVParser {
                     ? str_replace($this->delimiter, '', $value)
                     : $value;
 
-                $value = str_replace(static::BINARY_DELIMITER, $this->delimiter, $content_string);
+                if (is_string($this->delimiter)) {
+                    $value = str_replace(static::BINARY_DELIMITER, $this->delimiter, $content_string);
+                }
+
                 $value = trim($value);
 
                 $content[$field] = $value;

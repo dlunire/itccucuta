@@ -36,49 +36,6 @@ abstract class BaseController extends CoreBaseController {
     }
 
     /**
-     * Convierte un archivo CSV a un array
-     *
-     * @param FilenameData $file Archivo a ser analizado
-     * @return array
-     */
-    protected function csv_to_array(FilenameData $file): array {
-
-        /** @var string $content */
-        $content = $this->get_csv_content($file->name);
-        return [];
-    }
-
-    /**
-     * Devuelve el contenido del archivo CSV
-     *
-     * @param string $filename Archivo a ser analizado
-     * @return string
-     * 
-     * @throws StorageException
-     */
-    private function get_csv_content(string $filename): string {
-        $filename = $this->debug_route($filename);
-
-        /** @var string $root */
-        $root = DLServer::get_document_root();
-
-        /** @var string $separator */
-        $separator = DIRECTORY_SEPARATOR;
-
-        /** @var string $file */
-        $file = "{$root}{$separator}{$filename}";
-
-        /** @var string $name_only */
-        $name_only = basename($file);
-
-        if (!file_exists($file)) {
-            throw new StorageException("El archivo «{$name_only}» no existe o fue eliminado", 404);
-        }
-
-        return strval(file_get_contents($file));
-    }
-
-    /**
      * Depura la ruta para convertirla al formado del sistema operativo en el que está
      * corriendo la aplicación
      *
