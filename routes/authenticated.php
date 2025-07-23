@@ -10,6 +10,7 @@ use DLUnire\Controllers\Admin\Files\FileController;
 use DLUnire\Controllers\Auth\AuthController;
 use DLUnire\Models\Users;
 use DLUnire\Services\Utilities\CSVParser;
+use League\Csv\Reader;
 
 /** @var Auth $auth */
 $auth = Auth::get_instance();
@@ -67,10 +68,28 @@ DLRoute::get('/compiler', function () {
 
     /** @var string $file */
     $file = "/storage/customers-10000.csv";
+    $file = "/storage/test.csv";
 
     $parser = new CSVParser();
+    return $parser->render_to_array($file, true);
 
-    $value = $parser->render_to_array($file);
+    $root = DLServer::get_document_root();
 
-    return $value;
+    /** @var string $filename */
+    $filename = "{$root}{$file}";
+
+    $value = [];
+
+    $reader = Reader::createFromPath($filename, 'r');
+    $reader->setDelimiter(";");
+    $reader->setHeaderOffset(0);
+    $value = $reader->getRecords();
+
+    $registers = [];
+    foreach ($value as $item) {
+        $registers[] = $item;
+    }
+    // $value = $parser->render_to_array($file);
+
+    return $registers;
 });
