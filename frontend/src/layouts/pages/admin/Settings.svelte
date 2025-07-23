@@ -19,15 +19,17 @@
             credentials: "include",
             method: "GET",
         });
-
-        // const status = data.status;
-        // console.log({ status });
+        console.log({ data });
     }
 </script>
 
 <section class="content content--settings">
     <div class="form-container">
-        <Form action="/dashboard/settings" method="post">
+        <Form
+            action="/dashboard/settings"
+            method="post"
+            className="form--settings"
+        >
             {#snippet content()}
                 <h3 class="form__title">
                     <IconTable />

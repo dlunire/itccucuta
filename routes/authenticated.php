@@ -7,6 +7,7 @@ use DLRoute\Server\DLServer;
 use DLUnire\Auth\Auth;
 use DLUnire\Controllers\Admin\Dashboard\DashboardController;
 use DLUnire\Controllers\Admin\Files\FileController;
+use DLUnire\Controllers\Admin\Settings\SettingsController;
 use DLUnire\Controllers\Auth\AuthController;
 use DLUnire\Models\Users;
 use DLUnire\Services\Utilities\CSVParser;
@@ -53,6 +54,8 @@ $auth->logged(function () {
     DLRoute::get('/test', function () {
         return Users::paginate(1, 10);
     });
+
+    DLRoute::get('/dashboard/current/settings', [SettingsController::class, 'index']);
 });
 ## Certificados al servidor:
 DLRoute::post('/dashboard/upload', [FileController::class, 'upload']);
