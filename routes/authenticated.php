@@ -72,7 +72,7 @@ DLRoute::get('/compiler', function () {
 
     /** @var string $file */
     $file = "/storage/customers-10000.csv";
-    $file = "/storage/test.csv";
+    // $file = "/storage/test.csv";
 
     return $reader->render_to_array($file);
 });

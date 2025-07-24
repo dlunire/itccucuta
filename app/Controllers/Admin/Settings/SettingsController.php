@@ -40,12 +40,13 @@ final class SettingsController extends BaseController {
         /** @var string $course */
         $course = $this->get_required('course');
 
+        /** @var array<string,string> $field_names */
         $field_names = [
-            "name" => $name,
-            "lastname" => $lastname,
-            "document" => $document,
-            "date" => $date,
-            "course" => $course
+            "field_name" => $name,
+            "field_lastname" => $lastname,
+            "field_document" => $document,
+            "field_date" => $date,
+            "field_course" => $course
         ];
 
         http_response_code(201);

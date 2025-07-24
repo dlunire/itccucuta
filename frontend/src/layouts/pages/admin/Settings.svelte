@@ -23,8 +23,38 @@
     }
 </script>
 
-<section class="content content--settings">
+<section class="content content--settings" aria-labelledby="csv-settings-title">
     <div class="form-container">
+        <h2
+            class="form-container__title"
+            id="csv-settings-title"
+            aria-label="Configuración de columnas de tabla"
+        >
+            <IconSettings />
+            <span>Configuración del sistema</span>
+        </h2>
+
+        <blockquote>
+            <h3>Importante</h3>
+
+            <p class="form__instructions">
+                Ingrese un título descriptivo para cada campo técnico. Este
+                título será visible como encabezado de columna en la tabla de
+                datos. <strong>No escriba valores reales</strong>
+                como <code>“12345678”</code> o <code>“25 de marzo”</code>, sino
+                nombres genéricos como <code>Nombres</code>,
+                <code>“Fecha de nacimiento”</code>, etc.
+            </p>
+
+            <p>
+                El propósito es colocar el nombre de las columnas de su hoja de
+                cálculo exportada a CSV para que coincidan con los campos
+                interno de la base de datos, de decir, colocar nombres legibles
+                para determinar que ese nombre legible de campo se corresponde
+                con el nombre interno de las de la base de datos.
+            </p>
+        </blockquote>
+
         <Form
             action="/dashboard/settings"
             method="post"
@@ -33,74 +63,103 @@
             {#snippet content()}
                 <h3 class="form__title">
                     <IconTable />
-                    <span>Configurar columnas</span>
+                    <span>Definir nombres de columnas</span>
                 </h3>
+
                 <fieldset
                     class="form__fieldset fieldset fieldset--settings fade-in-delay"
                 >
-                    <legend class="form__legend"
-                        >Establezca nombre de columnas</legend
+                    <legend class="form__legend">
+                        Asigne nombres legibles a los campos técnicos
+                    </legend>
+
+                    <label
+                        for="first_name"
+                        class="form__label"
+                        aria-label="Nombre legible para 'first_name'"
                     >
-                    <label for="name" class="form__label" aria-label="Nombres">
-                        <span>Nombres:</span>
+                        <span>Campo técnico: <code>first_name</code></span>
                         <input
                             type="text"
-                            name="name"
-                            id="name"
-                            placeholder="Por ejemplo, Cristian"
-                            class="form__input"
+                            name="first_name"
+                            id="first_name"
+                            placeholder="Ej.: Nombres"
+                            class="form__input form__input--settings"
                         />
                     </label>
 
                     <label
-                        for="lastname"
+                        for="last_name"
                         class="form__label"
-                        aria-label="Apellidos"
+                        aria-label="Nombre legible para 'last_name'"
                     >
-                        <span>Apellidos:</span>
+                        <span>Campo técnico: <code>last_name</code></span>
                         <input
                             type="text"
-                            name="lastname"
-                            id="lastname"
-                            placeholder="Por ejemplo, Pérez Delgado"
-                            class="form__input"
+                            name="last_name"
+                            id="last_name"
+                            placeholder="Ej.: Apellidos"
+                            class="form__input form__input--settings"
                         />
                     </label>
 
                     <label
-                        for="document"
+                        for="doc_type"
                         class="form__label"
-                        aria-label="Documento"
+                        aria-label="Nombre legible para 'doc_type'"
                     >
-                        <span>Nº de documento:</span>
+                        <span>Campo técnico: <code>doc_type</code></span>
                         <input
                             type="text"
-                            name="document"
-                            id="document"
-                            placeholder="Por ejemplo, 1.234.567.890"
-                            class="form__input"
+                            name="doc_type"
+                            id="doc_type"
+                            placeholder="Ej.: Tipo de documento"
+                            class="form__input form__input--settings"
                         />
                     </label>
 
-                    <label for="date" class="form__label" aria-label="Fecha">
-                        <span>Fecha:</span>
+                    <label
+                        for="document_number"
+                        class="form__label"
+                        aria-label="Nombre legible para 'document_number'"
+                    >
+                        <span>Campo técnico: <code>document_number</code></span>
                         <input
-                            type="date"
-                            name="date"
-                            id="date"
-                            placeholder="Por ejemplo, 21/01/1985"
-                            class="form__input"
+                            type="text"
+                            name="document_number"
+                            id="document_number"
+                            placeholder="Ej.: Nº de documento"
+                            class="form__input form__input--settings"
                         />
                     </label>
 
-                    <label for="date" class="form__label" aria-label="Fecha">
-                        <span>Fecha:</span>
+                    <label
+                        for="birth_date"
+                        class="form__label"
+                        aria-label="Nombre legible para 'birth_date'"
+                    >
+                        <span>Campo técnico: <code>birth_date</code></span>
                         <input
                             type="text"
-                            name="date"
-                            id="date"
-                            placeholder="Por ejemplo, Curso"
-                            class="form__input"
+                            name="birth_date"
+                            id="birth_date"
+                            placeholder="Ej.: Fecha de nacimiento"
+                            class="form__input form__input--settings"
+                        />
+                    </label>
+
+                    <label
+                        for="course_name"
+                        class="form__label"
+                        aria-label="Nombre legible para 'course_name'"
+                    >
+                        <span>Campo técnico: <code>course_name</code></span>
+                        <input
+                            type="text"
+                            name="course_name"
+                            id="course_name"
+                            placeholder="Ej.: Curso"
+                            class="form__input form__input--settings"
                         />
                     </label>
                 </fieldset>
@@ -108,7 +167,7 @@
                 <div class="form__buttons">
                     <button class="button button--primary">
                         <IconFolder />
-                        <span>Establecer campos</span>
+                        <span>Guardar configuración</span>
                     </button>
                 </div>
             {/snippet}
