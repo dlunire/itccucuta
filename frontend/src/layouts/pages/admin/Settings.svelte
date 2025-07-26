@@ -34,7 +34,7 @@
             <span>Configuración del sistema</span>
         </h2>
 
-        <blockquote>
+        <blockquote class="fade-in-delay">
             <h3>Importante</h3>
 
             <p class="form__instructions">

@@ -92,11 +92,12 @@ pre {
 }
 
 blockquote {
-    border: 1px solid rgba($border-color, 0.3);
-    border-left: 4px solid rgba($border-color, 0.3);
-    background-color: rgba($border-color, 0.03);
+    border: 1px solid rgba(green, 0.3);
+    border-left: 5px solid rgba(green, 0.6);
+    background-color: rgba(green, 0.03);
     border-radius: 4px;
     padding: 20px 40px;
+    margin-bottom: 30px;
     h1,
     h2,
     h3,
@@ -110,6 +111,7 @@ blockquote {
         font: {
             size: 1rem;
         }
+        text-transform: uppercase;
     }
     p {
         &:last-of-type {

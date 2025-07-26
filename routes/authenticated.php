@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use DLRoute\Requests\DLRoute;
-use DLRoute\Server\DLServer;
 use DLUnire\Auth\Auth;
 use DLUnire\Controllers\Admin\Dashboard\DashboardController;
 use DLUnire\Controllers\Admin\Files\FileController;
@@ -11,7 +10,6 @@ use DLUnire\Controllers\Admin\Settings\SettingsController;
 use DLUnire\Controllers\Auth\AuthController;
 use DLUnire\Models\Users;
 use DLUnire\Services\Utilities\CSVParser;
-use League\Csv\Reader;
 
 /** @var Auth $auth */
 $auth = Auth::get_instance();
@@ -71,8 +69,14 @@ DLRoute::get('/compiler', function () {
     $reader = new CSVParser();
 
     /** @var string $file */
-    $file = "/storage/customers-10000.csv";
-    // $file = "/storage/test.csv";
+    // $file = "/storage/customers-10000.csv";
+    // $file = "/storage/test-customer.csv";
+    $file = "/storage/test.csv";
 
     return $reader->render_to_array($file);
+});
+
+## Realizar una prueba con el sistema de rutas
+DLRoute::get('/test', function () {
+    return "Alguna salida";
 });

@@ -39,7 +39,7 @@ final class FileController extends BaseController {
      */
     public function upload(): array {
         /** @var Filename[] $filenames */
-        $filenames = File::upload($this, 'file', '*/*', '/storage/uploads/file');
+        $filenames = File::upload($this, 'file', 'text/*', '/storage/uploads/file');
 
         /** @var Filename|null $filename */
         $filename = $filenames[0] ?? null;
