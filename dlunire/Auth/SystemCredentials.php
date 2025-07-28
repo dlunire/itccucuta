@@ -398,9 +398,13 @@ final class SystemCredentials {
             return;
         }
 
-        $auth = '';
+        /** @var int $delete_time */
+        $delete_time = time() - 60 * 60 * 30;
 
-        setcookie('__auth__', null, time() - 60 * 60 * 30);
+        $auth = '';
+        setcookie('__auth__', '', $delete_time);
+
+        $_COOKIE['__auth__'] = NULL;
     }
 
     /**

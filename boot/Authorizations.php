@@ -54,6 +54,26 @@ class Authorizations implements AuthorizationsInterface {
      * @return void
      */
     private static function allow_origin(string $origin): void {
+        # Previene que el navegador intente inferir el tipo MIME (protege contra ataques XSS)
+        header('X-Content-Type-Options: nosniff');
+
+        # Previene que la página sea cargada dentro de un iframe en dominios externos (protección clickjacking)
+        header('X-Frame-Options: SAMEORIGIN');
+
+        # Activa la protección XSS incorporada del navegador (aunque es obsoleta en navegadores modernos,
+        # muchos escáneres la esperan)
+        header('X-XSS-Protection: 1; mode=block');
+
+        # Indica a los navegadores que deben usar HTTPS (útil solo si ya estás en HTTPS y sirve para
+        # silenciar avisos de escáneres)
+        header('Strict-Transport-Security: max-age=31536000; includeSubDomains; preload');
+
+        #  Si quieres controlar el Referer enviado por el navegador (protección complementaria a CSRF)
+        header('Referrer-Policy: no-referrer-when-downgrade');
+
+        # Controla cómo se puede acceder a los recursos (más útil para evitar filtraciones de origen cruzado)
+        header('Permissions-Policy: geolocation=(), microphone=(), camera=()');
+
         header("Access-Control-Allow-Origin: {$origin}");
         header("Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS");
         header("Access-Control-Allow-Headers: Content-Type, Authorization");

@@ -40,4 +40,17 @@
 <meta name="theme-color" content="{{ $frontend->color ?? '#08d' }}" />
 
 <!-- Política de seguridad de contenido -->
-<meta http-equiv="Content-Security-Policy" content="script-src *.tawk.to *.jsdelivr.net *.google.com *.gstatic.com 'nonce-{{ $frontend->token ?? 'Token Nonce' }}'; object-src 'none'">
+<!-- <meta http-equiv="Content-Security-Policy"
+    content="script-src *.tawk.to *.jsdelivr.net *.google.com *.gstatic.com 'nonce-{{ $frontend->token ?? 'Token Nonce' }}'; object-src 'none'"> -->
+<!-- <meta http-equiv="Content-Security-Policy" content="'nonce-{{ $frontend->token ?? 'Token Nonce' }}'; object-src 'none'"> -->
+<meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src 'nonce-{{ $frontend->token }}';
+    object-src 'none';
+    base-uri 'none';
+    style-src 'nonce-{{ $frontend->token }}';
+    img-src 'self';
+    font-src 'self';
+    connect-src 'self' https://api.tawk.to;
+    frame-src https://embed.tawk.to;
+">

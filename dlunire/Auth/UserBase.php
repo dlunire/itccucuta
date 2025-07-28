@@ -72,7 +72,7 @@ abstract class UserBase extends DLUser {
             self::$username_field ?? 'username'
         );
 
-        if ($username < 4) {
+        if (mb_strlen($username) < 4) {
             throw new Error("El nombre de usuario debe contar, con al menos, 4 caracteres");
         }
 
