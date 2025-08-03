@@ -63,6 +63,16 @@ final class DashboardController extends BaseController {
     }
 
     /**
+     * Historial de carga.
+     *
+     * @return string Contenido renderizado del historial de actividades.
+     */
+    public function register(): string {
+        return $this->get_frontend_content("Registro", "Consulte el registro de estudiantes");
+    }
+
+
+    /**
      * Página de configuración.
      *
      * @return string Contenido renderizado de la sección de configuración.

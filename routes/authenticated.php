@@ -30,6 +30,9 @@ $auth->authenticated(function () {
     ## Historial
     DLRoute::get('/dashboard/history', [DashboardController::class, 'history']);
 
+    ## Consultar registros:
+    DLRoute::get('/dashboard/register', [DashboardController::class, 'register']);
+
     ## Zona de de configuración:
     DLRoute::get('/dashboard/settings', [DashboardController::class, 'settings']);
 
