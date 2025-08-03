@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace DLUnire\Models\DTO;
 
+use IteratorAggregate;
+
 /**
  * Copyright (c) 2025 David E Luna M
  * Licensed under the MIT License. See LICENSE file for details.
@@ -12,8 +14,11 @@ namespace DLUnire\Models\DTO;
  * @version v0.0.1
  * @license MIT
  * @author David E Luna M
+ * 
+ * @note Esta clase utiliza snake_case para los nombres de métodos y propiedades. Sin embargo, en el contexto de 
+ *       IteratorAggregate, se hizo una excepción.
  */
-final class FastArray {
+final class FastArray implements IteratorAggregate {
     /**
      * Array crudo que contiene los datos.
      *
@@ -29,8 +34,14 @@ final class FastArray {
      */
     private int $length;
 
-    public function __construct() {
+    /**
+     * Constructor que inicializa el array y su longitud.
+     *
+     * @param array $data
+     */
+    public function __construct(array $data = []) {
         $this->clear();
+        $this->add($data);
     }
 
     /**
@@ -159,9 +170,19 @@ final class FastArray {
     /**
      * Devuelve un iterador para recorrer el array.
      *
-     * @return \ArrayIterator
+     * @return \Traversable
      */
-    public function get_iterator(): \ArrayIterator {
+    public function get_iterator(): \Traversable {
         return new \ArrayIterator($this->data);
+    }
+
+    /**
+     * Devuelve un iterador para recorrer el array. Este método es parte de la interfaz IteratorAggregate, por
+     * lo que está utilizando `camelCase` en lugar de `snake_case`.
+     *
+     * @return \Traversable
+     */
+    public function getIterator(): \Traversable {
+        return $this->get_iterator();
     }
 }

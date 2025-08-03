@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace DLUnire\Controllers\Admin\Files;
 
+use DLUnire\Models\DTO\FastArray;
 use DLUnire\Models\DTO\FilenameData;
 use DLUnire\Models\Entities\Filename;
 use DLUnire\Models\Tables\Filenames;
@@ -60,6 +61,13 @@ final class FileController extends BaseController {
         /** @var array<int,array<string,string>> */
         $records = $csv->render_to_array($filedata->name);
 
+        $array = new FastArray($records);
+        $tests = [];
+
+        foreach ($array as $record) {
+            $tests[] = $record;
+        }
+
         /** @var string $name_only */
         $name_only = basename($filedata->name);
 
@@ -68,7 +76,7 @@ final class FileController extends BaseController {
         return [
             "status" => true,
             "success" => "Archivo recibido correctamente",
-            "details" => $records
+            "details" => $tests
         ];
     }
 }
