@@ -260,7 +260,7 @@ class CSVParser {
      * @throws CSVParserException Lanza una excepción con el código de estado HTTP 404 si el archivo no existe.
      */
     private function load_content(string $filename, bool $delete_bom = true): void {
-        $filename = preg_replace("/[\/\\\]+/", DIRECTORY_SEPARATOR, $filename);
+        $filename = preg_replace('/[\\/\\\\]+/', DIRECTORY_SEPARATOR, $filename);
         $filename = trim($filename, "\/");
 
         /** @var string $root */
@@ -540,7 +540,6 @@ class CSVParser {
             $subcontent = $value[0] ?? '';
 
             /** @var string $token */
-            $token = str_replace('0A', strval($index), $token_name);
             $token = $this->get_token($token_name, $index);
 
             switch (true) {
