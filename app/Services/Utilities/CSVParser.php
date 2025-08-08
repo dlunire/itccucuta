@@ -543,7 +543,7 @@ class CSVParser {
             $token = str_replace('0A', strval($index), $token_name);
             $token = $this->get_token($token_name, $index);
 
-            switch ($token_name) {
+            switch (true) {
                 case $token_name === static::SUBSTRING:
                     $this->clean_substring($subcontent);
                     $this->substrings[$token] = $subcontent;
