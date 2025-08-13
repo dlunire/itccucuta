@@ -3,7 +3,7 @@
     import ArrowLeft from "../../icons/ArrowLeft.svelte";
     import type { ButtonList } from "./Interfaces/ButtonType";
 
-    export const list: ButtonList[] = [
+    export let list: ButtonList[] = [
         {
             label: "Producción",
             value: "true",

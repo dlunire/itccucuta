@@ -11,9 +11,6 @@ $auth = Auth::get_instance();
 
 ## Permite iniciar la sesión del usuario:
 $auth->not_authenticated(function () {
-    // print_r("No autenticado");
-    // exit;
-
     ## Formulario de inicio de sesión
     DLRoute::get('/login', [AuthController::class, 'index']);
 

@@ -212,21 +212,19 @@
                             />
                         </label>
 
-                        <label
-                            for="database-drive"
+                        <div
                             class="form__item"
-                            title="Motor de base de datos"
+                            title="Seleccione el entorno de ejecución de su proyecto"
                         >
                             <span>Motor de BD:</span>
-                            <input
-                                type="text"
-                                name="database-drive"
-                                id="database-drive"
-                                placeholder="mysql, mariadb, sqlite o postgresql"
-                                class="form__input"
-                                autocomplete="off"
-                            />
-                        </label>
+                            <ButtonList required={true} label="Selecione..." list={[
+                                { label: "MySQL", value: "mysql" },
+                                { label: "MariaDB", value: "mariadb" },
+                                { label: "SQLite", value: "sqlite" },
+                                { label: "PostgreSQL", value: "postgresql" }
+                            ]} />
+                        </div>
+
 
                         <label
                             for="database-prefix"
