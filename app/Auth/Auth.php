@@ -49,7 +49,6 @@ class Auth extends AuthBase {
      * @return void
      */
     public function authenticated(callable $callback, $code = 302): void {
-
         if (!self::connected_database()) {
             return;
         }
@@ -68,17 +67,7 @@ class Auth extends AuthBase {
          */
         $logged = $this->is_logged();
 
-        /**
-         * Cuanta la cantidad de usuarios existentes
-         * 
-         * @var integer $quantity
-         */
-        $quantity = Users::count();
-
-        if ($logged && $quantity < 1) {
-            $this->clear_auth();
-            redirect('/create/user', $code);
-        }
+        $this->check();
 
         if ($logged) {
             $callback();
@@ -241,6 +230,41 @@ class Auth extends AuthBase {
             return true;
         } catch (PDOException $error) {
             return false;
+        }
+    }
+
+    /**
+     * Verifica si existe un usuario administrador en el sistema.
+     * Si no existe, redirige a la ruta de creación de usuario.
+     * 
+     * @return void
+     */
+    private function check(): void {
+        /**
+         * Cuanta la cantidad de usuarios existentes
+         * 
+         * @var integer $quantity
+         */
+        $quantity = Users::count();
+
+        if ($$quantity < 1) {
+            $this->clear_auth();
+            redirect('/create/user');
+        }
+    }
+
+    /**
+     * Verifica si la tabla de usuarios existe en la base de datos.
+     * Si no existe, significa que no se ha escrito aún la base de datos.
+     * 
+     * @return void
+     */
+    private function check_user_table(): void {
+        try {
+            Users::first();
+            $this->check();
+        } catch (PDOException $error) {
+            $this->clear_auth();
         }
     }
 }

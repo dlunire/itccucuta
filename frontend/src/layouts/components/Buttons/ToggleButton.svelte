@@ -30,7 +30,6 @@
             position: relative;
             height: 30px;
             overflow: hidden;
-            margin-top: 10px;
             display: flex;
             align-items: center;
 

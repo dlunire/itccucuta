@@ -12,6 +12,7 @@
     import IconLoading from "../icons/IconLoading.svelte";
     import IconKeys from "../icons/IconKeys.svelte";
     import IconInstall from "../icons/IconInstall.svelte";
+    import ToggleButton from "../components/Buttons/ToggleButton.svelte";
 
     onMount(() => {
         if (container instanceof HTMLElement) zIndexReverse(container);
@@ -33,6 +34,7 @@
     }
 
     let loading: boolean = false;
+    let toggleButtonActive: boolean = false;
 </script>
 
 <Header>
@@ -136,7 +138,7 @@
                         >
                             <span>Contraseña de la BD:</span>
                             <input
-                                type="password"
+                                type={toggleButtonActive ? "text" : "password"}
                                 name="database-password"
                                 id="database-password"
                                 placeholder="Tu contraseña aquí"
@@ -217,14 +219,18 @@
                             title="Seleccione el entorno de ejecución de su proyecto"
                         >
                             <span>Motor de BD:</span>
-                            <ButtonList required={true} label="Selecione..." list={[
-                                { label: "MySQL", value: "mysql" },
-                                { label: "MariaDB", value: "mariadb" },
-                                { label: "SQLite", value: "sqlite" },
-                                { label: "PostgreSQL", value: "postgresql" }
-                            ]} />
+                            <ButtonList
+                                name="database-drive"
+                                required={true}
+                                label="Selecione una base de datos..."
+                                list={[
+                                    { label: "MySQL", value: "mysql" },
+                                    { label: "MariaDB", value: "mariadb" },
+                                    { label: "SQLite", value: "sqlite" },
+                                    { label: "PostgreSQL", value: "pgsql" },
+                                ]}
+                            />
                         </div>
-
 
                         <label
                             for="database-prefix"
@@ -241,6 +247,15 @@
                                 autocomplete="off"
                             />
                         </label>
+                    </div>
+
+                    <div class="form__inner form__inner--toggle">
+                        <div class="form__inner--login">
+                            <ToggleButton
+                                bind:active={toggleButtonActive}
+                                label="Mostrar contraseña"
+                            />
+                        </div>
                     </div>
 
                     <div class="form__buttons">

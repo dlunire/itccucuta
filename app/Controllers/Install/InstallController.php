@@ -30,7 +30,7 @@ final class InstallController extends BaseController {
     public function store(): array {
         /** @var Credentials $credentials */
         $credentials = new Credentials();
-
+        
         $credentials->save_credentials('database', [
             "environment" => [
                 "varname" => "DL_PRODUCTION",
